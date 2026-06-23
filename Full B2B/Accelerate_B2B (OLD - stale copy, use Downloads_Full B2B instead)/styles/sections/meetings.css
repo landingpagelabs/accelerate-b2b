@@ -1,0 +1,166 @@
+.meeting_form_content {
+    display: flex;
+}
+
+.meeting_wrapper {
+    padding: 40px 0px;
+}
+
+.meeting_title-wrap {
+    width: 100%;
+    max-width: 532px;
+    margin: 0 auto;
+    margin-bottom: 30px;
+}
+
+.meeting_form_content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 30px;
+
+}
+
+.meeting_form-number {
+    width: 100%;
+    max-width: 71px;
+    height: 38px;
+    font-family: 'Inter';
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 110%;
+    letter-spacing: -0.72px;
+    display: flex;
+    justify-content: center;
+    border-radius: 8px;
+    border: 1px solid #D4D4D8;
+    background: #FFF;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    text-align: center;
+
+}
+
+.progress-bar {
+    width: 100%;
+    max-width: 532px;
+    position: relative;
+    height: 18px;
+    background: #F6F6F6;
+    margin: 0 auto;
+    margin-bottom: 30px;
+}
+
+.progress-thumb {
+    border-radius: 100px 0 0 100px;
+    background: linear-gradient(90deg, #F97316 0%, #EA580C 100%);
+    box-shadow: 0 0 8px 0 #FFF inset;
+    height: 18px;
+    width: 0%;
+    position: absolute;
+}
+
+.progress-thumb-icon {
+    position: absolute;
+    right: -30px;
+    bottom: -23px;
+}
+
+.meeting_form-text {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.progress-multi {
+    color: #000;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.meeting_comment-wrap {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 453px;
+    background-color: #F6F6F6;
+    padding: 6px;
+    border-radius: 12px;
+}
+
+.meeting_comment {
+    display: flex;
+    gap: 12px;
+    border-radius: 6px;
+    padding: 12px 18px;
+    background: #FFF;
+    box-shadow: 0 0 0 0.646px rgba(0, 0, 0, 0.12),
+        0 0.778px 0.778px -1.616px rgba(0, 0, 0, 0.18),
+        0 2.958px 2.958px -3.232px rgba(0, 0, 0, 0.16),
+        0 12.927px 12.927px -4.848px rgba(0, 0, 0, 0.06),
+        0 1.293px 0 0 rgba(255, 255, 255, 0.25) inset;
+}
+
+
+.meeting_avatar {
+    width: 44px;
+    height: 44px;
+}
+
+.meeting_comment {
+    display: flex;
+}
+
+.meeting_avatar-info {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+}
+
+.meeting_avatar-text {
+    font-family: 'Inter';
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: -1%;
+    line-height: 125%;
+    color: #1A1A1A;
+}
+
+.meeting_avatar-caption {
+    color: #41424D;
+    font-family: Inter;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+}
+
+.meeting_text-1 {
+    color: #000;
+    font-family: 'Inter';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 135%;
+    letter-spacing: -0.28px;
+    margin-bottom: 6px;
+}
+
+@media (max-width:991px) {
+    .meeting_avatar-text {
+        font-family: 'Inter';
+        font-size: 9px;
+        font-weight: 500;
+        letter-spacing: -1%;
+        line-height: 125%;
+        color: #1A1A1A;
+    }
+
+    .meeting_avatar-caption {
+        color: #41424D;
+        font-family: Inter;
+        font-size: 9px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 150%;
+    }
+}

@@ -1,0 +1,409 @@
+.tabs__container {
+    max-width: 938px;
+    margin: 0 auto;
+}
+
+.tabs__title {
+    margin-bottom: 30px;
+}
+
+.tabs__switcher {
+    display: flex;
+    justify-content: center;
+    gap: 1px;
+    width: fit-content;
+    margin: 0 auto 30px;
+    padding: 4px;
+    background: #f2f2f2;
+    border-radius: 88px;
+}
+
+.tabs__tab {
+    padding: 8px 20px;
+    border: none;
+    background: transparent;
+    border-radius: 28px;
+    font-family: "DM Sans", sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22.5px;
+    color: #41424d;
+    cursor: pointer;
+    transition: background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.tabs__tab:hover {
+    color: #1a1a1a;
+}
+
+.tabs__tab--active {
+    background: #ffffff;
+    color: #1a1a1a;
+    box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.25) inset,
+        0px 10px 10px -3.75px rgba(0, 0, 0, 0.06),
+        0px 2.29px 2.29px -2.5px rgba(0, 0, 0, 0.16),
+        0px 0.6px 0.6px -1.25px rgba(0, 0, 0, 0.18),
+        0px 0px 0px 0.5px rgba(0, 0, 0, 0.12);
+}
+
+
+.tabs__board {
+    position: relative;
+    max-width: 898px;
+    margin: 0 auto;
+    padding-bottom: 0;
+    transition: padding-bottom 0.35s ease;
+}
+
+.tabs__board--expanded {
+    padding-bottom: 76px;
+}
+
+.tabs__grid {}
+
+.tabs__grid--switching {
+    opacity: 0;
+}
+
+.tabs__grid--switching .tabs__card {
+    transition: none;
+}
+
+.tabs__card {
+
+    padding: 10px;
+    background: #f6f6f6;
+    border-radius: 18px;
+    overflow: hidden;
+    transition: height 0.4s ease, opacity 0.4s ease, padding 0.4s ease,
+        transform 0.25s ease;
+}
+
+.tabs__card:hover {
+    transform: translateY(-4px);
+}
+
+.tabs__card--hidden {
+    display: none;
+}
+
+.tabs__card--collapsed {
+    height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.tabs__fade {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 200px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #ffffff 100%);
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.tabs__board--expanded .tabs__fade {
+    opacity: 0;
+}
+
+.tabs__board--expanded .tabs__fade,
+.tabs__board--no-more .tabs__fade {
+    opacity: 0;
+}
+
+
+.tabs__more-wrap {
+    display: flex;
+    justify-content: center;
+}
+
+.tabs__board--expanded .tabs__more-wrap {
+    bottom: 14px;
+}
+
+.tabs__board--no-more .tabs__more-wrap {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.tabs__more {
+    display: inline-flex;
+    position: relative;
+    align-items: center;
+    top: 15px;
+    gap: 8px;
+    height: 48px;
+    padding: 9px 17px 9px 4px;
+    border: none;
+    border-radius: 100px;
+    background: linear-gradient(180deg, #3E3E3E 100%, #212126 100%);
+    box-shadow: 0px 1px 3px rgba(33, 33, 38, 0.2),
+        0px 1px 0px rgba(255, 255, 255, 0.1) inset, 0px 0px 0px 1px #212126;
+    cursor: pointer;
+    transition: filter 0.25s ease, transform 0.25s ease;
+    z-index: 2;
+}
+
+.tabs__more:hover {}
+
+.tabs__more-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    height: 38px;
+    padding: 6px 8px 6px 5px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 100px 6px 6px 100px;
+}
+
+.tabs__more-badge-icon {
+    width: 26px;
+    height: 26px;
+}
+
+.tabs__more-badge-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+    color: #ffffff;
+}
+
+.tabs__more-badge-name {
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+}
+
+.tabs__more-badge-sub {
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+    font-size: 9px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.tabs__more-result {
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 23.2px;
+    color: #ffffff;
+}
+
+.tabs__more-divider {
+    width: 1px;
+    height: 18px;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.tabs__more-label {
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 23.2px;
+    color: #ffffff;
+}
+
+.tabs__more-icon {
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    color: #ffffff;
+}
+
+.tabs__more-label--hide,
+.tabs__more-icon--minus {
+    display: none;
+}
+
+.tabs__more-label--show,
+.tabs__more-icon--plus {
+    display: inline-flex;
+}
+
+.tabs__board--expanded .tabs__more-label--show,
+.tabs__board--expanded .tabs__more-icon--plus {
+    display: none;
+}
+
+.tabs__board--expanded .tabs__more-label--hide,
+.tabs__board--expanded .tabs__more-icon--minus {
+    display: inline-flex;
+}
+
+.tabs__card-image {
+    position: relative;
+}
+
+.tabs_card-link {
+    position: absolute;
+    bottom: 14px;
+    right: 16px;
+    width: max-content;
+    display: flex;
+    justify-content: center;
+    padding: 0 12px 0px 10px;
+    align-items: center;
+    height: 34px;
+    color: #FFF;
+    font-family: 'Inter';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 125%;
+    letter-spacing: -0.14px;
+    border-radius: 6px;
+    border: 1px solid rgba(0, 0, 0, 0.17);
+    background: linear-gradient(180deg, #313233 0%, #000 100%), linear-gradient(0deg, #FFF 0%, #FFF 100%), #333;
+    box-shadow: 0 1px 1px 0.5px rgba(0, 0, 0, 0.04), 0 3px 3px 1.5px rgba(0, 0, 0, 0.04), 0 6px 6px -3px rgba(0, 0, 0, 0.04), 0 24px 24px -12px rgba(0, 0, 0, 0.04), 0 1px 4px -1px rgba(3, 7, 18, 0.04);
+}
+
+.tabs_card-head {
+    margin-top: 15px;
+    padding: 0 10px;
+    margin-bottom: 15px;
+}
+
+.tabs_card-head-image {
+    margin-bottom: 10px;
+}
+
+.tabs_card-head-image {
+    width: 100%;
+    max-width: 87px;
+}
+
+.tabs_card-comment {
+    padding: 16px;
+    border-radius: 10px;
+    border: 1px solid #EBEBEB;
+    background: #FFF;
+    box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.12), 0 0.602px 0.602px -1.25px rgba(0, 0, 0, 0.18), 0 2.289px 2.289px -2.5px rgba(0, 0, 0, 0.16), 0 10px 10px -3.75px rgba(0, 0, 0, 0.06), 0 1px 0 0 rgba(255, 255, 255, 0.25) inset;
+}
+
+.tabs_card-avatar {
+    width: 44px;
+    height: 44px;
+    margin-right: 15px;
+}
+
+.tabs_card-avatar-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.tabs_card-avatar-text-1 {
+    margin-right: 5px;
+}
+
+.tabs_wrapper {
+    padding: 50px 0px;
+}
+
+.tab_1,
+.tab_2,
+.tab_3,
+.tabs_all {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    transition: opacity 0.25s ease, height 0.35s ease;
+}
+
+
+
+.tabs_all .tabs__card:nth-child(n+5),
+
+.tab_1 .tabs__card:nth-child(n+5),
+
+.tab_2 .tabs__card:nth-child(n+5),
+
+.tab_3 .tabs__card:nth-child(n+5) {
+
+    display: none;
+
+}
+
+.is-expanded .tabs__card:nth-child(n+5) {
+    display: grid;
+}
+
+.tabs__more-label--hide,
+.tabs__more-icon--minus {
+    display: none;
+}
+
+.tabs__more-wrap.is-expanded .tabs__more-label--show,
+.tabs__more-wrap.is-expanded .tabs__more-icon--plus {
+    display: none;
+}
+
+.tabs__more-wrap.is-expanded .tabs__more-label--hide,
+.tabs__more-wrap.is-expanded .tabs__more-icon--minus {
+    display: inline-flex;
+}
+
+.tabs__more-label:nth-of-type(2),
+.tabs__more-icon--minus {
+    display: none;
+}
+
+.tabs__more-wrap.is-expanded .tabs__fade {
+    display: none;
+}
+
+@media (max-width:991px) {
+
+    .tabs_wrapper {
+        padding: 25px 0px;
+    }
+
+    .mobile-d-none {
+        display: none;
+    }
+
+    .tabs__more {
+        display: inline-flex;
+        position: relative;
+        align-items: center;
+        gap: 8px;
+        height: 48px;
+        padding: 9px 17px 9px 17px;
+        border: none;
+        border-radius: 100px;
+        background: linear-gradient(180deg, #3E3E3E 100%, #212126 100%);
+        box-shadow: 0px 1px 3px rgba(33, 33, 38, 0.2),
+            0px 1px 0px rgba(255, 255, 255, 0.1) inset, 0px 0px 0px 1px #212126;
+        cursor: pointer;
+        transition: filter 0.25s ease, transform 0.25s ease;
+        z-index: 2;
+    }
+
+    .tab_1,
+    .tab_2,
+    .tab_3,
+    .tabs_all {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 20px;
+        transition: opacity 0.25s ease, height 0.35s ease;
+    }
+
+    .tabs__tab {
+        font-size: 16px;
+    }
+
+    .tabs__switcher {
+        flex-wrap: wrap;
+        border-radius: 12px;
+    }
+
+    .tabs__title {
+        margin-bottom: 20px;
+    }
+}

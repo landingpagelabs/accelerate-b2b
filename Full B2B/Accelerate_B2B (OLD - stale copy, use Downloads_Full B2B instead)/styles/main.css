@@ -1,0 +1,24 @@
+/* Тільки @import. Жодного власного CSS у цьому файлі. */
+
+/* base */
+@import url("./base/reset.css");
+@import url("./base/fonts.css");
+@import url("./base/global.css");
+
+/* layout */
+@import url("./layout/header.css");
+@import url("./layout/footer.css");
+
+/* sections */
+@import url("./sections/hero.css");
+@import url("./sections/tabs.css");
+@import url("./sections/partners.css");
+@import url("./sections/info.css");
+@import url("./sections/reviews.css");
+@import url("./sections/meetings.css");
+@import url("./sections/banner.css");
+@import url("./sections/faqs.css");
+@import url("./sections/text-image.css");
+@import url("./sections/comprison.css");
+@import url("./sections/mechanism.css");
+@import url("./sections/services.css");

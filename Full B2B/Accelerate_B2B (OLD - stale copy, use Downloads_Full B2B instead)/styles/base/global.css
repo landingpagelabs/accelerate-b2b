@@ -1,0 +1,214 @@
+/* ====================================================================
+   GLOBAL
+   CSS-змінні (шрифти/кольори), базові стилі body та каркас сторінки.
+   ==================================================================== */
+.container-default {
+   width: 100%;
+   max-width: 1190px;
+   margin: 0 auto;
+   border-left: 1px solid #1D1D1D1A;
+   border-right: 1px solid #1D1D1D1A;
+}
+
+.padding-global {
+   padding-inline: 20px;
+}
+
+.title-h1 {
+   font-family: "Inter";
+   font-size: 55px;
+   line-height: 110%;
+   letter-spacing: -3.5%;
+   font-weight: 600;
+   color: #1A1A1A;
+}
+
+.text-label-medium {
+   font-family: "Inter";
+   font-size: 16px;
+   font-weight: 500;
+   letter-spacing: -1%;
+   line-height: 145%;
+   color: #1A1A1A;
+}
+
+.text-label-extra-small {
+   font-family: "Inter";
+   font-size: 14px;
+   font-weight: 500;
+   letter-spacing: -1%;
+   line-height: 125%;
+   color: #1A1A1A;
+}
+
+.text-body-large {
+   font-family: "Inter";
+   font-size: 18px;
+   line-height: 145%;
+   color: #1A1A1A;
+}
+
+.text-body-regular {
+   font-family: "Inter";
+   font-size: 16px;
+   line-height: 145%;
+   color: #000;
+   letter-spacing: -0.02em;
+}
+
+.title-h2 {
+   font-family: "Inter", sans-serif;
+   font-weight: 600;
+   font-size: 40px;
+   line-height: 120%;
+   letter-spacing: -0.02em;
+   text-align: center;
+   color: #1a1a1a;
+}
+
+.title-h4 {
+   font-family: "Inter", sans-serif;
+   font-weight: 600;
+   font-size: 22px;
+   line-height: 125%;
+   letter-spacing: -0.02em;
+   color: #1a1a1a;
+}
+
+.title-h3 {
+   font-family: "Inter", sans-serif;
+   font-weight: 600;
+   font-size: 28px;
+   line-height: 125%;
+   letter-spacing: -0.01em;
+   color: #1a1a1a;
+}
+
+.text-label-large {
+   font-family: "Inter";
+   font-size: 16px;
+   line-height: 145%;
+   letter-spacing: -0.02em;
+   font-weight: 500;
+   color: #000;
+}
+
+.text-label-triple-extra-small {
+   font-family: "Inter";
+   font-weight: 500;
+   font-size: 10px;
+   line-height: 125%;
+   letter-spacing: -0.01em;
+}
+
+.white {
+   color: #fff;
+}
+
+.text-body-small {
+   font-family: "Inter";
+   font-size: 14px;
+   line-height: 135%;
+   letter-spacing: -0.02em;
+}
+
+@media (max-width:991px) {
+   .title-h1 {
+      font-family: "Inter";
+      font-size: 32px;
+      line-height: 110%;
+      letter-spacing: -3.5%;
+      font-weight: 600;
+      color: #1A1A1A;
+   }
+
+   .text-label-medium {
+      font-family: "Inter";
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: -1%;
+      line-height: 145%;
+      color: #1A1A1A;
+   }
+
+   .text-label-extra-small {
+      font-family: "Inter";
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: -1%;
+      line-height: 125%;
+      color: #1A1A1A;
+   }
+
+
+   .text-label-double-extra-small {
+      font-family: 'Inter';
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: -1%;
+      line-height: 125%;
+      color: #1A1A1A;
+   }
+
+   .text-body-small {
+      font-family: "Inter";
+      font-size: 14px;
+      line-height: 135%;
+      letter-spacing: -0.02em;
+   }
+
+   .text-body-large {
+      font-family: "Inter";
+      font-size: 16px;
+      line-height: 145%;
+      color: #1A1A1A;
+   }
+
+   .text-body-regular {
+      font-family: "Inter";
+      font-size: 14px;
+      line-height: 145%;
+      color: #000;
+      letter-spacing: -0.02em;
+   }
+
+   .title-h2 {
+      font-family: "Inter", sans-serif;
+      font-weight: 600;
+      font-size: 28px;
+      line-height: 120%;
+      letter-spacing: -0.02em;
+      text-align: center;
+      color: #1a1a1a;
+   }
+
+   .title-h4 {
+      font-family: "Inter", sans-serif;
+      font-weight: 600;
+      font-size: 18px;
+      line-height: 125%;
+      letter-spacing: -0.02em;
+      color: #1a1a1a;
+   }
+
+   .title-h3 {
+      font-family: "Inter", sans-serif;
+      font-weight: 600;
+      font-size: 24px;
+      line-height: 125%;
+      letter-spacing: -0.01em;
+      color: #1a1a1a;
+   }
+
+
+   .page-wrapper {
+      overflow: clip;
+   }
+}
+
+
+@media (max-width:991px) {
+   .container-default {
+      border: none;
+   }
+}

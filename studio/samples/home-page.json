@@ -1,0 +1,112 @@
+{
+  "_id": "page.home",
+  "_type": "page",
+  "title": "Home",
+  "slug": { "current": "home" },
+  "description": "Demo home page created by seed",
+  "sections": [
+    {
+      "_type": "heroSection",
+      "_key": "section-hero",
+      "eyebrow": "Accelerate",
+      "heading": "Accelerate B2B Growth",
+      "subtitle": "Modular landing built with Sanity + Next.js",
+      "primaryButtonText": "Get started",
+      "primaryButtonUrl": "#",
+      "secondaryButtonText": "Learn more",
+      "secondaryButtonUrl": "#"
+    },
+    {
+      "_type": "featureSection",
+      "_key": "section-features",
+      "title": "What we do",
+      "subtitle": "Key features for fast B2B launches",
+      "features": [
+        {
+          "_key": "feature-speed",
+          "title": "Speed",
+          "description": "Launch landing pages faster with reusable sections."
+        },
+        {
+          "_key": "feature-scale",
+          "title": "Scale",
+          "description": "Manage multiple pages and campaigns from one CMS."
+        },
+        {
+          "_key": "feature-control",
+          "title": "Control",
+          "description": "Give your team live editing over layouts and content."
+        }
+      ]
+    },
+    {
+      "_type": "contentSection",
+      "_key": "section-content",
+      "title": "Built for B2B teams",
+      "description": "Use a headless CMS to keep marketing pages fresh without code changes.",
+      "body": [
+        {
+          "_type": "block",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "text": "Create a landing page from modular blocks, then update the layout and messaging directly in Sanity Studio."
+            }
+          ]
+        }
+      ],
+      "imagePosition": "left"
+    },
+    {
+      "_type": "statsSection",
+      "_key": "section-stats",
+      "title": "Results in numbers",
+      "stats": [
+        {
+          "_key": "stat-1",
+          "label": "Launch speed",
+          "value": "2x faster"
+        },
+        {
+          "_key": "stat-2",
+          "label": "Editor adoption",
+          "value": "100% CMS access"
+        },
+        {
+          "_key": "stat-3",
+          "label": "Revisions saved",
+          "value": "30+ per month"
+        }
+      ]
+    },
+    {
+      "_type": "testimonialSection",
+      "_key": "section-testimonials",
+      "title": "What teams say",
+      "subtitle": "Real feedback from product and marketing teams.",
+      "testimonials": [
+        {
+          "_key": "testimonial-1",
+          "quote": "We ship landing pages without waiting on engineering. Studio makes our content updates painless.",
+          "authorName": "Olena Kovalenko",
+          "authorRole": "Head of Growth"
+        },
+        {
+          "_key": "testimonial-2",
+          "quote": "Modular page blocks let us experiment with messaging quickly and safely.",
+          "authorName": "Ivan Petrov",
+          "authorRole": "Product Manager"
+        }
+      ]
+    },
+    {
+      "_type": "ctaSection",
+      "_key": "section-cta",
+      "title": "Ready to accelerate?",
+      "subtitle": "Talk to our team and launch faster.",
+      "buttonText": "Contact sales",
+      "buttonUrl": "#"
+    }
+  ]
+}

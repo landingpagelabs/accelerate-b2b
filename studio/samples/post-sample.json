@@ -1,0 +1,30 @@
+{
+  "_id": "post.sample",
+  "_type": "post",
+  "title": "Launch faster with modular Sanity pages",
+  "slug": { "current": "launch-faster-with-modular-sanity-pages" },
+  "publishedAt": "2026-06-18T08:00:00Z",
+  "excerpt": "How to ship a landing page fast using Sanity Studio, reusable page blocks, and Next.js.",
+  "body": [
+    {
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "text": "This demo shows how to use Sanity Studio and Next.js to manage landing page sections and blog content in the same project."
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Start with a home page built from reusable blocks, then add articles to keep users informed and drive searches."
+        }
+      ]
+    }
+  ]
+}
