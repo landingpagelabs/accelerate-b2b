@@ -313,7 +313,7 @@ export const consultationModalSection = {
       name: 'fallbackDelaySeconds',
       title: 'Mobile fallback delay (seconds)',
       type: 'number',
-      description: 'На мобільних (без курсора) попап з'явиться через стільки секунд.',
+      description: "На мобільних (без курсора) попап з'явиться через стільки секунд.",
       initialValue: 15,
       validation: (Rule: any) => Rule.min(0),
     },
