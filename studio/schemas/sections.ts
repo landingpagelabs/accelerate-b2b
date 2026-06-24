@@ -294,9 +294,9 @@ export const consultationModalSection = {
   name: 'consultationModalSection',
   title: 'Consultation Modal (popup)',
   type: 'object',
-  description: 'Спливаюче вікно «Can't find what you're looking for?». Показується за exit-intent (десктоп) або з затримкою/скролом (мобільний).',
+  description: "Спливаюче вікно «Can't find what you're looking for?». Показується за exit-intent (десктоп) або з затримкою/скролом (мобільний).",
   fields: [
-    { name: 'heading', title: 'Heading', type: 'string', initialValue: 'Can't find what you're looking for?' },
+    { name: 'heading', title: 'Heading', type: 'string', initialValue: "Can't find what you're looking for?" },
     { name: 'description', title: 'Description', type: 'text', rows: 3 },
     { name: 'buttonText', title: 'Button Text', type: 'string', initialValue: 'Book Your Free Consultation' },
     { name: 'buttonUrl', title: 'Button URL', type: 'url' },
