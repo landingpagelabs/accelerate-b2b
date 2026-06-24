@@ -290,6 +290,113 @@ export const bannerSection = {
   ],
 };
 
+export const consultationModalSection = {
+  name: 'consultationModalSection',
+  title: 'Consultation Modal (popup)',
+  type: 'object',
+  description: 'Спливаюче вікно «Can't find what you're looking for?». Показується за exit-intent (десктоп) або з затримкою/скролом (мобільний).',
+  fields: [
+    { name: 'heading', title: 'Heading', type: 'string', initialValue: 'Can't find what you're looking for?' },
+    { name: 'description', title: 'Description', type: 'text', rows: 3 },
+    { name: 'buttonText', title: 'Button Text', type: 'string', initialValue: 'Book Your Free Consultation' },
+    { name: 'buttonUrl', title: 'Button URL', type: 'url' },
+    { name: 'image', title: 'Preview Image (optional, falls back to default)', type: 'image', options: { hotspot: true } },
+    {
+      name: 'maxPerSession',
+      title: 'Max shows per session',
+      type: 'number',
+      description: 'Скільки разів максимум показувати одному користувачу за сесію.',
+      initialValue: 2,
+      validation: (Rule: any) => Rule.min(1).max(10),
+    },
+    {
+      name: 'fallbackDelaySeconds',
+      title: 'Mobile fallback delay (seconds)',
+      type: 'number',
+      description: 'На мобільних (без курсора) попап з'явиться через стільки секунд.',
+      initialValue: 15,
+      validation: (Rule: any) => Rule.min(0),
+    },
+    {
+      name: 'scrollPercent',
+      title: 'Mobile fallback scroll (%)',
+      type: 'number',
+      description: 'Або коли користувач проскролить стільки % сторінки (що настане раніше).',
+      initialValue: 60,
+      validation: (Rule: any) => Rule.min(0).max(100),
+    },
+  ],
+  preview: {
+    select: { title: 'heading' },
+    prepare({ title }: any) {
+      return { title: title || 'Consultation Modal', subtitle: 'Popup / exit-intent' };
+    },
+  },
+};
+
+export const vslModalSection = {
+  name: 'vslModalSection',
+  title: 'VSL Modal (video popup)',
+  type: 'object',
+  description: 'Модалка з відео/картинкою (VSL). Відкривається по кліку на елемент з атрибутом data-open-vsl або на лінк #vsl / #explainer-video.',
+  fields: [
+    {
+      name: 'mediaType',
+      title: 'Media Type',
+      type: 'string',
+      description: 'Що показувати в попапі — картинку чи відео.',
+      options: {
+        layout: 'radio',
+        list: [
+          { title: 'Image', value: 'image' },
+          { title: 'Video', value: 'video' },
+        ],
+      },
+      initialValue: 'image',
+    },
+    {
+      name: 'image',
+      title: 'Image (optional, falls back to default)',
+      type: 'image',
+      options: { hotspot: true },
+      hidden: ({ parent }: any) => parent?.mediaType === 'video',
+    },
+    {
+      name: 'videoFile',
+      title: 'Upload Video',
+      type: 'file',
+      description: 'Завантаж власне відео (mp4/webm). Має пріоритет над Video URL.',
+      options: { accept: 'video/*' },
+      hidden: ({ parent }: any) => parent?.mediaType !== 'video',
+    },
+    {
+      name: 'videoUrl',
+      title: 'Or Video URL (YouTube / Vimeo / .mp4)',
+      type: 'url',
+      description: 'Якщо не завантажуєш файл — встав посилання на відео.',
+      hidden: ({ parent }: any) => parent?.mediaType !== 'video',
+    },
+    {
+      name: 'poster',
+      title: 'Video Poster (optional)',
+      type: 'image',
+      description: 'Картинка-заставка для відео до запуску.',
+      options: { hotspot: true },
+      hidden: ({ parent }: any) => parent?.mediaType !== 'video',
+    },
+    { name: 'imageLink', title: 'Image Link (optional, only for Image)', type: 'url', hidden: ({ parent }: any) => parent?.mediaType === 'video' },
+    { name: 'buttonText', title: 'Button Text', type: 'string', initialValue: 'Apply For Your Free Test Campaign' },
+    { name: 'buttonUrl', title: 'Button URL', type: 'url' },
+    { name: 'note', title: 'Note (under button)', type: 'string', initialValue: 'No Setup Fee | No Lock-In | Only A Few Spots Available' },
+  ],
+  preview: {
+    select: { title: 'buttonText', media: 'image' },
+    prepare({ title }: any) {
+      return { title: 'VSL Modal', subtitle: title || 'Video popup' };
+    },
+  },
+};
+
 export const tutorialsSection = {
   name: 'tutorialsSection', title: 'Tutorials / YouTube Section', type: 'object',
   fields: [

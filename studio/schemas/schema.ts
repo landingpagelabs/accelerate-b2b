@@ -20,6 +20,8 @@ import {
   textImageSection,
   bannerSection,
   tutorialsSection,
+  consultationModalSection,
+  vslModalSection,
 } from './sections';
 
 export const schemaTypes = [
@@ -44,4 +46,6 @@ export const schemaTypes = [
   textImageSection,
   bannerSection,
   tutorialsSection,
+  consultationModalSection,
+  vslModalSection,
 ];

@@ -51,6 +51,8 @@ export default {
         { type: 'textImageSection' },
         { type: 'bannerSection' },
         { type: 'tutorialsSection' },
+        { type: 'consultationModalSection' },
+        { type: 'vslModalSection' },
       ],
     },
   ],
