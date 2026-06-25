@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 type Step =
   | { kind: 'choice'; title: string }
@@ -66,6 +67,7 @@ function ProgressBar({ step }: { step: number }) {
 }
 
 export default function MultiStepForm() {
+  const router = useRouter();
   const [step, setStep] = useState(0);
   const [values, setValues] = useState<{ name: string; email: string }>({ name: '', email: '' });
   const [error, setError] = useState('');
@@ -106,6 +108,21 @@ export default function MultiStepForm() {
     }, 1000);
     return () => clearInterval(id);
   }, [current.kind]);
+
+  // Calendly sends postMessage after successful booking — redirect to thank-you page
+  useEffect(() => {
+    const onMessage = (e: MessageEvent) => {
+      if (
+        e.data &&
+        typeof e.data === 'object' &&
+        (e.data as any).event === 'calendly.event_scheduled'
+      ) {
+        router.push('/congrats');
+      }
+    };
+    window.addEventListener('message', onMessage);
+    return () => window.removeEventListener('message', onMessage);
+  }, [router]);
 
   const minutes = Math.floor(secondsLeft / 60);
   const seconds = secondsLeft % 60;

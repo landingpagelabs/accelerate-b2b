@@ -16,7 +16,7 @@ import MechanismSection from '@/components/sections/MechanismSection';
 import ServicesSection from '@/components/sections/ServicesSection';
 import CaseStudiesSection from '@/components/sections/CaseStudiesSection';
 import InfoSection from '@/components/sections/InfoSection';
-import ReviewsSection from '@/components/sections/ReviewsSection';
+import CongratsReviews from '@/components/sections/CongratsReviews';
 import FaqsSection from '@/components/sections/FaqsSection';
 import TextImageSection from '@/components/sections/TextImageSection';
 import BannerSection from '@/components/sections/BannerSection';
@@ -71,7 +71,8 @@ export function PageBuilder({ page }: { page: any }) {
           case 'infoSection':
             return <InfoSection key={index} section={section} />;
           case 'reviewsSection':
-            return <ReviewsSection key={index} section={section} />;
+            // Same curated reviews block as the /congrats page (hardcoded 3 columns).
+            return <CongratsReviews key={index} />;
           case 'faqsSection':
             return <FaqsSection key={index} section={section} />;
           case 'textImageSection':
