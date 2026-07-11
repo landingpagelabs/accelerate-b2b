@@ -3,18 +3,28 @@ import CongratsFooter from '@/components/CongratsFooter';
 import FaqsSection from '@/components/sections/FaqsSection';
 import ConfettiOnLoad from '@/components/ConfettiOnLoad';
 import CongratsCopyMessage from '@/components/sections/CongratsCopyMessage';
-import CongratsReviews from '@/components/sections/CongratsReviews';
+import ReviewsSection from '@/components/sections/ReviewsSection';
 import { pageBySlugQuery } from '@/lib/queries';
-import { fetchSanity } from '@/lib/sanity';
+import { fetchSanity, urlForImage } from '@/lib/sanity';
 
 export const revalidate = 60;
 
-export const metadata: Metadata = {
-  title: 'Consultation Booked — Accelerate B2B',
-  robots: { index: false, follow: false },
-};
+const congratsQuery = `*[_type == "congratsPage"][0]{
+  metaTitle, headerBadge, heroStrapline, heroTitle, heroSubtitle,
+  stepsHeading, steps[]{ strapline, title, body, widget, image },
+  referralMessage, aboutTitle, aboutDividerText, aboutImage,
+  aboutName, aboutRole, aboutCertified, aboutCtaText, aboutCtaUrl
+}`;
 
-// Декоративний chevron (стрілки вниз) — повторюється в hero та step 03
+export async function generateMetadata(): Promise<Metadata> {
+  const page = await fetchSanity<any>(congratsQuery);
+  return {
+    title: page?.metaTitle || 'Consultation Booked — Accelerate B2B',
+    robots: { index: false, follow: false },
+  };
+}
+
+// Decorative chevron (downward arrows) — repeated in hero and step 03
 const DecorChevron = () => (
   <div className="hero-congrats-decor">
     <svg width="74" height="87" viewBox="0 0 74 87" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -35,9 +45,13 @@ const DecorChevron = () => (
 );
 
 export default async function CongratsPage() {
-  // FAQ — той самий, що й на головній сторінці (тягнемо з того ж Sanity-документа)
-  const home = await fetchSanity(pageBySlugQuery, { slug: 'home' });
+  const [page, home] = await Promise.all([
+    fetchSanity<any>(congratsQuery),
+    fetchSanity<any>(pageBySlugQuery, { slug: 'home' }),
+  ]);
   const faqs = home?.sections?.find((s: any) => s._type === 'faqsSection') ?? null;
+  const reviews = home?.sections?.find((s: any) => s._type === 'reviewsSection') ?? null;
+  const steps: any[] = page?.steps || [];
 
   return (
     <div className="page-wrapper">
@@ -56,7 +70,7 @@ export default async function CongratsPage() {
                   <path d="M2.8125 7.65696L5.93765 10.7821L12.813 3.28174" stroke="#0FA857" strokeWidth="1.87509" />
                 </svg>
                 <p className="text-body-caption light-gray">
-                  <b>CONSULTATION BOOKED!</b>
+                  <b>{page?.headerBadge || 'CONSULTATION BOOKED!'}</b>
                 </p>
               </div>
             </div>
@@ -81,19 +95,15 @@ export default async function CongratsPage() {
                       fill="white"
                     />
                   </svg>
-                  <div className="text-label-medium">I’m looking forward to speaking with you, and...</div>
+                  <div className="text-label-medium">{page?.heroStrapline}</div>
                 </div>
 
                 <div className="hero-congrats-title-wrap">
-                  <h1 className="title-h1">You’re one step closer to an outreach system that works</h1>
+                  <h1 className="title-h1">{page?.heroTitle}</h1>
                 </div>
 
                 <div className="hero-congrats-subtitle-wrap">
-                  <p className="text-body-large">
-                    On the call, I’ll share my read on your market, walk you through how the test campaign and pricing
-                    work, and answer any questions. If we’re not a fit, I’ll tell you that too. Please note that your
-                    attendance is required.
-                  </p>
+                  <p className="text-body-large">{page?.heroSubtitle}</p>
                 </div>
 
                 <DecorChevron />
@@ -113,65 +123,31 @@ export default async function CongratsPage() {
                       <circle cx="5.62222" cy="5.62222" r="5.62222" fill="#FF5353" />
                     </svg>
                   </div>
-                  <h2 className="title-h2">Important! To confirm your call, follow the 3 steps below:</h2>
+                  <h2 className="title-h2">{page?.stepsHeading}</h2>
                 </div>
 
                 <div className="steps_list">
-                  {/* Step 01 */}
-                  <div className="steps_item">
-                    <div className="steps_strapline">
-                      <p className="text-label-medium">Step 01</p>
-                    </div>
-                    <div className="steps_item-title">
-                      <h5 className="title-h5">Add the event to your calendar and set a reminder</h5>
-                    </div>
-                    <div className="steps_item-content">
-                      <p className="text-body-regular">
-                        I’ve sent a confirmation email with all your call details. Please click "Yes" (Google) or
-                        "Accept" (Microsoft) to confirm your invite. If something changes and you can't make it, reply to
-                        that email and I’ll give your slot to another company. We only have a few each month.
-                      </p>
-                    </div>
-                    <div className="steps_image">
-                      <img src="/images/sections/steps/Frame 2147260029 (1).png" alt="Calendar invite" />
-                    </div>
-                  </div>
+                  {steps.map((step, idx) => (
+                    <div className={`steps_item${idx === steps.length - 1 ? ' last' : ''}`} key={idx}>
+                      <div className="steps_strapline">
+                        <p className="text-label-medium">{step.strapline}</p>
+                      </div>
+                      <div className="steps_item-title">
+                        <h5 className="title-h5">{step.title}</h5>
+                      </div>
+                      <div className="steps_item-content">
+                        <p className="text-body-regular">{step.body}</p>
+                      </div>
 
-                  {/* Step 02 */}
-                  <div className="steps_item">
-                    <div className="steps_strapline">
-                      <p className="text-label-medium">Step 02</p>
+                      {step.widget === 'image' && step.image && (
+                        <div className="steps_image">
+                          <img src={urlForImage(step.image).url()} alt={step.title || ''} />
+                        </div>
+                      )}
+                      {step.widget === 'copyMessage' && <CongratsCopyMessage message={page?.referralMessage} />}
+                      {step.widget === 'chevron' && <DecorChevron />}
                     </div>
-                    <div className="steps_item-title">
-                      <h5 className="title-h5">Refer a peer who could use a system like this</h5>
-                    </div>
-                    <div className="steps_item-content">
-                      <p className="text-body-regular">
-                        Know another founder who’d benefit? Copy the message below and send it their way. If they book
-                        too, you both move up the priority list for the test campaign.
-                      </p>
-                    </div>
-
-                    <CongratsCopyMessage />
-                  </div>
-
-                  {/* Step 03 */}
-                  <div className="steps_item last">
-                    <div className="steps_strapline">
-                      <p className="text-label-medium">Step 03/3 (Final Step)</p>
-                    </div>
-                    <div className="steps_item-title">
-                      <h5 className="title-h5">See what happens when cold outreach is done right</h5>
-                    </div>
-                    <div className="steps_item-content">
-                      <p className="text-body-regular">
-                        While you wait for your call, scroll the results below: real campaign dashboards and the replies
-                        they pulled, from clients like Ben, who had two businesses under contract within 30 days of his
-                        first campaign. That’s the system I’ll walk you through on the call.
-                      </p>
-                    </div>
-                    <DecorChevron />
-                  </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -179,9 +155,9 @@ export default async function CongratsPage() {
         </section>
 
         {/* ============================ REVIEWS / RESULTS ============================ */}
-        <CongratsReviews />
+        {reviews && <ReviewsSection section={reviews} />}
 
-        {/* ============================ FAQ (як на головній) ============================ */}
+        {/* ============================ FAQ (same as homepage) ============================ */}
         {faqs && <FaqsSection section={faqs} />}
 
         {/* ============================ ABOUT BANNER ============================ */}
@@ -191,34 +167,34 @@ export default async function CongratsPage() {
               <div className="about-banner_inner">
                 <div className="about-banner_wrapper">
                   <div className="about-banner_title-wrap">
-                    <h5 className="title-h5">I look forward to meeting you at our call!</h5>
+                    <h5 className="title-h5">{page?.aboutTitle}</h5>
                   </div>
 
                   <div className="about-banner_title-wrap-2">
                     <svg width="169" height="1" viewBox="0 0 169 1" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <line x1="168.763" y1="0.5" x2="-4.37114e-08" y2="0.499985" stroke="#41424D" strokeOpacity="0.3" />
                     </svg>
-                    <h5 className="title-h5 gray">TALK SOON</h5>
+                    <h5 className="title-h5 gray">{page?.aboutDividerText}</h5>
                     <svg width="169" height="1" viewBox="0 0 169 1" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <line x1="168.763" y1="0.5" x2="-4.37114e-08" y2="0.499985" stroke="#41424D" strokeOpacity="0.3" />
                     </svg>
                   </div>
 
                   <div className="about-banner_about-info">
-                    <img src="/images/sections/steps/Frame 2147206122.png" alt="Spencer Hirst" />
+                    {page?.aboutImage && <img src={urlForImage(page.aboutImage).url()} alt={page?.aboutName || 'Spencer Hirst'} />}
                     <div className="about-banner_about-info-flex">
-                      <p className="text-label-medium">Spencer Hirst</p>
-                      <p className="text-body-caption">Founder, Accelerate B2B</p>
+                      <p className="text-label-medium">{page?.aboutName}</p>
+                      <p className="text-body-caption">{page?.aboutRole}</p>
                     </div>
                   </div>
 
                   <div className="about-banner_about-certified">
-                    <p className="text-body-small gray-85">Certified Cold Email Expert</p>
+                    <p className="text-body-small gray-85">{page?.aboutCertified}</p>
                   </div>
 
                   <div className="about-banner_cta-wrap">
-                    <a href="#" className="footer__cta">
-                      Check Out My Free Tutorials
+                    <a href={page?.aboutCtaUrl || '#'} className="footer__cta">
+                      {page?.aboutCtaText}
                       <span className="footer__cta-arrow">
                         <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
                           <path

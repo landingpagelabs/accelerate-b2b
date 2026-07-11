@@ -42,7 +42,7 @@ export function FaviconNotifier() {
 
     return () => {
       document.removeEventListener('visibilitychange', handleVisibilityChange);
-      // відновлюємо дефолт під час розмонтування
+      // restore defaults on unmount
       document.title = defaultTitle;
       link.setAttribute('href', defaultIcon);
     };

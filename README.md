@@ -2,10 +2,10 @@
 
 Next.js + Sanity starter for landing pages built from reusable block sections.
 
-## Як працює
-- `studio/` містить Sanity Studio для редагування сторінок
-- `app/` рендерить сторінки з CMS за допомогою секцій
-- `Page` документ з масивом `sections` дозволяє будувати сторінки як ACF-блоки
+## How it works
+- `studio/` contains Sanity Studio for editing pages
+- `app/` renders pages from the CMS using sections
+- The `Page` document with a `sections` array lets you build pages like ACF blocks
 
 ## Quick start: seed demo content
 
@@ -18,27 +18,27 @@ npm run studio:seed # seeds demo `home` page and sample `Post` into your Sanity 
 ```
 
 
-## Створення
-1. Скопіюй `.env.local.example` у `.env.local`
-2. Заповни `NEXT_PUBLIC_SANITY_PROJECT_ID` та `NEXT_PUBLIC_SANITY_DATASET`
+## Setup
+1. Copy `.env.local.example` to `.env.local`
+2. Fill in `NEXT_PUBLIC_SANITY_PROJECT_ID` and `NEXT_PUBLIC_SANITY_DATASET`
 
-## Запуск
+## Running
 - `npm install`
-- `npm run dev` — запустити Next.js
-- `npm run studio` — запустити Sanity Studio
+- `npm run dev` — start Next.js
+- `npm run studio` — start Sanity Studio
 
-## Як створити сторінку
-1. Запусти Sanity Studio
-2. Створи документ `Page`
-3. Додай `slug` = `home`
-4. Додай потрібні секції: Hero, Feature, Content, Testimonial, Stats, CTA, Logo Grid
+## How to create a page
+1. Start Sanity Studio
+2. Create a `Page` document
+3. Add `slug` = `home`
+4. Add the needed sections: Hero, Feature, Content, Testimonial, Stats, CTA, Logo Grid
 
-## Додати блог
-1. У Sanity Studio створи документ `Post`
-2. Встанови `title`, `slug`, `publishedAt`, `mainImage` та `body`
-3. Відкрий `/posts` у Next.js для списку публікацій
+## Adding a blog
+1. In Sanity Studio create a `Post` document
+2. Set `title`, `slug`, `publishedAt`, `mainImage`, and `body`
+3. Open `/posts` in Next.js for the list of posts
 
-## Деплой на Vercel
-- Підключи репозиторій до Vercel
-- Додай змінні середовища: `NEXT_PUBLIC_SANITY_PROJECT_ID`, `NEXT_PUBLIC_SANITY_DATASET`, `SANITY_STUDIO_API_TOKEN`
-- Встанови `NODE_ENV=production` за замовчуванням
+## Deploy to Vercel
+- Connect the repository to Vercel
+- Add environment variables: `NEXT_PUBLIC_SANITY_PROJECT_ID`, `NEXT_PUBLIC_SANITY_DATASET`, `SANITY_STUDIO_API_TOKEN`
+- Set `NODE_ENV=production` by default

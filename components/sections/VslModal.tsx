@@ -4,15 +4,16 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { urlForImage } from '@/lib/sanity';
 
 const DEFAULT_IMAGE = '/images/modal/vsl-modal-image.jpg';
-// Будь-який елемент із цим атрибутом або лінк на ці хеші відкриває VSL-модалку.
+// Any element with this attribute, or a link to these hashes, opens the VSL modal.
 const TRIGGER_SELECTOR = '[data-open-vsl], a[href="#vsl"], a[href="#explainer-video"]';
 
-// YouTube / Vimeo → embed URL з автозапуском. Інакше null (звичайний <video>).
+// YouTube / Vimeo → embed URL without autoplay (shows a poster with a play
+// button). Otherwise null (plain <video>).
 function toEmbedUrl(url: string): string | null {
   const yt = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([\w-]{11})/);
-  if (yt) return `https://www.youtube.com/embed/${yt[1]}?autoplay=1&rel=0`;
+  if (yt) return `https://www.youtube.com/embed/${yt[1]}?rel=0`;
   const vimeo = url.match(/vimeo\.com\/(?:video\/)?(\d+)/);
-  if (vimeo) return `https://player.vimeo.com/video/${vimeo[1]}?autoplay=1`;
+  if (vimeo) return `https://player.vimeo.com/video/${vimeo[1]}`;
   return null;
 }
 
@@ -29,7 +30,7 @@ export default function VslModal({ section }: { section: any }) {
 
   const close = useCallback(() => setOpen(false), []);
 
-  // Відкриття по кліку на будь-який тригер у документі
+  // Open on click of any trigger in the document
   useEffect(() => {
     const onClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement | null;
@@ -42,7 +43,7 @@ export default function VslModal({ section }: { section: any }) {
     return () => document.removeEventListener('click', onClick);
   }, []);
 
-  // Esc, блокування скролу, фокус
+  // Esc, scroll lock, focus
   useEffect(() => {
     if (!open) return;
 
@@ -64,8 +65,8 @@ export default function VslModal({ section }: { section: any }) {
     };
   }, [open, close]);
 
-  // Відео монтуємо лише коли модалка відкрита: тоді воно автозапускається,
-  // а при закритті — розмонтовується і звук зупиняється.
+  // The video mounts only while the modal is open: it autoplays then,
+  // and unmounts on close so the sound stops.
   const renderMedia = () => {
     if (isVideo && videoSrc) {
       if (embedUrl) {

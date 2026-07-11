@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 
-// Кольори з референсу дизайнера (Confetti Pop On Page Load.png)
+// Colors from the designer's reference (Confetti Pop On Page Load.png)
 const COLORS = ['#ff3ea5', '#ff5b8a', '#29c5f6', '#ffe24b', '#ff5353', '#e91e8c'];
 
 type Particle = {
@@ -22,7 +22,7 @@ export default function ConfettiOnLoad() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    // Поважаємо налаштування "менше анімацій"
+    // Respect the "reduced motion" setting
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     const canvas = canvasRef.current;
@@ -48,17 +48,17 @@ export default function ConfettiOnLoad() {
 
     const particles: Particle[] = [];
 
-    // Усе масштабуємо відносно ширини viewport (1440 = еталон), щоб вигляд був
-    // однаковий і на MacBook, і на телевізорі — "конфеті на пів екрана" у тій
-    // самій пропорції. Швидкість, гравітація і розмір ростуть разом, тож
-    // траєкторії геометрично подібні на будь-якому екрані.
+    // Everything scales relative to the viewport width (1440 = reference), so the
+    // look is the same on a MacBook and on a TV — "confetti covering half the
+    // screen" in the same proportion. Speed, gravity, and size grow together,
+    // so trajectories stay geometrically similar on any screen.
     const scale = width / 1440;
 
-    // Дві "гармати" знизу, що стріляють вгору й до центру — арка з референсу
+    // Two "cannons" at the bottom firing upward toward the center — the arc from the reference
     const spawnBurst = (originX: number, angleDeg: number) => {
       const count = 120;
       for (let i = 0; i < count; i++) {
-        const spread = 55; // градусів розкиду
+        const spread = 55; // spread in degrees
         const angle = ((angleDeg + (Math.random() - 0.5) * spread) * Math.PI) / 180;
         const speed = (11 + Math.random() * 13) * scale;
         particles.push({
@@ -76,11 +76,11 @@ export default function ConfettiOnLoad() {
       }
     };
 
-    // Симетрично навколо центру екрана → завжди по центру за будь-якої ширини
+    // Symmetric around the screen center → always centered at any width
     const centerX = width / 2;
     const spawnOffset = width * 0.15;
-    spawnBurst(centerX - spawnOffset, 72); // ліворуч від центру → вгору-вправо
-    spawnBurst(centerX + spawnOffset, 108); // праворуч від центру → вгору-вліво
+    spawnBurst(centerX - spawnOffset, 72); // left of center → up-and-right
+    spawnBurst(centerX + spawnOffset, 108); // right of center → up-and-left
 
     const gravity = 0.2 * scale;
     const drag = 0.992;
@@ -99,7 +99,7 @@ export default function ConfettiOnLoad() {
         p.rotation += p.vr;
         p.life += 1;
 
-        // Згасання після того, як частинка почала падати
+        // Fade out after the particle starts falling
         const fade = elapsed > 2600 ? Math.max(0, 1 - (elapsed - 2600) / 1400) : 1;
         ctx.save();
         ctx.globalAlpha = fade;

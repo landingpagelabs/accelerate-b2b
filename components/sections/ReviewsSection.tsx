@@ -2,6 +2,11 @@
 
 import { useState } from 'react';
 import { urlForImage } from '@/lib/sanity';
+import VideoModal from './VideoModal';
+
+// Placeholder until real links are available — nature timelapse from Vimeo ("The Mountain").
+// Replace with the real videoUrl for each review in Sanity Studio.
+const DEFAULT_VIDEO_URL = 'https://vimeo.com/22439234';
 
 export const Stars = () => (
   <svg width="100" height="18" viewBox="0 0 100 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -29,7 +34,7 @@ const tabs = [
 
 const COLLAPSED_COUNT = 9;
 
-function renderCard(review: any, key: number) {
+function renderCard(review: any, key: number, onPlay: (url: string) => void) {
   if (review.cardType === 'result') {
     return (
       <div key={key} className="reviews_item image">
@@ -53,16 +58,17 @@ function renderCard(review: any, key: number) {
   return (
     <div key={key} className={`reviews_item${isVideo ? '' : ' no-video'}${isVideo && !hasContent ? ' video-only' : ''}`}>
       {isVideo && review.image && (
-        <a
+        <button
+          type="button"
           className="reviews_video"
-          href={review.videoUrl || '#'}
-          {...(review.videoUrl ? { target: '_blank', rel: 'noreferrer' } : {})}
+          onClick={() => onPlay(review.videoUrl || DEFAULT_VIDEO_URL)}
+          aria-label="Play video"
         >
           <div
             className="reviews_video-thumb"
             style={{ backgroundImage: `url(${urlForImage(review.image).url()})` }}
           />
-        </a>
+        </button>
       )}
       {hasContent && (
       <div className="reviews_item-content">
@@ -91,6 +97,7 @@ function renderCard(review: any, key: number) {
 export default function ReviewsSection({ section }: { section: any }) {
   const [activeTab, setActiveTab] = useState('all');
   const [expanded, setExpanded] = useState(false);
+  const [activeVideo, setActiveVideo] = useState<string | null>(null);
   const reviews: any[] = section.reviews || [];
 
   const filtered =
@@ -128,11 +135,11 @@ export default function ReviewsSection({ section }: { section: any }) {
               <h2 className="title-h2">{section.heading}</h2>
             </div>
 
-            <div className="reviews_switch">
+            <div className="tabs__switcher reviews_switcher">
               {tabs.map((tab) => (
                 <button
                   key={tab.value}
-                  className={`reviews_tab${activeTab === tab.value ? ' active' : ''}`}
+                  className={`tabs__tab${activeTab === tab.value ? ' tabs__tab--active' : ''}`}
                   type="button"
                   onClick={() => selectTab(tab.value)}
                 >
@@ -145,7 +152,7 @@ export default function ReviewsSection({ section }: { section: any }) {
               <div className="reviews_list">
                 {columns.map((col, ci) => (
                   <div className="reviews_col" key={ci}>
-                    {col.map(({ review, key }) => renderCard(review, key))}
+                    {col.map(({ review, key }) => renderCard(review, key, setActiveVideo))}
                   </div>
                 ))}
               </div>
@@ -175,6 +182,8 @@ export default function ReviewsSection({ section }: { section: any }) {
           </div>
         </div>
       </div>
+
+      <VideoModal videoUrl={activeVideo} onClose={() => setActiveVideo(null)} />
     </section>
   );
 }

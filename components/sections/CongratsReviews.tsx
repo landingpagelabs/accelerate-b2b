@@ -2,14 +2,19 @@
 
 import { useState } from 'react';
 import { Stars, VerifiedLogo } from './ReviewsSection';
+import VideoModal from './VideoModal';
 
 const IMG = '/images/sections/reviews/congrats';
 const HEADING = 'When you send the right message to the right person, you get results, see for yourself...';
 
-// Image-only result card (e.g. a reply screenshot, no title)
+// Placeholder until real videos are available — nature timelapse from Vimeo ("The Mountain").
+// Once real links are provided, swap each into the videoUrl prop of the corresponding VideoCard.
+const DEFAULT_VIDEO_URL = 'https://vimeo.com/22439234';
+
+// Image-only result card (e.g. a reply screenshot, no title) → "Replies"
 function ImageCard({ src, alt }: { src: string; alt: string }) {
   return (
-    <div className="reviews_item image">
+    <div className="reviews_item image" data-cat="reply">
       <div className="reviews_image">
         <img src={src} alt={alt} />
       </div>
@@ -17,10 +22,10 @@ function ImageCard({ src, alt }: { src: string; alt: string }) {
   );
 }
 
-// Result card with a title on top + an image (grey stat card)
+// Result card with a title on top + an image (grey stat card) → "Results"
 function ResultCard({ title, src }: { title: string; src: string }) {
   return (
-    <div className="reviews_item image">
+    <div className="reviews_item image" data-cat="result">
       <div className="reviews_item-title">
         <p className="text-label-extra-small">{title}</p>
       </div>
@@ -44,7 +49,7 @@ function ReviewCard({
   avatar?: string;
 }) {
   return (
-    <div className="reviews_item no-video">
+    <div className="reviews_item no-video" data-cat="testimonial">
       <div className="reviews_item-content">
         <div className="reviews_head">
           <Stars />
@@ -72,18 +77,22 @@ function VideoCard({
   authorName,
   authorRole,
   avatar,
+  videoUrl = DEFAULT_VIDEO_URL,
+  onPlay,
 }: {
   thumb: string;
   quote: string;
   authorName: string;
   authorRole: string;
   avatar: string;
+  videoUrl?: string;
+  onPlay: (url: string) => void;
 }) {
   return (
-    <div className="reviews_item">
-      <a className="reviews_video" href="#">
+    <div className="reviews_item" data-cat="testimonial">
+      <button type="button" className="reviews_video" aria-label="Play video" onClick={() => onPlay(videoUrl)}>
         <div className="reviews_video-thumb" style={{ backgroundImage: `url(${thumb})` }} />
-      </a>
+      </button>
       <div className="reviews_item-content">
         <div className="reviews_head">
           <Stars />
@@ -104,8 +113,17 @@ function VideoCard({
   );
 }
 
+const TABS = [
+  { label: 'All', value: 'all' },
+  { label: 'Testimonials', value: 'testimonial' },
+  { label: 'Results', value: 'result' },
+  { label: 'Replies', value: 'reply' },
+];
+
 export default function CongratsReviews() {
   const [expanded, setExpanded] = useState(false);
+  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState('all');
 
   return (
     <section className="reviews">
@@ -116,8 +134,21 @@ export default function CongratsReviews() {
               <h2 className="title-h2">{HEADING}</h2>
             </div>
 
+            <div className="tabs__switcher reviews_switcher">
+              {TABS.map((tab) => (
+                <button
+                  key={tab.value}
+                  type="button"
+                  className={`tabs__tab${activeTab === tab.value ? ' tabs__tab--active' : ''}`}
+                  onClick={() => { setActiveTab(tab.value); setExpanded(false); }}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+
             <div className={`reviews_list-wrap${expanded ? ' is-expanded' : ' is-collapsed'}`}>
-              <div className="reviews_list">
+              <div className={`reviews_list${activeTab !== 'all' ? ` is-filter-${activeTab}` : ''}`}>
                 {/* ----- COLUMN 1 ----- */}
                 <div className="reviews_col">
                   {/* 1 */}
@@ -129,6 +160,7 @@ export default function CongratsReviews() {
                     authorName="Matt Hickerson"
                     authorRole="VP of Operations, Forge Origination"
                     avatar={`${IMG}/item2-avatar.png`}
+                    onPlay={setActiveVideo}
                   />
                   {/* 3 */}
                   <ResultCard title="95 opportunities in 30 days" src={`${IMG}/item3-95opp.webp`} />
@@ -157,6 +189,7 @@ export default function CongratsReviews() {
                     authorName="Ben Kelly"
                     authorRole="Owner, LH Capital Group"
                     avatar={`${IMG}/col2-item1-avatar.png`}
+                    onPlay={setActiveVideo}
                   />
                   {/* 2 — same as home */}
                   <ResultCard title="9.5% reply rate across 261,000 emails" src={`${IMG}/col2-item2-9_5reply.webp`} />
@@ -169,6 +202,7 @@ export default function CongratsReviews() {
                     authorName="Ahmed Saeed"
                     authorRole="Owner, LolaBird Fundraising"
                     avatar={`${IMG}/col2-item4-avatar.png`}
+                    onPlay={setActiveVideo}
                   />
                   {/* 5 */}
                   <ImageCard src={`${IMG}/col2-item5.png`} alt="Positive reply" />
@@ -195,6 +229,7 @@ export default function CongratsReviews() {
                     authorName="Penny Dawson"
                     authorRole="Owner, LolaBird Fundraising"
                     avatar={`${IMG}/col3-item1-avatar.png`}
+                    onPlay={setActiveVideo}
                   />
                   {/* 2 — same as home */}
                   <ResultCard title="618 opportunities" src={`${IMG}/col3-item2-618opp.png`} />
@@ -205,6 +240,7 @@ export default function CongratsReviews() {
                     authorName="Cyndi"
                     authorRole="Verified client review"
                     avatar={`${IMG}/col3-item3-avatar.png`}
+                    onPlay={setActiveVideo}
                   />
                   {/* 4 */}
                   <ResultCard title="97 opportunities" src={`${IMG}/col3-item4.png`} />
@@ -246,6 +282,8 @@ export default function CongratsReviews() {
           </div>
         </div>
       </div>
+
+      <VideoModal videoUrl={activeVideo} onClose={() => setActiveVideo(null)} />
     </section>
   );
 }

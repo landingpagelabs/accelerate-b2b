@@ -12,8 +12,8 @@ export default function ConsultationModal({ section }: { section: any }) {
 
   const [open, setOpen] = useState(false);
   const lastClosedAt = useRef(0);
-  // Лічильник показів тримаємо в пам'яті — він обнуляється при кожному
-  // перезавантаженні сторінки (ліміт діє в межах одного завантаження).
+  // Show counter is kept in memory — it resets on every page reload
+  // (the limit applies within a single page load).
   const shownCount = useRef(0);
   const cardRef = useRef<HTMLDivElement>(null);
   const previouslyFocused = useRef<HTMLElement | null>(null);
@@ -21,7 +21,7 @@ export default function ConsultationModal({ section }: { section: any }) {
   const imageSrc = section?.image ? urlForImage(section.image).width(900).url() : DEFAULT_IMAGE;
 
   const trigger = useCallback(() => {
-    // не показуємо: вже відкрито, ліміт вичерпано, або щойно закрили (cooldown)
+    // don't show: already open, limit reached, or just closed (cooldown)
     if (open) return;
     if (shownCount.current >= maxPerLoad) return;
     if (Date.now() - lastClosedAt.current < 1000) return;
@@ -34,7 +34,7 @@ export default function ConsultationModal({ section }: { section: any }) {
     setOpen(false);
   }, []);
 
-  // Тригери появи
+  // Appearance triggers
   useEffect(() => {
     if (shownCount.current >= maxPerLoad) return;
 
@@ -46,7 +46,7 @@ export default function ConsultationModal({ section }: { section: any }) {
     const cleanups: Array<() => void> = [];
 
     if (isCoarse) {
-      // Мобільний / тач: запасний тригер — затримка АБО скрол (що настане раніше)
+      // Mobile / touch: fallback trigger — delay OR scroll (whichever comes first)
       if (fallbackDelay >= 0) {
         const t = window.setTimeout(trigger, fallbackDelay * 1000);
         cleanups.push(() => window.clearTimeout(t));
@@ -59,7 +59,7 @@ export default function ConsultationModal({ section }: { section: any }) {
       window.addEventListener('scroll', onScroll, { passive: true });
       cleanups.push(() => window.removeEventListener('scroll', onScroll));
     } else {
-      // Десктоп: exit-intent — курсор виходить за верхню межу вікна
+      // Desktop: exit-intent — cursor leaves the top edge of the window
       const onMouseOut = (e: MouseEvent) => {
         if (!e.relatedTarget && e.clientY <= 0) trigger();
       };
@@ -70,7 +70,7 @@ export default function ConsultationModal({ section }: { section: any }) {
     return () => cleanups.forEach((fn) => fn());
   }, [trigger, maxPerLoad, fallbackDelay, scrollPercent]);
 
-  // Esc, блокування скролу, фокус
+  // Esc, scroll lock, focus
   useEffect(() => {
     if (!open) return;
 
