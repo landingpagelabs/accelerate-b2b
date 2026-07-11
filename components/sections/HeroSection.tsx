@@ -41,7 +41,7 @@ export default function HeroSection({ section }: { section: any }) {
               </div>
               {videoImg && (
                 <div className="hero-content_video-wrap" data-open-vsl>
-                  <img className="hero-content_video" src={videoImg} alt="video" />
+                  <img className="hero-content_video" src={videoImg} alt="video" fetchPriority="high" />
                   <button type="button" className="hero-video-expand" aria-label="Expand video">
                     <span>Expand Video</span>
                     <img className="hero-video-expand__icon" src="/images/header/hero-play-icon.svg" alt="" aria-hidden="true" />

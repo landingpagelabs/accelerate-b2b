@@ -2,10 +2,11 @@
 
 import { useState } from 'react';
 
-const MESSAGE = `Hey, I just booked a call with Accelerate B2B, a cold outreach agency. The founder works on every campaign himself and seems like they have some good results. Right now they’re running a free test campaign so you can see it work before paying anything. They’ve only got a few spots. Thought it might be of interest. Here’s all the info: www.accelerateb2b.com`;
+const DEFAULT_MESSAGE = `Hey, I just booked a call with Accelerate B2B, a cold outreach agency. The founder works on every campaign himself and seems like they have some good results. Right now they’re running a free test campaign so you can see it work before paying anything. They’ve only got a few spots. Thought it might be of interest. Here’s all the info: www.accelerateb2b.com`;
 
-export default function CongratsCopyMessage() {
+export default function CongratsCopyMessage({ message }: { message?: string }) {
   const [copied, setCopied] = useState(false);
+  const MESSAGE = message || DEFAULT_MESSAGE;
 
   const copy = () => {
     navigator.clipboard?.writeText(MESSAGE).catch(() => {});

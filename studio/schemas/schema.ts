@@ -1,5 +1,9 @@
 import page from './page';
 import post from './post';
+import legalPage from './legalPage';
+import llmInfoPage from './llmInfoPage';
+import congratsPage from './congratsPage';
+import bookingPage from './bookingPage';
 import {
   heroSection,
   featureSection,
@@ -10,8 +14,8 @@ import {
   logoGridSection,
   partnersSection,
   comparisonSection,
-  meetingSection,
   mechanismSection,
+  outreachIntroSection,
   servicesSection,
   caseStudiesSection,
   infoSection,
@@ -27,6 +31,10 @@ import {
 export const schemaTypes = [
   page,
   post,
+  legalPage,
+  llmInfoPage,
+  congratsPage,
+  bookingPage,
   heroSection,
   featureSection,
   contentSection,
@@ -36,8 +44,8 @@ export const schemaTypes = [
   logoGridSection,
   partnersSection,
   comparisonSection,
-  meetingSection,
   mechanismSection,
+  outreachIntroSection,
   servicesSection,
   caseStudiesSection,
   infoSection,

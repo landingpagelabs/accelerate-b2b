@@ -15,6 +15,7 @@ const VerifiedBadge = () => (
 
 export default function InfoSection({ section }: { section: any }) {
   const paragraphs: string[] = (section.body || '').split(/\n{2,}/).filter(Boolean);
+  const roleParts: string[] = (section.authorRole || '').split('▪').map((s: string) => s.trim()).filter(Boolean);
 
   return (
     <section className="info">
@@ -23,7 +24,10 @@ export default function InfoSection({ section }: { section: any }) {
           <div className="info_wrapper">
             <div className="info_block">
               <div className="info_block-decor">
-                <img src="/images/info/info-decor.svg" alt="Spencer Hirst signature" />
+                <img
+                  src={section.decorImage ? urlForImage(section.decorImage).url() : '/images/info/info-decor.svg'}
+                  alt="Spencer Hirst signature"
+                />
               </div>
 
               {section.heading && <h2 className="info_block-title title-h3">{section.heading}</h2>}
@@ -52,10 +56,19 @@ export default function InfoSection({ section }: { section: any }) {
                 <div className="info_block-content-bot">
                   <div className="info_block-content-bot-flex">
                     <div className="info_block-content-bot-name">
-                      {section.authorName && <p className="text-body-large">{section.authorName}</p>}
+                      {section.authorName && <p className="info_block-name-text">{section.authorName}</p>}
                       <VerifiedBadge />
                     </div>
-                    {section.authorRole && <p className="text-body-large">{section.authorRole}</p>}
+                    {roleParts.length > 0 && (
+                      <p className="info_block-role-text">
+                        {roleParts.map((part, i) => (
+                          <span key={i}>
+                            {i > 0 && <span className="info_block-role-dot"> ▪ </span>}
+                            {part}
+                          </span>
+                        ))}
+                      </p>
+                    )}
                   </div>
                   {section.signatureImage && (
                     <div className="info_block-content-bot-image">
@@ -63,12 +76,6 @@ export default function InfoSection({ section }: { section: any }) {
                     </div>
                   )}
                 </div>
-
-                {section.contentImage && (
-                  <div className="info_block-content-image">
-                    <img src={urlForImage(section.contentImage).url()} alt="" />
-                  </div>
-                )}
               </div>
             </div>
           </div>

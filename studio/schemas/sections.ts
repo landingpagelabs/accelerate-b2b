@@ -13,6 +13,19 @@ export const heroSection = {
   ],
 };
 
+export const outreachIntroSection = {
+  name: 'outreachIntroSection', title: 'Outreach Intro Section', type: 'object',
+  fields: [
+    { name: 'heading', title: 'Heading', type: 'string' },
+    { name: 'text', title: 'Text', type: 'text' },
+    { name: 'image', title: 'Image', type: 'image', options: { hotspot: true } },
+  ],
+  preview: {
+    select: { title: 'heading' },
+    prepare: ({ title }: any) => ({ title: title || 'Outreach Intro Section' }),
+  },
+};
+
 export const featureSection = {
   name: 'featureSection',
   title: 'Feature Section',
@@ -119,7 +132,7 @@ export const ctaSection = {
     { name: 'title', title: 'Title', type: 'string' },
     { name: 'subtitle', title: 'Subtitle', type: 'text' },
     { name: 'buttonText', title: 'Button Text', type: 'string' },
-    { name: 'buttonUrl', title: 'Button URL', type: 'url' },
+    { name: 'buttonUrl', title: 'Button URL', type: 'url', validation: (Rule: any) => Rule.uri({ allowRelative: true, scheme: ['http', 'https', 'mailto', 'tel'] }) },
   ],
 };
 
@@ -150,7 +163,11 @@ export const partnersSection = {
   name: 'partnersSection', title: 'Partners Section', type: 'object',
   fields: [
     { name: 'heading', title: 'Heading', type: 'string' },
-    { name: 'logos', title: 'Logos', type: 'array', of: [{ type: 'object', fields: [
+    { name: 'logos', title: 'Logos — Row 1', type: 'array', of: [{ type: 'object', fields: [
+      { name: 'image', title: 'Logo', type: 'image', options: { hotspot: true } },
+      { name: 'alt', title: 'Alt text', type: 'string' },
+    ]}]},
+    { name: 'logosRow2', title: 'Logos — Row 2', type: 'array', of: [{ type: 'object', fields: [
       { name: 'image', title: 'Logo', type: 'image', options: { hotspot: true } },
       { name: 'alt', title: 'Alt text', type: 'string' },
     ]}]},
@@ -174,24 +191,36 @@ export const comparisonSection = {
   ],
 };
 
-export const meetingSection = {
-  name: 'meetingSection', title: 'Meeting Calculator Section', type: 'object',
-  fields: [
-    { name: 'heading', title: 'Heading', type: 'string' },
-    { name: 'testimonialQuote', title: 'Testimonial Quote', type: 'string' },
-    { name: 'testimonialAuthor', title: 'Testimonial Author', type: 'string' },
-    { name: 'testimonialRole', title: 'Testimonial Role', type: 'string' },
-    { name: 'testimonialAvatar', title: 'Testimonial Avatar', type: 'image', options: { hotspot: true } },
-  ],
-};
-
 export const mechanismSection = {
-  name: 'mechanismSection', title: 'Mechanism Section', type: 'object',
-  fields: [
-    { name: 'heading', title: 'Heading', type: 'string' },
-    { name: 'text', title: 'Text', type: 'text' },
-    { name: 'image', title: 'Image', type: 'image', options: { hotspot: true } },
+  name: 'mechanismSection', title: 'Mechanism Section (Stages Funnel)', type: 'object',
+  groups: [
+    { name: 'content', title: 'Content' },
+    { name: 'quote', title: 'Quote' },
   ],
+  fields: [
+    { name: 'heading', title: 'Heading', type: 'string', group: 'content' },
+    {
+      name: 'stages',
+      title: 'Stages (exactly 4, top to bottom)',
+      type: 'array',
+      group: 'content',
+      validation: (Rule: any) => Rule.max(4),
+      of: [{ type: 'object', fields: [
+        { name: 'label', title: 'Label', type: 'string', description: 'e.g. "STAGE 01 · CONTACTED"' },
+        { name: 'text', title: 'Description', type: 'string', description: 'e.g. "120,000 prospects in your ideal customer profile contacted"' },
+      ]}],
+    },
+    { name: 'note', title: 'Footnote', type: 'string', description: 'e.g. "*Average yearly outcomes. Results depend on multiple factors."', group: 'content' },
+
+    { name: 'quoteAvatar', title: 'Avatar', type: 'image', options: { hotspot: true }, group: 'quote' },
+    { name: 'quoteText', title: 'Quote Text', type: 'string', group: 'quote' },
+    { name: 'quoteAuthorName', title: 'Author Name', type: 'string', group: 'quote' },
+    { name: 'quoteAuthorRole', title: 'Author Role', type: 'string', group: 'quote' },
+  ],
+  preview: {
+    select: { title: 'heading' },
+    prepare: ({ title }: any) => ({ title: title || 'Mechanism Section (Stages Funnel)' }),
+  },
 };
 
 export const servicesSection = {
@@ -214,11 +243,21 @@ export const caseStudiesSection = {
     { name: 'cases', title: 'Case Studies', type: 'array', of: [{ type: 'object', fields: [
       { name: 'image', title: 'Card Image', type: 'image', options: { hotspot: true } },
       { name: 'companyLogo', title: 'Company Logo', type: 'image', options: { hotspot: true } },
+      { name: 'companyName', title: 'Company Name (modal tag)', type: 'string' },
       { name: 'title', title: 'Title', type: 'string' },
       { name: 'quote', title: 'Quote', type: 'text' },
       { name: 'author', title: 'Author', type: 'string' },
+      { name: 'authorRole', title: 'Author Role (e.g. Owner, LH Capital Group)', type: 'string' },
       { name: 'avatar', title: 'Author Avatar', type: 'image', options: { hotspot: true } },
       { name: 'category', title: 'Category (tab)', type: 'string' },
+      { name: 'categoryLabel', title: 'Modal Category Pill (defaults to Category)', type: 'string' },
+      { name: 'description', title: 'Modal Description (paragraph before bullets)', type: 'text' },
+      { name: 'bullets', title: 'Modal Bullet Points', type: 'array', of: [{ type: 'string' }] },
+      { name: 'stats', title: 'Modal Stats', type: 'array', of: [{ type: 'object', fields: [
+        { name: 'value', title: 'Value (e.g. $500K)', type: 'string' },
+        { name: 'label', title: 'Label (e.g. In fees)', type: 'string' },
+      ]}]},
+      { name: 'screenshotImage', title: 'Modal Screenshot Image', type: 'image', options: { hotspot: true } },
     ]}]},
   ],
 };
@@ -227,11 +266,11 @@ export const infoSection = {
   name: 'infoSection', title: 'Info / Founder Section', type: 'object',
   fields: [
     { name: 'heading', title: 'Heading', type: 'string' },
+    { name: 'decorImage', title: 'Decor Image (sticky note, top right)', type: 'image', options: { hotspot: true } },
     { name: 'body', title: 'Body Text (leave a blank line between paragraphs)', type: 'text', rows: 12 },
     { name: 'authorName', title: 'Author Name', type: 'string' },
     { name: 'authorRole', title: 'Author Role', type: 'string' },
     { name: 'signatureImage', title: 'Signature / small image (next to name)', type: 'image', options: { hotspot: true } },
-    { name: 'contentImage', title: 'Big content image (bottom)', type: 'image', options: { hotspot: true } },
   ],
 };
 
@@ -288,24 +327,30 @@ export const bannerSection = {
     { name: 'text', title: 'Text', type: 'text' },
     { name: 'rightImage', title: 'Right Image', type: 'image', options: { hotspot: true } },
   ],
+  preview: {
+    select: { text: 'text', media: 'leftIcon' },
+    prepare({ text, media }: any) {
+      return { title: 'Banner Section', subtitle: text, media };
+    },
+  },
 };
 
 export const consultationModalSection = {
   name: 'consultationModalSection',
   title: 'Consultation Modal (popup)',
   type: 'object',
-  description: "Спливаюче вікно «Can't find what you're looking for?». Показується за exit-intent (десктоп) або з затримкою/скролом (мобільний).",
+  description: "Popup \"Can't find what you're looking for?\". Shows on exit-intent (desktop) or after a delay/scroll (mobile).",
   fields: [
     { name: 'heading', title: 'Heading', type: 'string', initialValue: "Can't find what you're looking for?" },
     { name: 'description', title: 'Description', type: 'text', rows: 3 },
     { name: 'buttonText', title: 'Button Text', type: 'string', initialValue: 'Book Your Free Consultation' },
-    { name: 'buttonUrl', title: 'Button URL', type: 'url' },
+    { name: 'buttonUrl', title: 'Button URL', type: 'url', validation: (Rule: any) => Rule.uri({ allowRelative: true, scheme: ['http', 'https', 'mailto', 'tel'] }) },
     { name: 'image', title: 'Preview Image (optional, falls back to default)', type: 'image', options: { hotspot: true } },
     {
       name: 'maxPerSession',
       title: 'Max shows per session',
       type: 'number',
-      description: 'Скільки разів максимум показувати одному користувачу за сесію.',
+      description: 'Maximum number of times to show to one user per session.',
       initialValue: 2,
       validation: (Rule: any) => Rule.min(1).max(10),
     },
@@ -313,7 +358,7 @@ export const consultationModalSection = {
       name: 'fallbackDelaySeconds',
       title: 'Mobile fallback delay (seconds)',
       type: 'number',
-      description: "На мобільних (без курсора) попап з'явиться через стільки секунд.",
+      description: 'On mobile (no cursor) the popup appears after this many seconds.',
       initialValue: 15,
       validation: (Rule: any) => Rule.min(0),
     },
@@ -321,7 +366,7 @@ export const consultationModalSection = {
       name: 'scrollPercent',
       title: 'Mobile fallback scroll (%)',
       type: 'number',
-      description: 'Або коли користувач проскролить стільки % сторінки (що настане раніше).',
+      description: 'Or when the user scrolls this % of the page (whichever comes first).',
       initialValue: 60,
       validation: (Rule: any) => Rule.min(0).max(100),
     },
@@ -338,13 +383,13 @@ export const vslModalSection = {
   name: 'vslModalSection',
   title: 'VSL Modal (video popup)',
   type: 'object',
-  description: 'Модалка з відео/картинкою (VSL). Відкривається по кліку на елемент з атрибутом data-open-vsl або на лінк #vsl / #explainer-video.',
+  description: 'Video/image modal (VSL). Opens on click of an element with the data-open-vsl attribute or a link to #vsl / #explainer-video.',
   fields: [
     {
       name: 'mediaType',
       title: 'Media Type',
       type: 'string',
-      description: 'Що показувати в попапі — картинку чи відео.',
+      description: 'What to show in the popup — image or video.',
       options: {
         layout: 'radio',
         list: [
@@ -365,7 +410,7 @@ export const vslModalSection = {
       name: 'videoFile',
       title: 'Upload Video',
       type: 'file',
-      description: 'Завантаж власне відео (mp4/webm). Має пріоритет над Video URL.',
+      description: 'Upload your own video (mp4/webm). Takes priority over Video URL.',
       options: { accept: 'video/*' },
       hidden: ({ parent }: any) => parent?.mediaType !== 'video',
     },
@@ -373,20 +418,20 @@ export const vslModalSection = {
       name: 'videoUrl',
       title: 'Or Video URL (YouTube / Vimeo / .mp4)',
       type: 'url',
-      description: 'Якщо не завантажуєш файл — встав посилання на відео.',
+      description: 'If you are not uploading a file, paste a video link.',
       hidden: ({ parent }: any) => parent?.mediaType !== 'video',
     },
     {
       name: 'poster',
       title: 'Video Poster (optional)',
       type: 'image',
-      description: 'Картинка-заставка для відео до запуску.',
+      description: 'Poster image shown before the video plays.',
       options: { hotspot: true },
       hidden: ({ parent }: any) => parent?.mediaType !== 'video',
     },
     { name: 'imageLink', title: 'Image Link (optional, only for Image)', type: 'url', hidden: ({ parent }: any) => parent?.mediaType === 'video' },
     { name: 'buttonText', title: 'Button Text', type: 'string', initialValue: 'Apply For Your Free Test Campaign' },
-    { name: 'buttonUrl', title: 'Button URL', type: 'url' },
+    { name: 'buttonUrl', title: 'Button URL', type: 'url', validation: (Rule: any) => Rule.uri({ allowRelative: true, scheme: ['http', 'https', 'mailto', 'tel'] }) },
     { name: 'note', title: 'Note (under button)', type: 'string', initialValue: 'No Setup Fee | No Lock-In | Only A Few Spots Available' },
   ],
   preview: {
@@ -404,6 +449,6 @@ export const tutorialsSection = {
     { name: 'bigVideoUrl', title: 'Main Video (YouTube link)', type: 'url' },
     { name: 'smallVideos', title: 'Small Videos (YouTube links)', type: 'array', of: [{ type: 'url' }] },
     { name: 'ctaText', title: 'Button Text', type: 'string', initialValue: 'View YouTube Channel' },
-    { name: 'ctaUrl', title: 'Button URL', type: 'url' },
+    { name: 'ctaUrl', title: 'Button URL', type: 'url', validation: (Rule: any) => Rule.uri({ allowRelative: true, scheme: ['http', 'https', 'mailto', 'tel'] }) },
   ],
 };

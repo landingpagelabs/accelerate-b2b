@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { urlForImage } from '@/lib/sanity';
+import CaseStudyModal from './CaseStudyModal';
 
 const VerifiedBadge = () => (
   <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -17,6 +18,7 @@ export default function CaseStudiesSection({ section }: { section: any }) {
   const cases: any[] = section.cases || [];
   const [activeTab, setActiveTab] = useState<string>('all');
   const [expanded, setExpanded] = useState(false);
+  const [selectedCase, setSelectedCase] = useState<any>(null);
 
   const filteredCases =
     activeTab === 'all' ? cases : cases.filter((c: any) => c.category === activeTab);
@@ -28,6 +30,7 @@ export default function CaseStudiesSection({ section }: { section: any }) {
   };
 
   return (
+    <>
     <section className="section_tabs">
       <div className="padding-global">
         <div className="container-default">
@@ -67,9 +70,13 @@ export default function CaseStudiesSection({ section }: { section: any }) {
                         {c.image && (
                           <div className="tabs__card-image">
                             <img src={urlForImage(c.image).url()} alt="" />
-                            <a className="tabs_card-link" href={c.link || '#'}>
+                            <button
+                              type="button"
+                              className="tabs_card-link"
+                              onClick={() => setSelectedCase(c)}
+                            >
                               Expand Case Study +
-                            </a>
+                            </button>
                           </div>
                         )}
 
@@ -148,5 +155,11 @@ export default function CaseStudiesSection({ section }: { section: any }) {
         </div>
       </div>
     </section>
+
+    <CaseStudyModal
+      caseStudy={selectedCase}
+      onClose={() => setSelectedCase(null)}
+    />
+    </>
   );
 }

@@ -10,9 +10,6 @@ coverage
 .mcp.json
 .playwright-mcp/
 
-# Screenshots
-*.png
-
 # Generated / build artifacts
 .sanity/
 studio/.sanity/

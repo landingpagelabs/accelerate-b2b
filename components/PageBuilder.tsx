@@ -1,5 +1,6 @@
 import { urlForImage } from '@/lib/sanity';
 import { PortableText } from '@portabletext/react';
+import AnnounceBar from '@/components/AnnounceBar';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import HeroSection from '@/components/sections/HeroSection';
@@ -11,16 +12,17 @@ import CtaSection from '@/components/sections/CtaSection';
 import LogoGridSection from '@/components/sections/LogoGridSection';
 import PartnersSection from '@/components/sections/PartnersSection';
 import ComparisonSection from '@/components/sections/ComparisonSection';
-import MeetingSection from '@/components/sections/MeetingSection';
+import OutreachIntroSection from '@/components/sections/OutreachIntroSection';
 import MechanismSection from '@/components/sections/MechanismSection';
 import ServicesSection from '@/components/sections/ServicesSection';
 import CaseStudiesSection from '@/components/sections/CaseStudiesSection';
 import InfoSection from '@/components/sections/InfoSection';
-import CongratsReviews from '@/components/sections/CongratsReviews';
+import ReviewsSection from '@/components/sections/ReviewsSection';
 import FaqsSection from '@/components/sections/FaqsSection';
 import TextImageSection from '@/components/sections/TextImageSection';
 import BannerSection from '@/components/sections/BannerSection';
 import TutorialsSection from '@/components/sections/TutorialsSection';
+import ComparisonTableSection from '@/components/sections/ComparisonTableSection';
 import ConsultationModal from '@/components/sections/ConsultationModal';
 import VslModal from '@/components/sections/VslModal';
 
@@ -38,6 +40,7 @@ function SectionFallback({ section }: { section: any }) {
 export function PageBuilder({ page }: { page: any }) {
   return (
     <>
+    <AnnounceBar {...(page.announceBar || {})} />
     <Header />
     <main>
       {page.sections?.map((section: any, index: number) => {
@@ -60,10 +63,10 @@ export function PageBuilder({ page }: { page: any }) {
             return <PartnersSection key={index} section={section} />;
           case 'comparisonSection':
             return <ComparisonSection key={index} section={section} />;
-          case 'meetingSection':
-            return <MeetingSection key={index} section={section} />;
           case 'mechanismSection':
             return <MechanismSection key={index} section={section} />;
+          case 'outreachIntroSection':
+            return <OutreachIntroSection key={index} section={section} />;
           case 'servicesSection':
             return <ServicesSection key={index} section={section} />;
           case 'caseStudiesSection':
@@ -71,8 +74,8 @@ export function PageBuilder({ page }: { page: any }) {
           case 'infoSection':
             return <InfoSection key={index} section={section} />;
           case 'reviewsSection':
-            // Same curated reviews block as the /congrats page (hardcoded 3 columns).
-            return <CongratsReviews key={index} />;
+            // Data-driven reviews from Sanity (tabs, filtering, video modal).
+            return <ReviewsSection key={index} section={section} />;
           case 'faqsSection':
             return <FaqsSection key={index} section={section} />;
           case 'textImageSection':
@@ -80,7 +83,13 @@ export function PageBuilder({ page }: { page: any }) {
           case 'bannerSection':
             return <BannerSection key={index} section={section} />;
           case 'tutorialsSection':
-            return <TutorialsSection key={index} section={section} />;
+            return (
+              <div key={index}>
+                <TutorialsSection section={section} />
+                {/* Static for now — will move into Sanity as its own section once approved. */}
+                <ComparisonTableSection />
+              </div>
+            );
           case 'consultationModalSection':
             return <ConsultationModal key={index} section={section} />;
           case 'vslModalSection':

@@ -42,3 +42,4 @@ npm run studio:seed # seeds demo `home` page and sample `Post` into your Sanity 
 - Connect the repository to Vercel
 - Add environment variables: `NEXT_PUBLIC_SANITY_PROJECT_ID`, `NEXT_PUBLIC_SANITY_DATASET`, `SANITY_STUDIO_API_TOKEN`
 - Set `NODE_ENV=production` by default
+

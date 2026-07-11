@@ -23,13 +23,13 @@ export default {
       name: 'publishedAt',
       title: 'Published at',
       type: 'datetime',
-      description: 'Дата публікації для сортування та дат на сторінці.',
+      description: 'Publish date for sorting and on-page dates.',
     },
     {
       name: 'excerpt',
       title: 'Excerpt',
       type: 'text',
-      description: 'Короткий опис публікації для списку постів.',
+      description: 'Short post summary for the posts list.',
     },
     {
       name: 'mainImage',

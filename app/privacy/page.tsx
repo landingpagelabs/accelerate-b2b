@@ -1,75 +1,31 @@
 import type { Metadata } from 'next';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { fetchSanity } from '@/lib/sanity';
 
-export const metadata: Metadata = {
-  title: 'Privacy Policy | Accelerate B2B',
-  description: 'How Accelerate B2B collects, uses, and shares your information when you use accelerateb2b.com or our services.',
-};
+export const revalidate = 60;
 
-const LAST_UPDATED = 'June 9, 2026';
+const legalPageQuery = `*[_type == "legalPage" && slug.current == $slug][0]{
+  title, lastUpdated, ctaText, ctaUrl, ctaNote, metaTitle, metaDescription,
+  sections[]{ title, body }
+}`;
 
-type Block = { title: string; body: string };
+async function getPage() {
+  return fetchSanity<any>(legalPageQuery, { slug: 'privacy' });
+}
 
-const SECTIONS: Block[] = [
-  {
-    title: 'Introduction',
-    body:
-      'Accelerate B2B ("Accelerate B2B", "we", "our", or "us") respects your privacy. This Privacy Policy explains what information we collect when you use our website at accelerateb2b.com (the "Site") or engage us for cold outbound lead generation services, how we use it, who we share it with, and the choices you have. By using the Site or engaging us, you agree to the practices described in this Policy.',
-  },
-  {
-    title: 'Information We Collect',
-    body:
-      'We collect the following categories of personal information. Contact and business data: your name, business email, phone number, job title, company name, website, and LinkedIn profile when you book a call, complete a form, or correspond with us. Engagement data: your offer, target market and ICP, sending domains, and any information you share with us to run your campaigns. Prospect data: when we build lead lists on your behalf, we process business contact details of the prospects you target, such as name, business email, job title, company, and LinkedIn profile. Site usage data: IP address, browser type, device information, pages visited, and referring URL, collected automatically when you visit accelerateb2b.com. Cookie data: see the Cookies section below. We do not collect government identification numbers or payment card details through the Site.',
-  },
-  {
-    title: 'How We Use Your Information',
-    body:
-      'We use the information we collect to provide and operate the Services, including building lead lists and running cold email and LinkedIn campaigns on your behalf; to communicate with you about a call, proposal, campaign, or other matter; to maintain and improve the Site and the Services; and to comply with our legal obligations and protect our rights. Our lawful bases under the UK GDPR are the performance of our contract with you, your consent where required, and our legitimate interest in operating and marketing our business. We do not sell your personal information.',
-  },
-  {
-    title: 'Cookies and Tracking',
-    body:
-      'The Site uses cookies and similar technologies to remember your preferences, measure traffic, and improve the Site. We use essential cookies that the Site needs to function, analytics cookies that collect aggregated data on how visitors use the Site, and scheduling cookies set when you book a call through our embedded booking widget. You can control cookies through your browser settings. Disabling essential cookies may affect how the Site works.',
-  },
-  {
-    title: 'Third-Party Services',
-    body:
-      'We use the following third-party providers to operate the Site and deliver the Services. Each processes data under its own privacy and security commitments: Calendly for call scheduling; Google Workspace for email and calendar; a website analytics provider to understand Site usage; Instantly for email sending and campaign management; Apollo and similar data providers for building and enriching lead lists; and LinkedIn for professional outreach. We share data with these providers only to the extent needed for them to perform their function.',
-  },
-  {
-    title: 'Data Sharing',
-    body:
-      'We share personal information only as needed to provide the Services or as required by law. Service providers: the third-party tools listed above, only to the extent needed to perform their function. When we build lead lists for you, the prospect data we deliver is shared with you, the client, for your own outreach. Legal authorities: where required by law, court order, or to protect the rights, property, or safety of Accelerate B2B or others. We do not sell or rent your personal information.',
-  },
-  {
-    title: 'Data Retention',
-    body:
-      'We retain personal information for as long as needed to provide the Services and to meet our legal obligations. Active engagement data is kept for the duration of the engagement and a reasonable period afterward for our records. Lead and campaign data is kept while it is needed for your campaigns or until you ask us to delete it. Site analytics data is kept according to the retention settings of our analytics provider. You may request deletion at any time, as described in the next section.',
-  },
-  {
-    title: 'Your Rights',
-    body:
-      "Under the UK GDPR you have the right to access the personal information we hold about you, to ask us to correct inaccurate information, to ask us to delete your personal information subject to our legal retention obligations, to object to or restrict certain processing, and to withdraw consent at any time where we rely on consent. Every marketing email we send includes an unsubscribe link. To exercise any of these rights, email spencer@accelerateb2b.com and we will respond within the timeframe required by law. If you are not satisfied with our response, you have the right to complain to the UK Information Commissioner's Office (ICO) at ico.org.uk.",
-  },
-  {
-    title: "International Users and Children's Privacy",
-    body:
-      'Accelerate B2B operates internationally and processes data using providers based in the UK, the EU, and the US. Where personal information is transferred outside the UK or EU, we rely on appropriate safeguards such as the relevant standard contractual clauses. By using the Site or engaging us, you understand that your information may be processed in these locations. Our Services are intended for business professionals. The Site is not directed to children under 16, and we do not knowingly collect personal information from children. If you believe we have collected information from a child, please contact us so we can delete it.',
-  },
-  {
-    title: 'Changes to This Policy',
-    body:
-      'We may update this Privacy Policy from time to time. Material changes will be posted on this page with a revised "Last Updated" date. We encourage you to review this Policy periodically.',
-  },
-  {
-    title: 'Contact',
-    body:
-      'For questions about this Privacy Policy, or to exercise any of the rights described above, please contact:\nAccelerate B2B\nSpencer Hirst, Founder\nEmail: spencer@accelerateb2b.com',
-  },
-];
+export async function generateMetadata(): Promise<Metadata> {
+  const page = await getPage();
+  return {
+    title: page?.metaTitle || page?.title || 'Privacy Policy',
+    description: page?.metaDescription,
+  };
+}
 
-export default function PrivacyPage() {
+export default async function PrivacyPage() {
+  const page = await getPage();
+  const sections: Array<{ title: string; body: string }> = page?.sections || [];
+
   return (
     <>
       <Header />
@@ -83,22 +39,26 @@ export default function PrivacyPage() {
                     <path fillRule="evenodd" clipRule="evenodd" d="M19.3496 17.4981H15.9326C15.8764 19.7161 14.0874 21.5038 11.8696 21.5609L11.7619 21.5623L4.57794 21.5623C3.37525 21.5623 2.40039 20.5873 2.40039 19.3847V14.8453L2.40039 13.2177V8.67822L2.4011 8.62206C2.43041 7.46405 3.3636 6.53068 4.52177 6.50138L4.57794 6.50067H7.99348C8.00938 5.86983 8.1655 5.2738 8.43182 4.7425C8.8638 3.88002 9.58611 3.18812 10.4706 2.79476C10.7196 2.68409 10.9813 2.59705 11.2529 2.53649C11.5125 2.4786 11.7813 2.44492 12.0568 2.43794L12.1646 2.43652L19.3496 2.43652L19.4057 2.43723C19.5777 2.44159 19.7452 2.46594 19.9052 2.50804C20.7702 2.73567 21.4247 3.48226 21.5162 4.39485C21.5232 4.46694 21.5271 4.54007 21.5271 4.61406V9.15351V10.7811V15.3206L21.5264 15.3767C21.4967 16.5347 20.5635 17.4681 19.4057 17.4974L19.3496 17.4981ZM3.6663 8.67822C3.6663 8.17474 4.07461 7.76658 4.57794 7.76658H8.1549L9.49781 7.76658L11.7619 7.76658C12.8099 7.76658 13.7286 8.32147 14.2397 9.15351H12.1646L12.0568 9.15492C11.7142 9.1636 11.3822 9.21355 11.065 9.29999C10.562 9.43705 10.0969 9.66586 9.68854 9.96731C8.68648 10.7072 8.02739 11.8847 7.99348 13.2177L3.6663 13.2177L3.6663 8.67822ZM11.7619 6.5007L11.8696 6.50209C13.5905 6.54601 15.0535 7.63245 15.6486 9.15351H20.2612V4.61406C20.2608 4.11059 19.8529 3.70244 19.3496 3.70243L12.1646 3.70243C10.5956 3.70243 9.31696 4.94563 9.2601 6.50067L11.7619 6.5007ZM11.065 10.6346C11.4041 10.4959 11.7753 10.4194 12.1646 10.4194H14.6572H15.9262H20.2612V10.7811V15.3206C20.2608 15.824 19.8529 16.2322 19.3496 16.2322H15.7712C15.5137 15.3395 14.9666 14.5697 14.2379 14.0315C13.8296 13.73 13.3644 13.5012 12.8614 13.3641C12.6205 13.2985 12.3708 13.2539 12.1147 13.2324L12.0233 13.2258L11.9887 13.2238L11.9162 13.2205L11.8696 13.2191L11.7619 13.2177L9.2601 13.2177C9.30284 12.0483 10.0365 11.0552 11.065 10.6346ZM8.1549 14.4836H9.49781L11.7619 14.4836C12.1511 14.4836 12.5224 14.5601 12.8614 14.6988C13.5626 14.9857 14.1266 15.5386 14.4283 16.2322C14.5826 16.5869 14.6681 16.9784 14.6681 17.39C14.6681 17.4262 14.6674 17.4622 14.666 17.4981C14.6091 19.0531 13.3309 20.2964 11.7619 20.2964L4.57794 20.2964C4.07461 20.2964 3.6663 19.8882 3.6663 19.3847V14.8453V14.4836H8.1549Z" fill="#FF6B2C"/>
                   </svg>
                   <span className="tos-eyebrow__divider" />
-                  <span className="tos-eyebrow__text">Last Updated: {LAST_UPDATED}</span>
+                  <span className="tos-eyebrow__text">Last Updated: {page?.lastUpdated}</span>
                 </div>
-                <h1 className="tos-hero__title">Privacy Policy</h1>
+                <h1 className="tos-hero__title">{page?.title || 'Privacy Policy'}</h1>
               </div>
 
-              <div className="tos-hero__cta-stack">
-                <a href="/" className="footer__cta">
-                  Apply For Your Free Test Campaign
-                  <span className="footer__cta-arrow">
-                    <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M13.0013 2.16602C18.9813 2.16602 23.8346 7.01935 23.8346 12.9993C23.8346 18.9793 18.9813 23.8327 13.0013 23.8327C7.0213 23.8327 2.16797 18.9793 2.16797 12.9993C2.16797 7.01935 7.0213 2.16602 13.0013 2.16602ZM13.0013 11.916H8.66797V14.0827H13.0013V17.3327L17.3346 12.9993L13.0013 8.66602V11.916Z" fill="white"/>
-                    </svg>
-                  </span>
-                </a>
-                <p className="footer__cta-note tos-hero__note">No Setup Fee | No Lock-In | Only A Few Spots Available</p>
-              </div>
+              {page?.ctaText && (
+                <div className="tos-hero__cta-stack">
+                  <a href={page.ctaUrl || '/'} className="footer__cta">
+                    {page.ctaText}
+                    <span className="footer__cta-arrow">
+                      <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M13.0013 2.16602C18.9813 2.16602 23.8346 7.01935 23.8346 12.9993C23.8346 18.9793 18.9813 23.8327 13.0013 23.8327C7.0213 23.8327 2.16797 18.9793 2.16797 12.9993C2.16797 7.01935 7.0213 2.16602 13.0013 2.16602ZM13.0013 11.916H8.66797V14.0827H13.0013V17.3327L17.3346 12.9993L13.0013 8.66602V11.916Z" fill="white"/>
+                      </svg>
+                    </span>
+                  </a>
+                  {page.ctaNote && (
+                    <p className="footer__cta-note tos-hero__note">{page.ctaNote}</p>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         </section>
@@ -106,11 +66,11 @@ export default function PrivacyPage() {
         <section className="tos-panel">
           <div className="padding-global">
             <div className="tos-panel__inner">
-              {SECTIONS.map((block) => (
-                <article className="tos-block" key={block.title}>
+              {sections.map((block, idx) => (
+                <article className="tos-block" key={idx}>
                   <h2 className="tos-block__title">{block.title}</h2>
                   <p className="tos-block__body">
-                    {block.body.split('\n').map((line, i) => (
+                    {(block.body || '').split('\n').map((line, i) => (
                       <span key={i}>
                         {i > 0 && <br />}
                         {line}

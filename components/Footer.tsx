@@ -17,7 +17,7 @@ export default function Footer() {
             Accelerate B2B is a founder-led cold outreach agency. We find the companies that match your best clients, make sure every contact fits, and run the outreach that turns them into conversations.
           </p>
           <div className="footer__cta-stack">
-            <a href="#" className="footer__cta">
+            <a href="/booking" className="footer__cta">
               Apply For Your Free Test Campaign
               <span className="footer__cta-arrow">
                 <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
