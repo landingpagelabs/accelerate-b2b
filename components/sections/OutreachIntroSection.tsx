@@ -1,8 +1,6 @@
-import { urlForImage } from '@/lib/sanity';
+import OutreachDiagram from '@/components/sections/OutreachDiagram';
 
 export default function OutreachIntroSection({ section }: { section: any }) {
-  const imageUrl = section?.image ? urlForImage(section.image).width(1080).url() : '/images/sections/outreach-intro/outreach-image.webp';
-
   return (
     <section className="section_outreach-intro">
       <div className="padding-global">
@@ -18,7 +16,7 @@ export default function OutreachIntroSection({ section }: { section: any }) {
               </p>
             </div>
             <div className="outreach-intro_image">
-              <img src={imageUrl} alt={section?.heading || 'Outreach'} />
+              <OutreachDiagram />
             </div>
           </div>
         </div>

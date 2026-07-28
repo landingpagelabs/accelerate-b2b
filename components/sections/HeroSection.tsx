@@ -1,5 +1,6 @@
 import { urlForImage } from '@/lib/sanity';
 import MultiStepForm from '@/components/sections/MultiStepForm';
+import HeroInlineVideo from '@/components/sections/HeroInlineVideo';
 
 export default function HeroSection({ section }: { section: any }) {
   const straplineImg = section.straplineImage ? urlForImage(section.straplineImage).url() : null;
@@ -14,10 +15,13 @@ export default function HeroSection({ section }: { section: any }) {
               <div className="hero-head_strapline-wrap">
                 {straplineImg && (
                   <div className="hero-head-strapline_image">
-                    <img className="hero-head-strapline_img" src={straplineImg} alt="strapline" />
+                    <img
+                      className="hero-head-strapline_img"
+                      src={straplineImg}
+                      alt="Instantly Certified Expert · LeadMagic Certified Partner"
+                    />
                   </div>
                 )}
-                <div className="hero-head-strapline_decor"></div>
                 <div className="hero-head-strapline-text_wrap">
                   <p className="text-label-medium">{section.straplineText}</p>
                 </div>
@@ -39,15 +43,7 @@ export default function HeroSection({ section }: { section: any }) {
                   <p className="text-label-medium">{section.videoLabel}</p>
                 </div>
               </div>
-              {videoImg && (
-                <div className="hero-content_video-wrap" data-open-vsl>
-                  <img className="hero-content_video" src={videoImg} alt="video" fetchPriority="high" />
-                  <button type="button" className="hero-video-expand" aria-label="Expand video">
-                    <span>Expand Video</span>
-                    <img className="hero-video-expand__icon" src="/images/header/hero-play-icon.svg" alt="" aria-hidden="true" />
-                  </button>
-                </div>
-              )}
+              {videoImg && <HeroInlineVideo poster={videoImg} />}
             </div>
 
             <MultiStepForm />

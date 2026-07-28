@@ -20,6 +20,9 @@ import InfoSection from '@/components/sections/InfoSection';
 import ReviewsSection from '@/components/sections/ReviewsSection';
 import FaqsSection from '@/components/sections/FaqsSection';
 import TextImageSection from '@/components/sections/TextImageSection';
+import StepsSection from '@/components/sections/StepsSection';
+import PlaybooksSection from '@/components/sections/PlaybooksSection';
+import FunnelSection from '@/components/sections/FunnelSection';
 import BannerSection from '@/components/sections/BannerSection';
 import TutorialsSection from '@/components/sections/TutorialsSection';
 import ComparisonTableSection from '@/components/sections/ComparisonTableSection';
@@ -38,12 +41,26 @@ function SectionFallback({ section }: { section: any }) {
 }
 
 export function PageBuilder({ page }: { page: any }) {
+  // --- Render-order overrides (kept in code so the Sanity content stays intact) ---
+  // Hide the "stages" (mechanism) section and render the "funnel" section in its slot.
+  // The mechanism content is left untouched in Sanity and archived in
+  // studio/samples/removed-sections/mechanism-section.json so it can be restored later.
+  const rawSections: any[] = page.sections || [];
+  const funnelSection = rawSections.find((s: any) => s._type === 'funnelSection');
+  const sections = rawSections
+    // funnel moves up into the stages slot, so drop it from its original position
+    .filter((s: any) => s._type !== 'funnelSection')
+    // put the funnel where the mechanism (stages) section used to be
+    .map((s: any) => (s._type === 'mechanismSection' && funnelSection ? funnelSection : s))
+    // if there was no funnel to move, drop the mechanism section outright
+    .filter((s: any) => s._type !== 'mechanismSection');
+
   return (
     <>
     <AnnounceBar {...(page.announceBar || {})} />
     <Header />
     <main>
-      {page.sections?.map((section: any, index: number) => {
+      {sections.map((section: any, index: number) => {
         switch (section._type) {
           case 'heroSection':
             return <HeroSection key={index} section={section} />;
@@ -72,7 +89,9 @@ export function PageBuilder({ page }: { page: any }) {
           case 'caseStudiesSection':
             return <CaseStudiesSection key={index} section={section} />;
           case 'infoSection':
-            return <InfoSection key={index} section={section} />;
+            // Hidden per product decision — content kept in Sanity, simply not rendered.
+            // To restore: `return <InfoSection key={index} section={section} />;`
+            return null;
           case 'reviewsSection':
             // Data-driven reviews from Sanity (tabs, filtering, video modal).
             return <ReviewsSection key={index} section={section} />;
@@ -80,6 +99,12 @@ export function PageBuilder({ page }: { page: any }) {
             return <FaqsSection key={index} section={section} />;
           case 'textImageSection':
             return <TextImageSection key={index} section={section} />;
+          case 'stepsSection':
+            return <StepsSection key={index} section={section} />;
+          case 'playbooksSection':
+            return <PlaybooksSection key={index} section={section} />;
+          case 'funnelSection':
+            return <FunnelSection key={index} section={section} />;
           case 'bannerSection':
             return <BannerSection key={index} section={section} />;
           case 'tutorialsSection':

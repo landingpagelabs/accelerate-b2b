@@ -9,13 +9,13 @@ type Step =
   | { kind: 'final'; title: React.ReactNode };
 
 const STEPS: Step[] = [
-  { kind: 'choice', title: 'Do you want 30-60+ meetings per month?' },
-  { kind: 'choice', title: 'Are you currently doing cold outreach?' },
-  { kind: 'choice', title: 'Are there roughly more than 10,000 people in your target market?' },
-  { kind: 'choice', title: 'Is a customer worth $10,000 or more?' },
-  { kind: 'choice', title: 'Is your business revenue over $XXX,XXX per year?' },
-  { kind: 'input', title: 'What’s your first name', field: 'name', inputType: 'text', placeholder: 'First name' },
-  { kind: 'input', title: 'What’s your work email?', field: 'email', inputType: 'email', placeholder: 'Work Email' },
+  { kind: 'choice', title: 'Are there roughly 100,000+ companies in your target market?' },
+  { kind: 'input', title: 'What’s your first name?', field: 'name', inputType: 'text', placeholder: 'First name' },
+  { kind: 'choice', title: 'Is your customer lifetime value $10,000 or more?' },
+  { kind: 'input', title: 'What’s your work email?', field: 'email', inputType: 'email', placeholder: 'Work email' },
+  { kind: 'choice', title: 'Does your business have a dedicated sales rep or team?' },
+  { kind: 'choice', title: 'Has your business done more than $1 million in revenue?' },
+  { kind: 'choice', title: 'Are you open to adapting your offer for a cold audience before launch?' },
   {
     kind: 'final',
     title: (
@@ -37,7 +37,8 @@ const Testimonial = () => (
   <div className="hero-content_form-comment">
     <div className="hero-content_form-comment-left">
       <div className="hero-content_form-avatar">
-        <img src="/images/sections/hero/Ellipse 8094 (1).png" alt="" />
+        <img className="form-avatar--desktop" src="/images/sections/hero/Ellipse 8094 (1).png" alt="" />
+        <img className="form-avatar--mobile" src="/images/sections/hero/mobile-form-avatar.png" alt="" />
       </div>
       <div className="hero-content_form-comment-info">
         <p className="text-body-small">“They blew me away, high recommend!”</p>
@@ -75,12 +76,10 @@ export default function MultiStepForm() {
   const timerStarted = useRef(false);
 
   const current = STEPS[step];
-  const isFirst = step === 0;
 
-  const next = () => setStep((s) => Math.min(s + 1, STEPS.length - 1));
-  const prev = () => {
+  const next = () => {
     setError('');
-    setStep((s) => Math.max(s - 1, 0));
+    setStep((s) => Math.min(s + 1, STEPS.length - 1));
   };
 
   const validateAndNext = () => {
@@ -90,7 +89,8 @@ export default function MultiStepForm() {
         setError('This field is required');
         return;
       }
-      if (current.inputType === 'email' && !value.includes('@')) {
+      // Classic email validation: local@domain.tld
+      if (current.inputType === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
         setError('Please enter a valid email address');
         return;
       }
@@ -128,7 +128,7 @@ export default function MultiStepForm() {
   const seconds = secondsLeft % 60;
 
   return (
-    <div className="hero-content_multi-step">
+    <div className="hero-content_multi-step" id="apply-form">
       <div className="hero-content_multi-step-flex">
         <div className="hero-content-strapline-steps_wrap">
           <p className="text-label-extra-small">Step 2/2</p>
@@ -147,7 +147,7 @@ export default function MultiStepForm() {
               <div className="hero-content_form-btn" onClick={next} role="button" tabIndex={0}>
                 <p>Yes</p>
               </div>
-              <div className="hero-content_form-btn prev" onClick={prev} role="button" tabIndex={0}>
+              <div className="hero-content_form-btn prev" onClick={next} role="button" tabIndex={0}>
                 <p>No</p>
               </div>
             </div>
@@ -155,23 +155,38 @@ export default function MultiStepForm() {
 
           {current.kind === 'input' && (
             <div className="hero-content_form-input-wrap">
-              <input
-                className="hero-content_form-input"
-                type={current.inputType}
-                placeholder={current.placeholder}
-                value={values[current.field]}
-                onChange={(e) => {
-                  setValues((v) => ({ ...v, [current.field]: e.target.value }));
-                  if (error) setError('');
-                }}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') {
-                    e.preventDefault();
-                    validateAndNext();
-                  }
-                }}
-                style={error ? { borderColor: '#e24b4a', boxShadow: '0 0 0 3px rgba(226,75,74,0.15)' } : undefined}
-              />
+              <div className="hero-content_form-input-row">
+                <input
+                  className="hero-content_form-input"
+                  type={current.inputType}
+                  placeholder={current.placeholder}
+                  value={values[current.field]}
+                  onChange={(e) => {
+                    setValues((v) => ({ ...v, [current.field]: e.target.value }));
+                    if (error) setError('');
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault();
+                      validateAndNext();
+                    }
+                  }}
+                  style={error ? { borderColor: '#e24b4a', boxShadow: '0 0 0 3px rgba(226,75,74,0.15)' } : undefined}
+                />
+                {values[current.field].trim() !== '' && (
+                  <button
+                    type="button"
+                    className="hero-content_form-enter"
+                    onClick={validateAndNext}
+                    aria-label="Continue"
+                  >
+                    <span className="hero-content_form-enter-label">Enter</span>
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M4 10h11M11 6l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </button>
+                )}
+              </div>
               {error && <p className="input-error-msg">{error}</p>}
             </div>
           )}
