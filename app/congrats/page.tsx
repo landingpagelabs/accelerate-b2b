@@ -4,6 +4,7 @@ import FaqsSection from '@/components/sections/FaqsSection';
 import ConfettiOnLoad from '@/components/ConfettiOnLoad';
 import CongratsCopyMessage from '@/components/sections/CongratsCopyMessage';
 import ReviewsSection from '@/components/sections/ReviewsSection';
+import { PartnersRows } from '@/components/sections/PartnersSection';
 import { pageBySlugQuery } from '@/lib/queries';
 import { fetchSanity, urlForImage } from '@/lib/sanity';
 
@@ -12,7 +13,7 @@ export const revalidate = 60;
 const congratsQuery = `*[_type == "congratsPage"][0]{
   metaTitle, headerBadge, heroStrapline, heroTitle, heroSubtitle,
   stepsHeading, steps[]{ strapline, title, body, widget, image },
-  referralMessage, aboutTitle, aboutDividerText, aboutImage,
+  referralMessage, aboutTitle, aboutDividerText, aboutImage, aboutSignature,
   aboutName, aboutRole, aboutCertified, aboutCtaText, aboutCtaUrl
 }`;
 
@@ -24,17 +25,19 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-// Decorative chevron (downward arrows) — repeated in hero and step 03
-const DecorChevron = () => (
+// Decorative chevron (downward arrows) on a white rounded tile — repeated in
+// the hero and under the final step. The soft drop shadow is done in CSS
+// (.hero-congrats-decor svg) rather than an SVG filter, which renders as a
+// clean shadow instead of a hard ring.
+const DecorChevron = ({ height = 87 }: { height?: number }) => (
   <div className="hero-congrats-decor">
-    <svg width="74" height="87" viewBox="0 0 74 87" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="74" height={height} viewBox={`0 0 74 ${height}`} fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M12 17C12 8.16344 19.1634 1 28 1H46C54.8366 1 62 8.16344 62 17V35C62 43.8366 54.8366 51 46 51H28C19.1634 51 12 43.8366 12 35V17Z"
         fill="white"
-        fillOpacity="0.5"
       />
       <path
-        d="M30.75 27.2498L36.9999 33.4997L43.2498 27.2498M30.75 18.5L36.9999 24.7499L43.2498 18.5"
+        d="M30.7505 27.2498L37.0004 33.4997L43.2503 27.2498M30.7505 18.5L37.0004 24.7499L43.2503 18.5"
         stroke="black"
         strokeWidth="2.49995"
         strokeLinecap="round"
@@ -51,6 +54,7 @@ export default async function CongratsPage() {
   ]);
   const faqs = home?.sections?.find((s: any) => s._type === 'faqsSection') ?? null;
   const reviews = home?.sections?.find((s: any) => s._type === 'reviewsSection') ?? null;
+  const partners = home?.sections?.find((s: any) => s._type === 'partnersSection') ?? null;
   const steps: any[] = page?.steps || [];
 
   return (
@@ -145,7 +149,7 @@ export default async function CongratsPage() {
                         </div>
                       )}
                       {step.widget === 'copyMessage' && <CongratsCopyMessage message={page?.referralMessage} />}
-                      {step.widget === 'chevron' && <DecorChevron />}
+                      {step.widget === 'chevron' && <DecorChevron height={81} />}
                     </div>
                   ))}
                 </div>
@@ -181,7 +185,8 @@ export default async function CongratsPage() {
                   </div>
 
                   <div className="about-banner_about-info">
-                    {page?.aboutImage && <img src={urlForImage(page.aboutImage).url()} alt={page?.aboutName || 'Spencer Hirst'} />}
+                    {page?.aboutSignature && <img className="about-banner_signature" src={urlForImage(page.aboutSignature).url()} alt="" />}
+                    {page?.aboutImage && <img className="about-banner_avatar" src={urlForImage(page.aboutImage).url()} alt={page?.aboutName || 'Spencer Hirst'} />}
                     <div className="about-banner_about-info-flex">
                       <p className="text-label-medium">{page?.aboutName}</p>
                       <p className="text-body-caption">{page?.aboutRole}</p>
@@ -193,7 +198,12 @@ export default async function CongratsPage() {
                   </div>
 
                   <div className="about-banner_cta-wrap">
-                    <a href={page?.aboutCtaUrl || '#'} className="footer__cta">
+                    <a
+                      href={page?.aboutCtaUrl || 'https://www.youtube.com/@hirstspencer'}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="footer__cta"
+                    >
                       {page?.aboutCtaText}
                       <span className="footer__cta-arrow">
                         <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
@@ -208,13 +218,7 @@ export default async function CongratsPage() {
 
                   <div className="about-banner-list-wrap">
                     <p className="text-label-extra-small gray-85">TRUSTED BY</p>
-                    <div className="about-banner-list">
-                      {[1, 2, 3, 4, 5, 6, 7].map((n) => (
-                        <div key={n} className={`about-banner-item item-${n}`}>
-                          <img src={`/images/sections/steps/${n}.png`} alt="" />
-                        </div>
-                      ))}
-                    </div>
+                    {partners && <PartnersRows section={partners} />}
                   </div>
                 </div>
               </div>

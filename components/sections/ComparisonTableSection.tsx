@@ -9,8 +9,8 @@ const ROWS = [
     values: ['We prove it before you pay', 'Pay upfront and hope', "It's all on you"],
   },
   {
-    label: 'Reach buyers who want it?',
-    values: ['Custom, intent-driven data', 'Generic Apollo filters', '$20k+ and months of dev'],
+    label: 'Reach qualified decision makers?',
+    values: ['Custom intent data from 10+ databases', 'Generic Apollo filters', '$20k+ and months of dev'],
   },
   {
     label: 'Proven across industries?',
@@ -34,7 +34,7 @@ export default function ComparisonTableSection() {
   const rowCount = ROWS.length + 1; // + header row
 
   return (
-    <section className="section_comparison-table">
+    <section className="section_comparison-table" id="comparison-table">
       <div className="padding-global">
         <div className="container-default">
           <div className="ct_wrapper">
@@ -72,7 +72,7 @@ export default function ComparisonTableSection() {
                     return (
                       <div key={i} style={{ display: 'contents' }}>
                         <div
-                          className={`ct-cell ct-cell--label${isLast ? ' ct-cell--last' : ''}`}
+                          className={`ct-cell ct-cell--label${i === 0 ? ' ct-cell--first' : ''}${isLast ? ' ct-cell--last' : ''}`}
                           style={{ gridColumn: 1, gridRow }}
                         >
                           {row.label}

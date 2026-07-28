@@ -249,6 +249,8 @@ export const caseStudiesSection = {
       { name: 'author', title: 'Author', type: 'string' },
       { name: 'authorRole', title: 'Author Role (e.g. Owner, LH Capital Group)', type: 'string' },
       { name: 'avatar', title: 'Author Avatar', type: 'image', options: { hotspot: true } },
+      { name: 'videoThumbnail', title: 'Modal Testimonial Video Poster', type: 'image', options: { hotspot: true } },
+      { name: 'videoUrl', title: 'Modal Testimonial Video URL (optional)', type: 'url' },
       { name: 'category', title: 'Category (tab)', type: 'string' },
       { name: 'categoryLabel', title: 'Modal Category Pill (defaults to Category)', type: 'string' },
       { name: 'description', title: 'Modal Description (paragraph before bullets)', type: 'text' },
@@ -450,5 +452,64 @@ export const tutorialsSection = {
     { name: 'smallVideos', title: 'Small Videos (YouTube links)', type: 'array', of: [{ type: 'url' }] },
     { name: 'ctaText', title: 'Button Text', type: 'string', initialValue: 'View YouTube Channel' },
     { name: 'ctaUrl', title: 'Button URL', type: 'url', validation: (Rule: any) => Rule.uri({ allowRelative: true, scheme: ['http', 'https', 'mailto', 'tel'] }) },
+  ],
+};
+
+export const stepsSection = {
+  name: 'stepsSection', title: 'Steps Section', type: 'object',
+  description: 'Пронумерований список кроків (напр. «3 easy steps to a predictable pipeline»).',
+  fields: [
+    { name: 'heading', title: 'Heading', type: 'string' },
+    { name: 'steps', title: 'Steps', type: 'array', of: [{ type: 'object', fields: [
+      { name: 'title', title: 'Title', type: 'string' },
+      { name: 'description', title: 'Description', type: 'text' },
+      { name: 'accent', title: 'Accent Colour', type: 'string', description: 'Колір бейджа з номером. За замовчуванням чергується orange → blue → green.', options: { layout: 'radio', list: [
+        { title: 'Orange', value: 'orange' },
+        { title: 'Blue', value: 'blue' },
+        { title: 'Green', value: 'green' },
+      ]}},
+    ], preview: { select: { title: 'title' } } }]},
+  ],
+};
+
+export const funnelSection = {
+  name: 'funnelSection', title: 'Funnel / Outcomes Section', type: 'object',
+  description: 'Воронка результатів зі стадіями, графікою та відгуком (напр. «Go from unpredictable lead flow to 10-20 closed deals or more»).',
+  fields: [
+    { name: 'heading', title: 'Heading', type: 'string' },
+    { name: 'stages', title: 'Stages', type: 'array', of: [{ type: 'object', fields: [
+      { name: 'label', title: 'Label (e.g. STAGE 01 · CONTACTED)', type: 'string' },
+      { name: 'text', title: 'Description', type: 'text' },
+    ], preview: { select: { title: 'label', subtitle: 'text' } } }]},
+    { name: 'footnote', title: 'Footnote (muted part)', type: 'string', initialValue: '*Average yearly outcomes.' },
+    { name: 'footnoteEmphasis', title: 'Footnote (bold part)', type: 'string', initialValue: 'Results depend on multiple factors.' },
+    { name: 'testimonial', title: 'Testimonial (bottom card)', type: 'object', fields: [
+      { name: 'quote', title: 'Quote', type: 'text' },
+      { name: 'authorName', title: 'Author Name', type: 'string' },
+      { name: 'authorRole', title: 'Author Role', type: 'string' },
+      { name: 'avatar', title: 'Avatar (optional, falls back to default)', type: 'image', options: { hotspot: true } },
+    ]},
+  ],
+};
+
+export const playbooksSection = {
+  name: 'playbooksSection', title: 'Playbooks Section', type: 'object',
+  description: 'Сітка карток-плейбуків (напр. «Playbooks that get prospects to reply to cold messages»).',
+  fields: [
+    { name: 'heading', title: 'Heading', type: 'string' },
+    { name: 'cards', title: 'Cards', type: 'array', of: [{ type: 'object', fields: [
+      { name: 'icon', title: 'Icon', type: 'string', options: { list: [
+        { title: 'Website visitors (orange cursor)', value: 'website' },
+        { title: 'Lookalike audiences (blue shield)', value: 'lookalike' },
+        { title: 'Tech stack (green database)', value: 'tech' },
+        { title: 'News & Funding (blue chart)', value: 'news' },
+        { title: 'Job postings (green briefcase)', value: 'jobs' },
+        { title: 'LinkedIn followers (orange badge)', value: 'linkedin' },
+      ]}, initialValue: 'website' },
+      { name: 'title', title: 'Title', type: 'string' },
+      { name: 'description', title: 'Description', type: 'text' },
+      { name: 'buttonText', title: 'Button Text', type: 'string', initialValue: 'View The Playbook' },
+      { name: 'buttonUrl', title: 'Button URL', type: 'url' },
+    ], preview: { select: { title: 'title' } } }]},
   ],
 };

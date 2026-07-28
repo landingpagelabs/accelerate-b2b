@@ -58,6 +58,7 @@ const congratsPage = {
     { name: 'aboutTitle', title: 'About Title', type: 'string', group: 'about' },
     { name: 'aboutDividerText', title: 'Divider Text (e.g. "TALK SOON")', type: 'string', group: 'about' },
     { name: 'aboutImage', title: 'About Avatar', type: 'image', options: { hotspot: true }, group: 'about' },
+    { name: 'aboutSignature', title: 'Signature (left of avatar)', type: 'image', options: { hotspot: true }, group: 'about' },
     { name: 'aboutName', title: 'Name', type: 'string', group: 'about' },
     { name: 'aboutRole', title: 'Role', type: 'string', group: 'about' },
     { name: 'aboutCertified', title: 'Certified Text', type: 'string', group: 'about' },

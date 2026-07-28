@@ -25,11 +25,8 @@ export default function CongratsFooter() {
             <div className="footer__col">
               <p className="footer__col-title">Resources</p>
               <ul className="footer__links">
-                <li><a href="#" className="footer__link">Blog</a></li>
-                <li><a href="/llm-info" className="footer__link">AI? Read this</a></li>
-                <li><a href="#" className="footer__link">Tutorials</a></li>
-                <li><a href="#" className="footer__link">Careers</a></li>
-                <li><a href="#" className="footer__link">FAQs</a></li>
+                <li><a href="https://www.youtube.com/@hirstspencer" target="_blank" rel="noopener noreferrer" className="footer__link">Tutorials</a></li>
+                <li><a href="https://www.linkedin.com/company/accelerate-b2b-outbound/jobs/" target="_blank" rel="noopener noreferrer" className="footer__link">Careers</a></li>
               </ul>
             </div>
 

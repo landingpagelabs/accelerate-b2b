@@ -60,6 +60,17 @@ function LogoRow({ logos, speed }: { logos: any[]; speed: number }) {
   );
 }
 
+// Just the two scrolling logo rows — reused on the /congrats about-banner so
+// it shows the exact same carousel as the homepage partners section.
+export function PartnersRows({ section }: { section: any }) {
+  return (
+    <div className="partners_list-wrap">
+      <LogoRow logos={section.logos} speed={-0.35} />
+      <LogoRow logos={section.logosRow2} speed={0.35} />
+    </div>
+  );
+}
+
 export default function PartnersSection({ section }: { section: any }) {
   return (
     <section className="section_partners">
@@ -69,10 +80,7 @@ export default function PartnersSection({ section }: { section: any }) {
             <div className="partners_head">
               <p className="text-label-medium">{section.heading}</p>
             </div>
-            <div className="partners_list-wrap">
-              <LogoRow logos={section.logos} speed={-0.35} />
-              <LogoRow logos={section.logosRow2} speed={0.35} />
-            </div>
+            <PartnersRows section={section} />
           </div>
         </div>
       </div>

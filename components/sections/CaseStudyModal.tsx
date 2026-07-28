@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import SimpleBar from 'simplebar-react';
 import 'simplebar-react/dist/simplebar.min.css';
 import { urlForImage } from '@/lib/sanity';
@@ -20,6 +20,8 @@ type CaseStudy = {
   author?: string;
   authorRole?: string;
   avatar?: any;
+  videoThumbnail?: any;
+  videoUrl?: string;
   screenshotImage?: any;
 };
 
@@ -28,8 +30,38 @@ type Props = {
   onClose: () => void;
 };
 
+// Shared placeholder testimonial video — same fallback the Reviews section uses,
+// so case-study videos play the same clip until real per-case URLs are set.
+const DEFAULT_VIDEO_URL = 'https://vimeo.com/22439234';
+
+// YouTube / Vimeo → embed URL with autoplay. If unrecognized, return as-is.
+function toEmbedUrl(url: string): string {
+  const yt = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([\w-]{11})/);
+  if (yt) return `https://www.youtube.com/embed/${yt[1]}?autoplay=1&rel=0`;
+  const vimeo = url.match(/vimeo\.com\/(?:video\/)?(\d+)/);
+  if (vimeo) return `https://player.vimeo.com/video/${vimeo[1]}?autoplay=1`;
+  return url;
+}
+
+// Instagram-style blue verified seal shown next to the author.
+const VerifiedBadge = () => (
+  <svg className="cs-modal__quote-verified" width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path d="M5.75668 16.6641L4.31751 14.1248L1.59066 13.49L1.85577 10.5539L0 8.33203L1.85577 6.11016L1.59066 3.17411L4.31751 2.53929L5.75668 0L8.33203 1.15061L10.9074 0L12.3466 2.53929L15.0734 3.17411L14.8083 6.11016L16.6641 8.33203L14.8083 10.5539L15.0734 13.49L12.3466 14.1248L10.9074 16.6641L8.33203 15.5134L5.75668 16.6641ZM7.5367 11.1491L11.8163 6.66563L10.7559 5.51501L7.5367 8.8875L5.90817 7.22109L4.84773 8.33203L7.5367 11.1491Z" fill="#3897F0" />
+  </svg>
+);
+
+// Play button (dark blurred circle + white triangle) — from the designer's SVG.
+const PlayIcon = () => (
+  <span className="cs-modal__video-play" aria-hidden="true">
+    <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M35.5453 25.8486C37.0265 26.7037 37.0265 28.8416 35.5453 29.6968L25.5476 35.4689C24.0665 36.3241 22.215 35.2551 22.215 33.5449L22.215 22.0005C22.215 20.2902 24.0665 19.2213 25.5476 20.0764L35.5453 25.8486Z" fill="white" />
+    </svg>
+  </span>
+);
+
 export default function CaseStudyModal({ caseStudy, onClose }: Props) {
   const cardRef = useRef<HTMLDivElement>(null);
+  const [playing, setPlaying] = useState(false);
   const isOpen = !!caseStudy;
 
   useEffect(() => {
@@ -44,6 +76,19 @@ export default function CaseStudyModal({ caseStudy, onClose }: Props) {
       document.body.style.overflow = prev;
     };
   }, [isOpen, onClose]);
+
+  // Reset the inline player whenever a different case study opens/closes.
+  useEffect(() => {
+    setPlaying(false);
+  }, [caseStudy]);
+
+  // `author` already holds the full "Name, Company" string (e.g. "Ben Kelly,
+  // LH Capital Group"), so use it as-is — don't append authorRole.
+  const attribution = caseStudy?.author || '';
+  const videoPoster = caseStudy?.videoThumbnail
+    ? urlForImage(caseStudy.videoThumbnail).width(650).url()
+    : null;
+  const embedUrl = toEmbedUrl(caseStudy?.videoUrl || DEFAULT_VIDEO_URL);
 
   return (
     <div
@@ -63,7 +108,7 @@ export default function CaseStudyModal({ caseStudy, onClose }: Props) {
       <div className="cs-modal" ref={cardRef} tabIndex={-1} role="document">
         <SimpleBar className="cs-modal__scroll" autoHide={false}>
           <div className="cs-modal__inner">
-          {/* Tags */}
+          {/* Meta: company + industry tag */}
           {(caseStudy?.companyName || caseStudy?.category || caseStudy?.categoryLabel) && (
             <div className="cs-modal__tags">
               {caseStudy.companyName && (
@@ -75,14 +120,14 @@ export default function CaseStudyModal({ caseStudy, onClose }: Props) {
             </div>
           )}
 
-          {/* Title */}
+          {/* Headline */}
           {caseStudy?.title && (
             <h2 className="cs-modal__title">{caseStudy.title}</h2>
           )}
 
           <div className="cs-modal__divider" />
 
-          {/* Description + bullets */}
+          {/* Body: intro paragraph + bullets */}
           {(caseStudy?.description || (caseStudy?.bullets && caseStudy.bullets.length > 0)) && (
             <div className="cs-modal__body">
               {caseStudy.description && (
@@ -110,24 +155,60 @@ export default function CaseStudyModal({ caseStudy, onClose }: Props) {
             </div>
           )}
 
-          {/* Quote */}
-          {(caseStudy?.quote || caseStudy?.author) && (
+          {/* Video + quote */}
+          {(caseStudy?.quote || attribution || videoPoster) && (
             <>
               <div className="cs-modal__divider" />
-              <div className="cs-modal__quote-wrap">
-                <blockquote className="cs-modal__quote">
-                  {caseStudy.quote && <p>{caseStudy.quote}</p>}
-                  {(caseStudy.authorRole || caseStudy.author) && (
-                    <footer className="cs-modal__quote-author">
-                      {caseStudy.authorRole || caseStudy.author}
-                    </footer>
-                  )}
-                </blockquote>
+              <div className="cs-modal__media">
+                {videoPoster && (
+                  <div className="cs-modal__video">
+                    {playing && embedUrl ? (
+                      <iframe
+                        className="cs-modal__video-iframe"
+                        src={embedUrl}
+                        title="Testimonial video"
+                        allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
+                        allowFullScreen
+                      />
+                    ) : (
+                      <button
+                        type="button"
+                        className="cs-modal__video-poster"
+                        style={{ backgroundImage: `url(${videoPoster})` }}
+                        onClick={() => setPlaying(true)}
+                        aria-label="Play testimonial video"
+                      >
+                        <PlayIcon />
+                      </button>
+                    )}
+                  </div>
+                )}
+
+                {(caseStudy?.quote || attribution) && (
+                  <div className="cs-modal__quote-card">
+                    {(attribution || caseStudy?.avatar) && (
+                      <div className="cs-modal__quote-head">
+                        {caseStudy?.avatar && (
+                          <img
+                            className="cs-modal__quote-avatar"
+                            src={urlForImage(caseStudy.avatar).width(88).height(88).url()}
+                            alt=""
+                          />
+                        )}
+                        <span className="cs-modal__quote-attr">
+                          {attribution && <span className="cs-modal__quote-name">{attribution}</span>}
+                          <VerifiedBadge />
+                        </span>
+                      </div>
+                    )}
+                    {caseStudy?.quote && <p className="cs-modal__quote-text">{caseStudy.quote}</p>}
+                  </div>
+                )}
               </div>
             </>
           )}
 
-          {/* Screenshot */}
+          {/* Screenshot / dashboard image */}
           {caseStudy?.screenshotImage && (
             <div className="cs-modal__screenshot">
               <img src={urlForImage(caseStudy.screenshotImage).width(900).url()} alt="" />
