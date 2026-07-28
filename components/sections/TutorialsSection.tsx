@@ -17,7 +17,7 @@ export default function TutorialsSection({ section }: { section: any }) {
   const smallVideos: string[] = section.smallVideos || [];
 
   return (
-    <section className="tutorials">
+    <section className="tutorials" id="tutorials">
       <div className="padding-global">
         <div className="container-default">
           <div className="tutorials_wrapper">

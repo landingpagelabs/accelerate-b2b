@@ -1,23 +1,35 @@
+'use client';
+
 export default function Footer() {
+  // Open a specific case study modal (handled in CaseStudiesSection).
+  const openCase = (key: string) => (e: React.MouseEvent) => {
+    e.preventDefault();
+    window.dispatchEvent(new CustomEvent('open-case-study', { detail: { key } }));
+  };
+
   return (
     <footer className="footer">
       <div className="padding-global">
         <div className="footer__main">
-          <div className="footer__brand">
-            <div className="footer__logo">
+          <div className="footer__brand-row">
+            <span className="footer__brand-line" />
+            <div className="footer__brand">
+              <div className="footer__logo">
               <img
                 className="footer__logo-icon"
                 src="/images/footer/footer_badge-icon.svg"
                 alt="Accelerate B2B logo"
               />
               <span className="footer__logo-name">Accelerate B2B</span>
+              </div>
             </div>
+            <span className="footer__brand-line" />
           </div>
           <p className="footer__description">
             Accelerate B2B is a founder-led cold outreach agency. We find the companies that match your best clients, make sure every contact fits, and run the outreach that turns them into conversations.
           </p>
           <div className="footer__cta-stack">
-            <a href="/booking" className="footer__cta">
+            <a href="/#apply-form" className="footer__cta">
               Apply For Your Free Test Campaign
               <span className="footer__cta-arrow">
                 <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -31,21 +43,21 @@ export default function Footer() {
             <div className="footer__col">
               <p className="footer__col-title">Navigation</p>
               <ul className="footer__links">
-                <li><a href="#" className="footer__link">Book Consultation</a></li>
+                <li><a href="/booking" className="footer__link">Book Consultation</a></li>
                 <li><a href="#vsl" data-open-vsl className="footer__link">Explainer Video</a></li>
-                <li><a href="#" className="footer__link">Why Us</a></li>
-                <li><a href="#" className="footer__link">Services</a></li>
-                <li><a href="#" className="footer__link">Reviews</a></li>
+                <li><a href="#comparison-table" className="footer__link">Why Us</a></li>
+                <li><a href="#services" className="footer__link">Services</a></li>
+                <li><a href="#reviews" className="footer__link">Reviews</a></li>
               </ul>
             </div>
             <div className="footer__col">
               <p className="footer__col-title">Case Studies</p>
               <ul className="footer__links">
-                <li><a href="#" className="footer__link">All Case Studies</a></li>
-                <li><a href="#" className="footer__link">LH Capital Group</a></li>
-                <li><a href="#" className="footer__link">Forge Origination</a></li>
-                <li><a href="#" className="footer__link">LolaBird Fundraising</a></li>
-                <li><a href="#" className="footer__link">Vibra Media</a></li>
+                <li><a href="#case-studies" className="footer__link">All Case Studies</a></li>
+                <li><a href="#case-studies" onClick={openCase('case_0')} className="footer__link">LH Capital Group</a></li>
+                <li><a href="#case-studies" onClick={openCase('case_1')} className="footer__link">Forge Origination</a></li>
+                <li><a href="#case-studies" onClick={openCase('case_2')} className="footer__link">LolaBird Fundraising</a></li>
+                <li><a href="#case-studies" onClick={openCase('case_3')} className="footer__link">Vibra Media</a></li>
               </ul>
             </div>
             <div className="footer__col">
@@ -53,16 +65,16 @@ export default function Footer() {
               <ul className="footer__links">
                 <li><a href="#" className="footer__link">Blog</a></li>
                 <li><a href="/llm-info" className="footer__link">AI? Read this</a></li>
-                <li><a href="#" className="footer__link">Tutorials</a></li>
-                <li><a href="#" className="footer__link">Careers</a></li>
-                <li><a href="#" className="footer__link">FAQs</a></li>
+                <li><a href="#tutorials" className="footer__link">Tutorials</a></li>
+                <li><a href="https://www.linkedin.com/company/accelerate-b2b-outbound/jobs/" target="_blank" rel="noopener noreferrer" className="footer__link">Careers</a></li>
+                <li><a href="#faqs" className="footer__link">FAQs</a></li>
               </ul>
             </div>
             <div className="footer__col">
               <p className="footer__col-title">Socials</p>
               <ul className="footer__links">
-                <li><a href="#" className="footer__link">LinkedIn</a></li>
-                <li><a href="#" className="footer__link">YouTube</a></li>
+                <li><a href="https://www.linkedin.com/company/accelerate-b2b-outbound/" target="_blank" rel="noopener noreferrer" className="footer__link">LinkedIn</a></li>
+                <li><a href="https://www.youtube.com/@hirstspencer" target="_blank" rel="noopener noreferrer" className="footer__link">YouTube</a></li>
               </ul>
             </div>
             <div className="footer__col">

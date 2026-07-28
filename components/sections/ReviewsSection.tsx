@@ -67,7 +67,14 @@ function renderCard(review: any, key: number, onPlay: (url: string) => void) {
           <div
             className="reviews_video-thumb"
             style={{ backgroundImage: `url(${urlForImage(review.image).url()})` }}
-          />
+          >
+            <img
+              className="reviews_video-play"
+              src="/images/sections/reviews/play-icon.svg"
+              alt=""
+              aria-hidden="true"
+            />
+          </div>
         </button>
       )}
       {hasContent && (
@@ -84,7 +91,7 @@ function renderCard(review: any, key: number, onPlay: (url: string) => void) {
             </div>
           )}
           <div className="reviews_avatar-info-flex">
-            {review.authorName && <p className="text-label-extra-small">{review.authorName}</p>}
+            {review.authorName && <p className="text-label-extra-small reviews_author-name">{review.authorName}</p>}
             {review.authorRole && <p className="text-label-extra-small">{review.authorRole}</p>}
           </div>
         </div>
@@ -103,20 +110,29 @@ export default function ReviewsSection({ section }: { section: any }) {
   const filtered =
     activeTab === 'all' ? reviews : reviews.filter((r: any) => r.category === activeTab);
 
-  // Distribute into 3 fixed columns sequentially (column by column), preserving the
-  // author-defined order from Sanity: the first chunk fills column 1 top-to-bottom,
-  // the next chunk column 2, the last chunk column 3 — matching the Figma layout.
+  // Distribute into 3 columns. On the "All" tab we honour an explicit per-review
+  // `column` (1/2/3) so the layout matches the Figma "Full Collection" exactly.
+  // On filtered tabs (or if no columns are assigned) we fall back to an even,
+  // sequential split so each column stays balanced.
   const columns: { review: any; key: number }[][] = [[], [], []];
-  const base = Math.floor(filtered.length / 3);
-  const remainder = filtered.length % 3;
-  const sizes = [0, 1, 2].map((c) => base + (c < remainder ? 1 : 0));
-  let idx = 0;
-  sizes.forEach((size, c) => {
-    for (let s = 0; s < size; s++) {
-      columns[c].push({ review: filtered[idx], key: idx });
-      idx++;
-    }
-  });
+  const useExplicitColumns = activeTab === 'all' && filtered.some((r: any) => r.column);
+  if (useExplicitColumns) {
+    filtered.forEach((review: any, i: number) => {
+      const c = Math.min(Math.max(Number(review.column) || 1, 1), 3) - 1;
+      columns[c].push({ review, key: i });
+    });
+  } else {
+    const base = Math.floor(filtered.length / 3);
+    const remainder = filtered.length % 3;
+    const sizes = [0, 1, 2].map((c) => base + (c < remainder ? 1 : 0));
+    let idx = 0;
+    sizes.forEach((size, c) => {
+      for (let s = 0; s < size; s++) {
+        columns[c].push({ review: filtered[idx], key: idx });
+        idx++;
+      }
+    });
+  }
 
   const hasMore = filtered.length > COLLAPSED_COUNT;
   const wrapState = hasMore ? (expanded ? ' is-expanded' : ' is-collapsed') : '';
@@ -127,7 +143,7 @@ export default function ReviewsSection({ section }: { section: any }) {
   };
 
   return (
-    <section className="reviews">
+    <section className="reviews" id="reviews">
       <div className="padding-global">
         <div className="container-default">
           <div className="reviews_wrapper">
@@ -170,7 +186,7 @@ export default function ReviewsSection({ section }: { section: any }) {
                   <p className="reviews_cta-badge-text d-none">Trusted By 30+ B2B Businesses</p>
                   <span className="reviews_cta-divider" />
                   <p className="reviews_swap-text">
-                    {expanded ? 'Show Less Reviews' : 'Show More Reviews'}
+                    {expanded ? 'Show Less Proof' : 'Show More Proof'}
                   </p>
                   <span className="reviews_cta-icon">
                     <span className={`reviews_cta-minus${expanded ? ' active' : ''}`}>−</span>

@@ -11,7 +11,7 @@ export default function FaqsSection({ section }: { section: any }) {
   };
 
   return (
-    <section className="section_faqs">
+    <section className="section_faqs" id="faqs">
       <div className="padding-global">
         <div className="faqs__container">
           <h2 className="title-h2">{section.heading}</h2>

@@ -1,0 +1,42 @@
+{
+  "_key": "bbcae0ab1696",
+  "_type": "mechanismSection",
+  "heading": "Go from unpredictable lead flow to 10 - 20 closed deals or more each month",
+  "note": "*Average yearly outcomes. Results depend on multiple factors.",
+  "quoteAuthorName": "Matt Hickerson",
+  "quoteAuthorRole": "VP of Operations, Forge Origination",
+  "quoteAvatar": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-8050e2ad24304e547316731dd87e382029b82d37-88x88-png",
+      "_type": "reference"
+    }
+  },
+  "quoteText": "Spencer took us from zero to 50,000 emails a month.",
+  "stages": [
+    {
+      "_key": "7eea4d638dea",
+      "_type": "object",
+      "label": "STAGE 01 · CONTACTED",
+      "text": "120,000  prospects in your ideal customer profile contacted"
+    },
+    {
+      "_key": "976b37d9f680",
+      "_type": "object",
+      "label": "STAGE 02 · POSITIVE REPLIES",
+      "text": "400 positive replies from sales-qualified leads"
+    },
+    {
+      "_key": "1c15f46a2c4a",
+      "_type": "object",
+      "label": "STAGE 03 · MEETINGS",
+      "text": "120 meetings with ICP leads"
+    },
+    {
+      "_key": "64fa0dd27b0d",
+      "_type": "object",
+      "label": "STAGE 04 · DEALS",
+      "text": "10-20 closed deals"
+    }
+  ]
+}

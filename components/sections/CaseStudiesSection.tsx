@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { urlForImage } from '@/lib/sanity';
 import CaseStudyModal from './CaseStudyModal';
 
@@ -29,9 +29,22 @@ export default function CaseStudiesSection({ section }: { section: any }) {
     setExpanded(false);
   };
 
+  // Allow other components (e.g. the footer) to open a specific case study modal
+  // by dispatching: window.dispatchEvent(new CustomEvent('open-case-study', { detail: { key } }))
+  useEffect(() => {
+    const openByKey = (e: Event) => {
+      const key = (e as CustomEvent).detail?.key;
+      if (!key) return;
+      const match = cases.find((c: any) => c._key === key);
+      if (match) setSelectedCase(match);
+    };
+    window.addEventListener('open-case-study', openByKey as EventListener);
+    return () => window.removeEventListener('open-case-study', openByKey as EventListener);
+  }, [cases]);
+
   return (
     <>
-    <section className="section_tabs">
+    <section className="section_tabs" id="case-studies">
       <div className="padding-global">
         <div className="container-default">
           <div className="tabs_wrapper">
@@ -66,7 +79,19 @@ export default function CaseStudiesSection({ section }: { section: any }) {
                 <div className="tabs__grid">
                   <div className="tabs_all">
                     {filteredCases.map((c: any, i: number) => (
-                      <article key={i} className="tabs__card">
+                      <article
+                        key={i}
+                        className="tabs__card"
+                        role="button"
+                        tabIndex={0}
+                        onClick={() => setSelectedCase(c)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            setSelectedCase(c);
+                          }
+                        }}
+                      >
                         {c.image && (
                           <div className="tabs__card-image">
                             <img src={urlForImage(c.image).url()} alt="" />
@@ -135,7 +160,7 @@ export default function CaseStudiesSection({ section }: { section: any }) {
                       <span className="tabs__more-label tabs__more-label--show">
                         Show More Case Studies
                       </span>
-                      <span className="tabs__more-label tabs__more-label--hide">Hide Case Studies</span>
+                      <span className="tabs__more-label tabs__more-label--hide">Show Less Case Studies</span>
                       <span className="tabs__more-icon tabs__more-icon--plus">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path fillRule="evenodd" clipRule="evenodd" d="M9.60156 17.6016C5.18328 17.6016 1.60156 14.0198 1.60156 9.60156C1.60156 5.18328 5.18328 1.60156 9.60156 1.60156C14.0198 1.60156 17.6016 5.18328 17.6016 9.60156C17.6016 14.0198 14.0198 17.6016 9.60156 17.6016ZM8.80156 8.80156H5.60156V10.4016H8.80156V13.6016H10.4016V10.4016H13.6016V8.80156H10.4016V5.60156H8.80156V8.80156Z" fill="white" />

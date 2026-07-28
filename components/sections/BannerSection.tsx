@@ -26,14 +26,11 @@ export default function BannerSection({ section }: { section: any }) {
             </p>
           )}
           {section.rightImage && (
-            <>
-              <div className="banner__divider" />
-              <img
-                className="banner__image"
-                src={urlForImage(section.rightImage).url()}
-                alt="trust image"
-              />
-            </>
+            <img
+              className="banner__image"
+              src={urlForImage(section.rightImage).url()}
+              alt="trust image"
+            />
           )}
         </div>
       </div>

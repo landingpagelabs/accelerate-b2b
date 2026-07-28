@@ -4,7 +4,7 @@ export default function Header() {
       <div className="padding-global">
         <div className="container-default">
           <div className="header_wrapper">
-            <a className="header_logo" href="#">
+            <a className="header_logo" href="/" aria-label="Accelerate B2B — home">
               <img src="/images/header/Client Logo (1).png" alt="Accelerate B2B" />
             </a>
 
@@ -15,7 +15,7 @@ export default function Header() {
                 </div>
                 <p className="text-label-extra-small">Got a question?</p>
               </div>
-              <a className="header_link" href="#">
+              <a className="header_link" href="/booking">
                 <p className="text-label-extra-small white">Book Consultation</p>
               </a>
             </div>
