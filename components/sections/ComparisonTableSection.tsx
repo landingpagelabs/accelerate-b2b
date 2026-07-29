@@ -41,11 +41,13 @@ export default function ComparisonTableSection() {
             <h2 className="title-h2">Why Ford, Coupa and dozens of businesses choose us</h2>
 
             <div className="ct_scroll-wrap">
-              <div className="ct_hand">
-                <img src="/images/sections/comparison-table/hand-cursor.webp" alt="" />
-              </div>
               <SimpleBar className="ct_scroll" autoHide={false}>
               <div className="ct_outer">
+                {/* Inside the scrolled content, not beside it, so the cursor
+                    travels with the orange column it points at. */}
+                <div className="ct_hand">
+                  <img src="/images/sections/comparison-table/hand-cursor.webp" alt="" />
+                </div>
                 <div className="ct_grid">
                   <div className="ct-card ct-card--white" style={{ gridColumn: 1, gridRow: `2 / ${rowCount + 1}` }} />
                   <div className="ct-card ct-card--orange" style={{ gridRow: `1 / ${rowCount + 1}` }} />

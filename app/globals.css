@@ -174,7 +174,7 @@ a {
   }
 
   .hero {
-    padding: 2rem 0;
+    padding: 1rem 0;
   }
 }
 
@@ -781,7 +781,7 @@ li {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 30px;
+  gap: 32px;
 }
 
 /* Brand row: the badge sits centered with thin gray lines running out to the section edges */
@@ -1329,7 +1329,7 @@ li {
    ==================================================================== */
 
 .comparison_wrapper {
-  padding-block: 34px 43px;
+  padding-block: 38px 38px;
   border-bottom: 1px solid #1d1d1d1a;
 }
 
@@ -1515,7 +1515,7 @@ li {
   max-width: 1190px;
   margin: 0 auto;
   padding-top: 40px;
-  padding-bottom: 35px;
+  padding-bottom: 38px;
   border-left: 1px solid rgba(29, 29, 29, 0.1);
   border-right: 1px solid rgba(29, 29, 29, 0.1);
   border-bottom: 1px solid rgba(29, 29, 29, 0.1);
@@ -1935,6 +1935,11 @@ li {
   width: 100%;
 }
 
+/* Anchored to .ct_outer (the scrolled content), so it tracks the orange column
+   instead of hanging off the static wrapper. While the 1080px grid still fits,
+   .ct_outer is centred in the wrapper, so `50% - 331px` resolves to the exact
+   same x as before — desktop is unchanged. Below that it now rides along with
+   the table, which is the point. */
 .ct_hand {
   position: absolute;
   top: 6px;
@@ -1968,13 +1973,24 @@ li {
     width: 110px;
   }
 
+  /* Each card draws its grey gutter as a 10px box-shadow spread. The label
+     column's card fills its whole 130px track, so that ring sticks out 10px to
+     the left of the grid — i.e. outside the scroll container, which clips it
+     (overflow:visible can't help: the clipping comes from the scroller itself,
+     and it has to scroll). Reserve the ring's width as padding on the scrolled
+     content and pin the column that same 10px in, so the ring always has room
+     both at rest and while scrolling. */
+  .ct_outer {
+    padding-left: 10px;
+  }
+
   /* Pin the label column's card together with the sticky labels, at full track
      width, so the whole column stays put and opaque and its grey ring hides the
      orange column scrolling underneath — instead of the orange bleeding through
      when you scroll. (The "lag"/sticky feature itself is kept, just cleaned up.) */
   .ct_grid > .ct-card:nth-child(1) {
     position: sticky;
-    left: 0;
+    left: 10px;
     z-index: 1;
     width: 130px;
   }
@@ -1985,7 +2001,7 @@ li {
 
   .ct-cell--label {
     position: sticky;
-    left: 0;
+    left: 10px; /* matches the pinned card, see .ct_outer padding above */
     z-index: 2;
     width: 130px;
     background: #fff;
@@ -2034,13 +2050,15 @@ li {
   .ct_hand {
     width: 56px;
     height: 56px;
-    top: -2px;
-    left: 112px;
+    /* 0, not -2px: SimpleBar hides vertical overflow, so anything above
+       .ct_outer's top edge would be shaved off. */
+    top: 0;
+    left: 122px; /* +10px, tracking the .ct_outer padding shift */
   }
 
   .ct_hand img {
     width: 38px;
-    filter: drop-shadow(0 19px 42px rgba(18, 25, 40, 0.517));
+    filter: drop-shadow(0 2px 2px rgba(18, 25, 40, 0.217));
 
     height: 38px;
   }
@@ -2057,7 +2075,8 @@ li {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-block: 40px;
+  padding-top: 40px;
+  padding-bottom: 26px;
   border-bottom: 1px solid #1d1d1d1a;
 }
 
@@ -2106,11 +2125,14 @@ li {
   height: auto;
 }
 
-/* Animated (scroll-driven) diagram — three cross-faded Figma states */
+/* Isometric diagram — the designer's Open-state artwork split into per-plate
+   layers that float on an autonomous, staggered loop (see OutreachDiagram.tsx).
+   Every layer shares the same 1078x454 canvas, so at rest they stack into the
+   original artwork exactly. */
 .outreach-diagram {
   position: relative;
   width: 100%;
-  max-width: 760px;
+  max-width: 895px;
   margin: 0 auto;
   aspect-ratio: 898 / 467;
 }
@@ -2120,38 +2142,29 @@ li {
   inset: 0;
 }
 
+/* All layers share one canvas: same width/offset as the original Open state
+   (it is wider than the box — icons intentionally spill out to the sides). */
 .outreach-diagram__layer {
   position: absolute;
   top: 0;
-  left: 0;
+  left: -10.286%;
   display: block;
-  height: auto;
-  pointer-events: none;
-  /* opacity is driven by GSAP (scrubbed) — no CSS transition here */
-}
-
-.outreach-diagram__layer--closed,
-.outreach-diagram__layer--middle {
-  width: 100%;
-}
-
-/* Open state is wider (icons spill out) and shifted so the logo stays aligned */
-.outreach-diagram__layer--open {
   width: 120.045%;
   min-width: 120.045%;
-  left: -10.286%;
+  height: auto;
+  pointer-events: none;
+  /* Scale during the fly-out phase pivots on the stack's centre, so the plates
+     stay locked together as one block. */
+  transform-origin: 50% 46.5%;
+  will-change: transform, opacity;
 }
 
-/* Default (SSR / no-JS / reduced motion): show the finished Open state */
-.outreach-diagram__layer--closed {
-  opacity: 0;
-}
-.outreach-diagram__layer--middle {
-  opacity: 0;
-  top: -5.142%;
-}
-.outreach-diagram__layer--open {
-  opacity: 1;
+/* No-JS / reduced motion: layers sit at rest = the assembled Open artwork. */
+@media (prefers-reduced-motion: reduce) {
+  .outreach-diagram__layer {
+    transform: none !important;
+    opacity: 1 !important;
+  }
 }
 
 @media (max-width: 767px) {
@@ -2378,7 +2391,7 @@ li {
 
 .partners_wrapper {
   text-align: center;
-  padding-block: 30px;
+  padding-block: 33px;
   border-top: 1px solid #1d1d1d1a;
   border-bottom: 1px solid #1d1d1d1a;
 }
@@ -2458,7 +2471,7 @@ li {
    ==================================================================== */
 
 .reviews_wrapper {
-  padding: 40px 0px 28px 0px;
+  padding: 40px 0px 23px 0px;
   border-top: 1px solid #1d1d1d1a;
 }
 
@@ -3011,7 +3024,7 @@ li {
   justify-content: center;
   gap: 1px;
   width: fit-content;
-  margin: 0 auto 30px;
+  margin: 0 auto 32px;
   padding: 4px;
   background: #f2f2f2;
   border-radius: 88px;
@@ -3159,7 +3172,7 @@ li {
 }
 
 .tabs_wrapper {
-  padding: 35px 0px 33px;
+  padding: 38px 0px 33px;
 }
 
 .tab_1,
@@ -3394,7 +3407,7 @@ li {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 35px;
+  gap: 30px;
 }
 
 .text-image__text {
@@ -3403,7 +3416,7 @@ li {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 15px;
+  gap: 18px;
   letter-spacing: -0.3px;
 }
 
@@ -3438,6 +3451,11 @@ li {
   .text-image__container {
     padding-top: 32px;
     gap: 28px;
+  }
+
+  .text-image__title,
+  .text-image__description {
+    padding-inline: 20px;
   }
 }
 
@@ -3651,7 +3669,7 @@ li {
   width: 100%;
   max-width: 714px;
   margin: 15px auto 0;
-  border-radius: 15px;
+  border-radius: 13px;
   padding: 8px;
 }
 
@@ -3678,7 +3696,7 @@ li {
     0 12.927px 12.927px -4.848px rgba(0, 0, 0, 0.06),
     0 1.293px 0 0 rgba(255, 255, 255, 0.25) inset;
   background-color: #fff;
-  padding: 0 0 36px 0;
+  padding: 0 0 23px 0;
   overflow: hidden;
 }
 
@@ -3699,7 +3717,7 @@ li {
 }
 
 .hero-content_form-title {
-  margin-top: 16px;
+  margin-top: 13px;
   color: #15161e;
   text-align: center;
   font-family: "Inter";
@@ -3753,7 +3771,7 @@ li {
   gap: 12px;
   width: 100%;
   padding: 0 20px;
-  margin-bottom: 20px;
+  margin-bottom: 28px;
 }
 
 .hero-content_form-comment-info-flex {
@@ -4805,7 +4823,7 @@ video.vsl-card__image {
 }
 
 .tos-hero {
-  padding: 48px 0 30px;
+  padding: 29px 0 30px;
   background: #ffffff;
 }
 
@@ -5108,7 +5126,7 @@ video.vsl-card__image {
   justify-content: center;
   align-items: center;
   min-height: 68px;
-  gap: 30px;
+  gap: 33px;
   border-bottom: 1px solid rgba(29, 29, 29, 0.1);
 }
 
@@ -5241,7 +5259,7 @@ video.vsl-card__image {
 }
 
 .steps_wrapper {
-  padding: 40px 0;
+  padding: 40px 0 38px;
   border-top: 1px solid rgba(29, 29, 29, 0.1);
 }
 
@@ -5266,6 +5284,10 @@ video.vsl-card__image {
   padding: 0 6px;
   justify-content: center;
   align-items: center;
+}
+
+.steps_item .steps_strapline {
+  font-size: 16px;
 }
 
 .steps_item-title {
@@ -5384,7 +5406,7 @@ video.vsl-card__image {
 }
 
 .about-banner_inner {
-  padding: 40px 0;
+  padding: 34px 0 39px;
   border-top: 1px solid rgba(29, 29, 29, 0.1);
 }
 
@@ -5890,7 +5912,7 @@ video.vsl-card__image {
    ==================================================================== */
 
 .proof {
-  position: fixed;
+  position: absolute;
   /* Desktop: anchored just left of the centred booking card and tracks it on
      any width (instead of gluing to the far-left of huge screens); clamps to
      16px once the card nears the viewport edge. Fixed vertical position.
@@ -6759,12 +6781,17 @@ video.vsl-card__image {
   }
 
   /* 4 + 7. Switcher (case studies + reviews) becomes a full-width rectangle
-     that fills the bar; the tabs grow to share the space. */
+     that fills the bar; the tabs grow to share the space.
+     The selector itself is a rectangle too, not a 28px pill — 8px is the bar's
+     12px radius minus its 4px padding, so the highlight sits concentric inside
+     the bar and reads as filling its slot. Both switchers share these classes
+     (.reviews_switcher is .tabs__switcher + .tabs__tab). */
   .tabs__switcher {
     width: 100%;
   }
   .tabs__tab {
     flex: 1 1 auto;
+    border-radius: 8px;
   }
 
   /* 1. Funnel testimonial → restructure to: quote / avatar • name / role.
@@ -6784,23 +6811,37 @@ video.vsl-card__image {
     object-fit: cover;
     flex-shrink: 0;
   }
-  .funnel__author {
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 8px;
-  }
   .funnel__author-name::after {
     content: none; /* drop the trailing "•" */
   }
   .funnel__author-name::before {
     content: "• "; /* bullet between avatar and name */
   }
+  /* "avatar • name / role" as a 2-row grid rather than a wrapping flex row.
+     The role never fits beside the name at any mobile width (the card is
+     capped at 450px), so it always breaks — as a flex item it dropped to the
+     card's left edge, under the avatar, detached from the name it belongs to.
+     The grid keeps the avatar spanning both rows and hangs the role directly
+     below the name. */
+  .funnel__author {
+    display: grid;
+    grid-template-columns: auto auto 1fr;
+    column-gap: 8px;
+    row-gap: 2px;
+    align-items: center;
+  }
+  .funnel__avatar--inline {
+    grid-area: 1 / 1 / 3 / 2;
+  }
+  .funnel__author-name {
+    grid-area: 1 / 2 / 2 / 3;
+  }
   .funnel__verified {
-    order: 4; /* badge stays on line 1, after the name */
+    grid-area: 1 / 3 / 2 / 4;
+    justify-self: start;
   }
   .funnel__author-role {
-    flex-basis: 100%; /* role wraps onto its own line */
-    order: 5;
+    grid-area: 2 / 2 / 3 / 4;
   }
 
   /* Terms / Privacy hero CTA — designer mobile tuning: drop the arrow,

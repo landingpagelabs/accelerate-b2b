@@ -249,6 +249,13 @@ export const caseStudiesSection = {
       { name: 'author', title: 'Author', type: 'string' },
       { name: 'authorRole', title: 'Author Role (e.g. Owner, LH Capital Group)', type: 'string' },
       { name: 'avatar', title: 'Author Avatar', type: 'image', options: { hotspot: true } },
+      // Optional modal-only overrides — used when the person giving the video
+      // testimonial inside the modal isn't the one quoted on the card
+      // (e.g. LolaBird: Penny Dawson on the card, Ahmed Saeed in the modal).
+      // Left empty, the modal falls back to the card's quote/author/avatar.
+      { name: 'modalQuote', title: 'Modal Quote (override, optional)', type: 'text' },
+      { name: 'modalAuthor', title: 'Modal Author (override, optional)', type: 'string' },
+      { name: 'modalAvatar', title: 'Modal Author Avatar (override, optional)', type: 'image', options: { hotspot: true } },
       { name: 'videoThumbnail', title: 'Modal Testimonial Video Poster', type: 'image', options: { hotspot: true } },
       { name: 'videoUrl', title: 'Modal Testimonial Video URL (optional)', type: 'url' },
       { name: 'category', title: 'Category (tab)', type: 'string' },

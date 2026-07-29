@@ -20,6 +20,9 @@ type CaseStudy = {
   author?: string;
   authorRole?: string;
   avatar?: any;
+  modalQuote?: string;
+  modalAuthor?: string;
+  modalAvatar?: any;
   videoThumbnail?: any;
   videoUrl?: string;
   screenshotImage?: any;
@@ -84,9 +87,18 @@ export default function CaseStudyModal({ caseStudy, onClose }: Props) {
 
   // `author` already holds the full "Name, Company" string (e.g. "Ben Kelly,
   // LH Capital Group"), so use it as-is — don't append authorRole.
-  const attribution = caseStudy?.author || '';
+  // The modal-only overrides win when set: some cases have a different person
+  // giving the video testimonial than the one quoted on the card.
+  const attribution = caseStudy?.modalAuthor || caseStudy?.author || '';
+  const quote = caseStudy?.modalQuote || caseStudy?.quote || '';
+  const avatar = caseStudy?.modalAvatar || caseStudy?.avatar;
+  // `auto('format')` matters more than it looks here. The posters are 8-bit
+  // palette PNGs (TinyPNG output, 256 colours); resizing alone makes Sanity
+  // re-encode them as full 32-bit RGBA PNG, which came out 2.5x heavier than
+  // the source at a smaller size. Serving WebP at q=90 keeps the same 650px
+  // and drops each poster from ~670KB to ~50KB.
   const videoPoster = caseStudy?.videoThumbnail
-    ? urlForImage(caseStudy.videoThumbnail).width(650).url()
+    ? urlForImage(caseStudy.videoThumbnail).width(650).auto('format').quality(90).url()
     : null;
   const embedUrl = toEmbedUrl(caseStudy?.videoUrl || DEFAULT_VIDEO_URL);
 
@@ -156,7 +168,7 @@ export default function CaseStudyModal({ caseStudy, onClose }: Props) {
           )}
 
           {/* Video + quote */}
-          {(caseStudy?.quote || attribution || videoPoster) && (
+          {(quote || attribution || videoPoster) && (
             <>
               <div className="cs-modal__divider" />
               <div className="cs-modal__media">
@@ -184,14 +196,14 @@ export default function CaseStudyModal({ caseStudy, onClose }: Props) {
                   </div>
                 )}
 
-                {(caseStudy?.quote || attribution) && (
+                {(quote || attribution) && (
                   <div className="cs-modal__quote-card">
-                    {(attribution || caseStudy?.avatar) && (
+                    {(attribution || avatar) && (
                       <div className="cs-modal__quote-head">
-                        {caseStudy?.avatar && (
+                        {avatar && (
                           <img
                             className="cs-modal__quote-avatar"
-                            src={urlForImage(caseStudy.avatar).width(88).height(88).url()}
+                            src={urlForImage(avatar).width(88).height(88).url()}
                             alt=""
                           />
                         )}
@@ -201,7 +213,7 @@ export default function CaseStudyModal({ caseStudy, onClose }: Props) {
                         </span>
                       </div>
                     )}
-                    {caseStudy?.quote && <p className="cs-modal__quote-text">{caseStudy.quote}</p>}
+                    {quote && <p className="cs-modal__quote-text">{quote}</p>}
                   </div>
                 )}
               </div>
