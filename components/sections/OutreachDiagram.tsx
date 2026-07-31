@@ -4,53 +4,65 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 
 // Outreach-intro diagram animation.
-// The designer's isometric "Open State" artwork was split into per-plate SVG
-// layers (public/images/sections/outreach-intro/layers/). They stack on one
-// shared 1078x454 canvas, so at rest they reproduce the original artwork
-// exactly. An autonomous ~6s loop then plays the exploded-assembly sequence:
+// The designer's isometric artwork was split into per-plate SVG layers
+// (public/images/sections/outreach-intro/layers/). They stack on one shared
+// 1078x454 canvas, so at rest they reproduce the full "Open State" exactly.
 //
-//   1. Enter    — the outer plates fly in (top ones from above, bottom ones
-//                 from below), staggered, easing out into the exploded stack.
-//   2. Hold     — the stack hangs apart so every layer reads separately.
-//   3. Collapse — all plates converge vertically to the stack centre until the
-//                 gaps close into one compact block, then a short beat.
-//   4. Fly out  — the block drifts diagonally up-right, scaling up slightly and
-//                 fading, then the cycle restarts.
+// The loop plays the designer's three states in order:
 //
-// The isometric angle never changes and plates never rotate: phases 1-3 move
-// strictly along Y, phase 4 along the diagonal.
-// Reduced-motion users get the static assembled artwork.
+//   1. Closed   — Figma "Closed State" (5771:5652). Plates converged into one
+//                 compact slab, the orange and hatched fillings hidden inside,
+//                 no labels. Just the branded top plate.
+//   2. Middle   — Figma "Middle State" (5771:5672). The slab opens: plates
+//                 separate along Y and the two inner plates fade up, so the
+//                 construction reads. Still no labels.
+//   3. Open     — Figma "Open State" (5771:5323). The labels, leader lines and
+//                 floating tool icons fade in around the exploded stack.
+//
+// After a beat on the full open state the assembly drifts diagonally up-right,
+// fading, and the cycle restarts from closed.
+//
+// The isometric angle never changes and plates never rotate: the open/close
+// motion is strictly along Y, the exit along the diagonal.
+// Reduced-motion users get the static assembled artwork (the Open state).
 const BASE = '/images/sections/outreach-intro/layers';
 
-// Render order = bottom -> top (z-order). `yIn` is the entrance offset and
-// `yOut` the collapsed position, both in % of the layer's own height.
-// `order` drives the entrance stagger (top plate first).
+// Render order = bottom -> top (z-order). `yClosed` is the plate's position in
+// the collapsed state, in % of the layer's own height; 0 is its exploded
+// (at-rest) position.
+// `order` drives the opening stagger — the top plate lifts off first.
 //
 // `inner: true` marks the two middle plates (the orange gradient and the
-// hatched one). They fade out *during* the collapse, hidden behind the top
-// plate as it closes over them, so the shut stack is a clean two-plate slab
-// with nothing inside — matching the Figma closed state, and leaving no orange
-// showing through when the block fades away on the fly-out.
-// The two remaining plates therefore meet with only a thin slab edge between
-// them (14 canvas units), not a gap sized for the missing filling.
+// hatched one). They are hidden while the slab is shut, behind the top plate as
+// it closes over them, so the closed stack is a clean two-plate slab with
+// nothing inside — matching the Figma closed state, and leaving no orange
+// showing through. The two remaining plates therefore meet with only a thin
+// slab edge between them (14 canvas units), not a gap sized for the filling.
+//
+// `bg: true` is the layer carrying the labels ("Data & Signals",
+// "Personalization", "Integration", "Message Sending"), their leader lines and
+// the floating tool icons. It is precisely what separates the Middle state from
+// the Open state, so it stays hidden until the final reveal.
 const LAYERS = [
-  { file: 'layer-0-bg', bg: true, inner: false, yIn: 0, yOut: 0, order: 0 },
-  { file: 'layer-1-base', bg: false, inner: false, yIn: 32, yOut: -26.82, order: 3 },
-  { file: 'layer-2-orange', bg: false, inner: true, yIn: 12, yOut: -8.87, order: 2 },
-  { file: 'layer-3-hatch', bg: false, inner: true, yIn: -12, yOut: 6.55, order: 1 },
-  { file: 'layer-4-top', bg: false, inner: false, yIn: -32, yOut: 26.82, order: 0 },
+  { file: 'layer-0-bg', bg: true, inner: false, yClosed: 0, order: 0 },
+  { file: 'layer-1-base', bg: false, inner: false, yClosed: -26.82, order: 3 },
+  { file: 'layer-2-orange', bg: false, inner: true, yClosed: -8.87, order: 2 },
+  { file: 'layer-3-hatch', bg: false, inner: true, yClosed: 6.55, order: 1 },
+  { file: 'layer-4-top', bg: false, inner: false, yClosed: 26.82, order: 0 },
 ];
 
-// Phase timings (seconds) — total cycle ~6s.
-const IN_DUR = 1.1;
+// Phase timings (seconds) — total cycle ~7s.
+const FADE_IN = 0.5; // the closed slab appears
+const CLOSED_HOLD = 0.7; // state 1 reads
+const OPEN_DUR = 1.15; // closed -> middle
 const STAGGER = 0.075;
-const HOLD = 1.2;
-const COLLAPSE_DUR = 1.1;
-const FIX = 0.3; // beat on the assembled block
+const MIDDLE_HOLD = 0.85; // state 2 reads
+const LABELS_DUR = 0.75; // middle -> open
+const OPEN_HOLD = 1.5; // state 3 is the payoff, so it gets the longest beat
 const OUT_DUR = 1.5;
 const TAIL = 0.6; // empty beat before the loop restarts
 
-// Phase 4 travel: up-right, with a slight scale-up.
+// Exit travel: up-right, with a slight scale-up.
 const FLY_X = 22;
 const FLY_Y = -14;
 const FLY_SCALE = 1.08;
@@ -75,55 +87,67 @@ export default function OutreachDiagram() {
       const stack = plates.filter((l) => !l.bg);
       const bg = plates.find((l) => l.bg);
 
-      // Explicit reset so every loop starts from the same state.
-      stack.forEach((l) => {
-        tl!.set(l.el, { yPercent: l.yIn, xPercent: 0, scale: 1, opacity: 0 }, 0);
+      // --- State 1: Closed ---------------------------------------------------
+      // Reset so every loop starts shut: plates converged, filling hidden inside,
+      // labels off. Applied immediately as well as on the timeline so the first
+      // frame is already the closed state rather than the at-rest open artwork.
+      const closed = (l: (typeof stack)[number]) => ({
+        yPercent: l.yClosed,
+        xPercent: 0,
+        scale: 1,
+        opacity: 0,
       });
-      if (bg) tl.set(bg.el, { opacity: 0 }, 0);
+      stack.forEach((l) => {
+        gsap.set(l.el, closed(l));
+        tl!.set(l.el, closed(l), 0);
+      });
+      if (bg) {
+        gsap.set(bg.el, { opacity: 0 });
+        tl.set(bg.el, { opacity: 0 }, 0);
+      }
 
-      // 1. Enter — plates slide to their exploded positions and fade in.
+      // The closed slab fades up (only the two outer plates are visible here —
+      // the filling stays hidden until the stack opens).
+      stack
+        .filter((l) => !l.inner)
+        .forEach((l) => {
+          tl!.to(l.el, { opacity: 1, duration: FADE_IN, ease: 'power1.out' }, 0);
+        });
+
+      // --- State 2: Middle ---------------------------------------------------
+      // The slab opens. Plates travel back to their exploded (at-rest) positions
+      // and the orange + hatched fillings fade up as the gaps appear.
+      const tOpen = FADE_IN + CLOSED_HOLD;
       stack.forEach((l) => {
         tl!.to(
           l.el,
-          { yPercent: 0, opacity: 1, duration: IN_DUR, ease: 'power2.out' },
-          l.order * STAGGER
+          { yPercent: 0, duration: OPEN_DUR, ease: 'power2.out' },
+          tOpen + l.order * STAGGER
         );
-      });
-      if (bg) tl.to(bg.el, { opacity: 1, duration: 0.7, ease: 'power1.out' }, 0.1);
-
-      // 2. Hold — nothing moves.
-      const tCollapse = IN_DUR + 3 * STAGGER + HOLD;
-
-      // 3. Collapse — everything converges to the stack centre.
-      stack.forEach((l) => {
-        tl!.to(
-          l.el,
-          { yPercent: l.yOut, duration: COLLAPSE_DUR, ease: 'power2.inOut' },
-          tCollapse
-        );
-        // The filling disappears as the slab shuts. `power3.in` keeps the inner
-        // plates at full opacity while the gaps are still open, then drops them
-        // fast at the very end — by which point the top plate covers them, so
-        // the vanish is imperceptible.
+        // `power2.out` on the filling brings it up early in the move, so it is
+        // already visible by the time the gap is wide enough to see into.
         if (l.inner) {
           tl!.to(
             l.el,
-            { opacity: 0, duration: COLLAPSE_DUR * 0.95, ease: 'power3.in' },
-            tCollapse
+            { opacity: 1, duration: OPEN_DUR * 0.7, ease: 'power2.out' },
+            tOpen + l.order * STAGGER
           );
         }
       });
-      // The labels/leader lines point at the exploded plates, so retire them
-      // as the stack closes up.
-      if (bg) tl.to(bg.el, { opacity: 0, duration: COLLAPSE_DUR * 0.7 }, tCollapse);
 
-      // 4. Fly out — diagonal drift up-right, scaling slightly, fading away.
-      const tOut = tCollapse + COLLAPSE_DUR + FIX;
+      // --- State 3: Open -----------------------------------------------------
+      // Labels, leader lines and floating tool icons fade in around the stack.
+      const tLabels = tOpen + OPEN_DUR + 3 * STAGGER + MIDDLE_HOLD;
+      if (bg) tl.to(bg.el, { opacity: 1, duration: LABELS_DUR, ease: 'power1.out' }, tLabels);
+
+      // --- Exit --------------------------------------------------------------
+      // Diagonal drift up-right, scaling slightly, fading away, then restart.
+      const tOut = tLabels + LABELS_DUR + OPEN_HOLD;
       stack.forEach((l) => {
         tl!.to(
           l.el,
           {
-            yPercent: l.yOut + FLY_Y,
+            yPercent: FLY_Y,
             xPercent: FLY_X,
             scale: FLY_SCALE,
             duration: OUT_DUR,
@@ -131,11 +155,9 @@ export default function OutreachDiagram() {
           },
           tOut
         );
-        // Only the two visible plates need fading — the filling is already gone.
-        if (!l.inner) {
-          tl!.to(l.el, { opacity: 0, duration: OUT_DUR * 0.55, ease: 'power1.in' }, tOut);
-        }
+        tl!.to(l.el, { opacity: 0, duration: OUT_DUR * 0.55, ease: 'power1.in' }, tOut);
       });
+      if (bg) tl.to(bg.el, { opacity: 0, duration: OUT_DUR * 0.4, ease: 'power1.in' }, tOut);
 
       // Empty beat so the restart doesn't feel abrupt.
       tl.to({}, { duration: TAIL }, tOut + OUT_DUR);
