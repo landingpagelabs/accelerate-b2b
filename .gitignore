@@ -20,3 +20,4 @@ tsconfig.tsbuildinfo
 # Sanity Studio secrets
 studio/.env
 .vercel
+.env*.local

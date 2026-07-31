@@ -7,9 +7,8 @@ const ALERT_ICON = '/favicon-alert.png';
 const ALERT_TITLE = '(1) New Message';
 
 /**
- * Підміняє title та favicon на «(1) New Message», коли користувач
- * перемикається на іншу вкладку браузера, і повертає дефолтні значення,
- * коли він знову відкриває вкладку сайту.
+ * Swaps the tab title and favicon to "(1) New Message" when the visitor switches to
+ * another browser tab, and restores the defaults when they come back.
  */
 export function FaviconNotifier() {
   useEffect(() => {

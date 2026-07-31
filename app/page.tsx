@@ -5,18 +5,23 @@ import { fetchSanity } from '@/lib/sanity';
 
 export const revalidate = 60;
 
+// The `description` field on the home document still holds text from the Studio seed
+// script rather than a real meta description. Until someone writes one in Sanity, the
+// site-wide default in app/layout.tsx is the better answer, so ignore known seed values.
+const SEED_DESCRIPTIONS = ['demo home page created by seed'];
+
 export async function generateMetadata(): Promise<Metadata> {
   const page = await fetchSanity<{ description?: string }>(pageBySlugQuery, { slug: 'home' });
 
-  // `page.title` is the CMS-internal page name, not an SEO title, so it is deliberately
-  // not used here. Only `description` is editorial. When it is empty we fall back to the
-  // site-wide defaults in app/layout.tsx.
-  if (!page?.description) return {};
+  // `page.title` is the CMS-internal page name ("Page name for the CMS" in the schema),
+  // not an SEO title, so it is deliberately not used here.
+  const description = page?.description?.trim();
+  if (!description || SEED_DESCRIPTIONS.includes(description.toLowerCase())) return {};
 
   return {
-    description: page.description,
-    openGraph: { description: page.description },
-    twitter: { description: page.description },
+    description,
+    openGraph: { description },
+    twitter: { description },
   };
 }
 

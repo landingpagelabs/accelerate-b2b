@@ -20,8 +20,8 @@ export default async function PostPage({ params }: { params: { slug: string } })
   if (!post) {
     return (
       <main className="container mx-auto min-h-screen max-w-3xl p-8">
-        <h1 className="text-4xl font-bold mb-4">Пост не знайдено</h1>
-        <p>Спробуйте повернутись до <Link href="/posts" className="underline">списку постів</Link>.</p>
+        <h1 className="text-4xl font-bold mb-4">Post not found</h1>
+        <p>Try going back to the <Link href="/posts" className="underline">post list</Link>.</p>
       </main>
     );
   }

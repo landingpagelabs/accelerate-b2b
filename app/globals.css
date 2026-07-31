@@ -995,6 +995,8 @@ li {
 }
 
 .footer__link {
+  display: inline-block;
+  padding-block: 12px;
   font-family: "Inter", sans-serif;
   font-weight: 400;
   font-size: 16px;
@@ -3563,6 +3565,8 @@ li {
 .video-facade {
   position: relative;
   display: block;
+  width: var(--facade-w, 100%);
+  max-width: 100%;
   padding: 0;
   border: 0;
   overflow: hidden;
@@ -6393,7 +6397,7 @@ video.vsl-card__image {
 }
 
 .playbooks__link {
-  min-height: 39px;
+  min-height: 44px;
   padding: 8px 10px 8px 16px;
   background: #fff;
   border-radius: 8px;

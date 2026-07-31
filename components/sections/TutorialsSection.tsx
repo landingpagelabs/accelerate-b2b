@@ -72,7 +72,16 @@ function VideoFacade({
     <button
       type="button"
       className={`video-facade${className ? ` ${className}` : ''}`}
-      style={{ width: `${width}px`, height: `${height}px` }}
+      // The design width is passed as a custom property rather than an inline `width`, so
+      // the actual width declaration lives in the stylesheet and the mobile media query can
+      // still override it. An inline width would win over the media query and leave these
+      // stuck at their desktop size (the old iframe used a width *attribute*, which CSS beats).
+      style={
+        {
+          '--facade-w': `${width}px`,
+          aspectRatio: `${width} / ${height}`,
+        } as React.CSSProperties
+      }
       onClick={() => setPlaying(true)}
       aria-label="Play video"
     >

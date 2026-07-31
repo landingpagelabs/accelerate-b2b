@@ -23,6 +23,3 @@ const hostname = siteUrl.replace(/^https?:\/\//, '').split('/')[0].toLowerCase()
  */
 export const isCanonicalHost =
   hostname.length > 0 && !hostname.endsWith('.vercel.app') && !hostname.startsWith('localhost');
-
-/** Routes deliberately kept out of search results (they also send noindex headers). */
-export const noindexRoutes = ['/congrats', '/booking'];

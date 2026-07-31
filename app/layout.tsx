@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { FaviconNotifier } from '@/components/FaviconNotifier';
-import { siteUrl } from '@/lib/site';
+import { isCanonicalHost, siteUrl } from '@/lib/site';
 
 // Default site-wide metadata. Individual routes override these via generateMetadata;
 // the home page prefers the `description` field on its Sanity `page` document, so this
@@ -14,6 +14,11 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title,
   description,
+  // While the site is still served from a *.vercel.app host it is a pre-launch staging
+  // build, so keep it out of search results. noindex (not a robots.txt Disallow) is what
+  // actually removes a page from the index, and it requires the page to stay crawlable.
+  // Pointing NEXT_PUBLIC_SITE_URL at the real domain flips this on automatically.
+  ...(isCanonicalHost ? {} : { robots: { index: false, follow: false } }),
   icons: {
     icon: { url: '/favicon.png', type: 'image/png' },
   },
