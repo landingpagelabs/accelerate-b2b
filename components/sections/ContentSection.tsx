@@ -1,8 +1,8 @@
-import { urlForImage } from '@/lib/sanity';
+import { img, urlForImage } from '@/lib/image';
 import { PortableText } from '@portabletext/react';
 
 export default function ContentSection({ section }: { section: any }) {
-  const imageUrl = section.image ? urlForImage(section.image).width(1200).url() : undefined;
+  const imageUrl = section.image ? img(section.image, 1200) : undefined;
   const sideImage = section.imagePosition === 'left';
 
   return (
@@ -15,7 +15,7 @@ export default function ContentSection({ section }: { section: any }) {
         </div>
         {imageUrl && (
           <div className="section-image">
-            <img src={imageUrl} alt={section.image.alt || 'Section image'} />
+            <img loading="lazy" decoding="async" src={imageUrl} alt={section.image.alt || 'Section image'} />
           </div>
         )}
       </div>

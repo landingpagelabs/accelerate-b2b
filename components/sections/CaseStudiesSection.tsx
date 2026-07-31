@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { urlForImage } from '@/lib/sanity';
+import { img, urlForImage } from '@/lib/image';
 import CaseStudyModal from './CaseStudyModal';
 
 const VerifiedBadge = () => (
@@ -94,7 +94,7 @@ export default function CaseStudiesSection({ section }: { section: any }) {
                       >
                         {c.image && (
                           <div className="tabs__card-image">
-                            <img src={urlForImage(c.image).url()} alt="" />
+                            <img loading="lazy" decoding="async" src={img(c.image, 680)} alt={c.title ? `${c.title} — campaign results` : ''} />
                             <button
                               type="button"
                               className="tabs_card-link"
@@ -108,7 +108,7 @@ export default function CaseStudiesSection({ section }: { section: any }) {
                         <div className="tabs_card-head">
                           {c.companyLogo && (
                             <div className="tabs_card-head-image">
-                              <img src={urlForImage(c.companyLogo).url()} alt="" />
+                              <img loading="lazy" decoding="async" src={img(c.companyLogo, 174)} alt={c.companyName || c.title || ''} />
                             </div>
                           )}
                           {c.title && <div className="tabs_card-head-title title-h4">{c.title}</div>}
@@ -119,7 +119,7 @@ export default function CaseStudiesSection({ section }: { section: any }) {
                             <div className="tabs_card-avatar-info">
                               {c.avatar && (
                                 <div className="tabs_card-avatar">
-                                  <img src={urlForImage(c.avatar).url()} alt="" />
+                                  <img loading="lazy" decoding="async" src={img(c.avatar, 88)} alt={c.author || ''} />
                                 </div>
                               )}
                               {c.author && (
@@ -143,7 +143,7 @@ export default function CaseStudiesSection({ section }: { section: any }) {
                   <div className="tabs__more-wrap">
                     <button className="tabs__more" type="button" onClick={() => setExpanded((v) => !v)}>
                       <span className="tabs__more-badge mobile-d-none">
-                        <img
+                        <img loading="lazy" decoding="async"
                           className="tabs__more-badge-icon"
                           src="/images/sections/tabs/Vector-lightning.svg"
                           alt=""

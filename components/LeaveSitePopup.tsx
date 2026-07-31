@@ -63,7 +63,7 @@ export default function LeaveSitePopup({
     >
       <div className="leave-card" role="document">
         <div className="leave-card__icon">
-          <img src="/images/leave-icon.png" alt="" />
+          <img loading="lazy" decoding="async" src="/images/leave-icon.png" alt="" />
         </div>
         <h2 id="leave-title" className="leave-card__title">{title}</h2>
         <p className="leave-card__text">{text}</p>

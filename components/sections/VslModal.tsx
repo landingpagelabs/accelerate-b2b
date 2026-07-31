@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { urlForImage } from '@/lib/sanity';
+import { img, urlForImage } from '@/lib/image';
 
 const DEFAULT_IMAGE = '/images/modal/vsl-modal-image.jpg';
 // Any element with this attribute, or a link to these hashes, opens the VSL modal.
@@ -25,8 +25,8 @@ export default function VslModal({ section }: { section: any }) {
   const isVideo = section?.mediaType === 'video';
   const videoSrc = section?.videoFileUrl || section?.videoUrl || '';
   const embedUrl = isVideo && section?.videoUrl && !section?.videoFileUrl ? toEmbedUrl(section.videoUrl) : null;
-  const posterSrc = section?.poster ? urlForImage(section.poster).width(1796).url() : undefined;
-  const imageSrc = section?.image ? urlForImage(section.image).width(1796).url() : DEFAULT_IMAGE;
+  const posterSrc = section?.poster ? img(section.poster, 1796, 85) : undefined;
+  const imageSrc = section?.image ? img(section.image, 1796, 85) : DEFAULT_IMAGE;
 
   const close = useCallback(() => setOpen(false), []);
 
@@ -95,7 +95,7 @@ export default function VslModal({ section }: { section: any }) {
         <div className="vsl-card__image" style={{ aspectRatio: '898 / 508' }} />
       );
     }
-    return <img className="vsl-card__image" src={imageSrc} alt={section?.buttonText || 'VSL'} />;
+    return <img loading="lazy" decoding="async" className="vsl-card__image" src={imageSrc} alt={section?.buttonText || 'VSL'} />;
   };
 
   return (

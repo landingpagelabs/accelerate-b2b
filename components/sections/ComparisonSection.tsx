@@ -1,4 +1,4 @@
-import { urlForImage } from '@/lib/sanity';
+import { img, urlForImage } from '@/lib/image';
 
 const StarsSVG = () => (
   <svg height="100%" viewBox="0 0 84 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -69,7 +69,7 @@ export default function ComparisonSection({ section }: { section: any }) {
                 {section.col1Image && (
                   <div className="item-comparison_image-wrap">
                     <div className="item-comparison_image">
-                      <img className="item-comparison_img" src={urlForImage(section.col1Image).url()} alt="" />
+                      <img loading="lazy" decoding="async" className="item-comparison_img" src={img(section.col1Image, 700)} alt={section.col1Title || ''} />
                     </div>
                   </div>
                 )}
@@ -101,7 +101,7 @@ export default function ComparisonSection({ section }: { section: any }) {
                 {section.col2Image && (
                   <div className="item-comparison_image-wrap">
                     <div className="item-comparison_image">
-                      <img className="item-comparison_img" src={urlForImage(section.col2Image).url()} alt="" />
+                      <img loading="lazy" decoding="async" className="item-comparison_img" src={img(section.col2Image, 700)} alt={section.col2Title || ''} />
                     </div>
                   </div>
                 )}

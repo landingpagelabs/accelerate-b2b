@@ -46,7 +46,7 @@ export default function ComparisonTableSection() {
                 {/* Inside the scrolled content, not beside it, so the cursor
                     travels with the orange column it points at. */}
                 <div className="ct_hand">
-                  <img src="/images/sections/comparison-table/hand-cursor.webp" alt="" />
+                  <img loading="lazy" decoding="async" src="/images/sections/comparison-table/hand-cursor.webp" alt="" />
                 </div>
                 <div className="ct_grid">
                   <div className="ct-card ct-card--white" style={{ gridColumn: 1, gridRow: `2 / ${rowCount + 1}` }} />
@@ -57,7 +57,7 @@ export default function ComparisonTableSection() {
                   {/* Header row */}
                   <div className="ct-cell ct-cell--label ct-cell--header" style={{ gridColumn: 1, gridRow: 1 }} />
                   <div className="ct-cell ct-cell--orange ct-cell--header" style={{ gridColumn: 2, gridRow: 1 }}>
-                    <img className="ct-logo-icon" src="/images/sections/comparison-table/client-icon.svg" alt="" />
+                    <img loading="lazy" decoding="async" className="ct-logo-icon" src="/images/sections/comparison-table/client-icon.svg" alt="" />
                     <span className="ct-logo-text">Accelerate B2B</span>
                   </div>
                   <div className="ct-cell ct-cell--white ct-cell--header" style={{ gridColumn: 3, gridRow: 1 }}>

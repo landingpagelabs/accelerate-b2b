@@ -28,7 +28,7 @@ export default function BookingSocialProof({
   return (
     <div className="proof" role="status">
       <div className="proof__icon">
-        <img src="/images/booking/proof-calendar.png" alt="" />
+        <img loading="lazy" decoding="async" src="/images/booking/proof-calendar.png" alt="" />
       </div>
 
       <div className="proof__body">
@@ -37,7 +37,7 @@ export default function BookingSocialProof({
           <span className="proof__muted">{text}</span>
         </p>
         <span className="proof__verified">
-          <img src="/images/booking/verified-badge.png" alt="" />
+          <img loading="lazy" decoding="async" src="/images/booking/verified-badge.png" alt="" />
           {verifiedText}
         </span>
       </div>

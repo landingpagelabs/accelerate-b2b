@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import { AutoScroll } from '@splidejs/splide-extension-auto-scroll';
 import '@splidejs/splide/css/core';
-import { urlForImage } from '@/lib/sanity';
+import { img, urlForImage } from '@/lib/image';
 
 function useIsMobile() {
   const [isMobile, setIsMobile] = useState(false);
@@ -50,7 +50,7 @@ function LogoRow({ logos, speed }: { logos: any[]; speed: number }) {
           <SplideSlide key={i}>
             <div className="item_partners">
               {logo.image && (
-                <img className="item-partners_img" src={urlForImage(logo.image).url()} alt={logo.alt || ''} />
+                <img loading="lazy" decoding="async" className="item-partners_img" src={img(logo.image, 208)} alt={logo.alt || ''} />
               )}
             </div>
           </SplideSlide>

@@ -1,4 +1,4 @@
-import { urlForImage } from "@/lib/sanity";
+import { img, urlForImage } from '@/lib/image';
 
 export default function ServicesSection({ section }: { section: any }) {
   const services: any[] = section.services || [];
@@ -26,7 +26,7 @@ export default function ServicesSection({ section }: { section: any }) {
                   const infoFirst = i % 2 === 1; // odd items: text on top
                   const image = service.image && (
                     <div className="item-services_image">
-                      <img className="item-services_img" src={urlForImage(service.image).url()} alt={service.title || ""} />
+                      <img loading="lazy" decoding="async" className="item-services_img" src={img(service.image, 598)} alt={service.title || ""} />
                     </div>
                   );
                   const info = (

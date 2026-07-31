@@ -16,7 +16,7 @@ function ImageCard({ src, alt }: { src: string; alt: string }) {
   return (
     <div className="reviews_item image" data-cat="reply">
       <div className="reviews_image">
-        <img src={src} alt={alt} />
+        <img loading="lazy" decoding="async" src={src} alt={alt} />
       </div>
     </div>
   );
@@ -30,7 +30,7 @@ function ResultCard({ title, src }: { title: string; src: string }) {
         <p className="text-label-extra-small">{title}</p>
       </div>
       <div className="reviews_image">
-        <img src={src} alt={title} />
+        <img loading="lazy" decoding="async" src={src} alt={title} />
       </div>
     </div>
   );
@@ -58,7 +58,7 @@ function ReviewCard({
         <div className="reviews_text text-body-regular">{quote}</div>
         <div className="reviews_avatar-info">
           <div className="reviews_avatar-image">
-            <img src={avatar} alt={authorName} />
+            <img loading="lazy" decoding="async" src={avatar} alt={authorName} />
           </div>
           <div className="reviews_avatar-info-flex">
             <p className="text-label-extra-small">{authorName}</p>
@@ -101,7 +101,7 @@ function VideoCard({
         <div className="reviews_text text-body-regular">{quote}</div>
         <div className="reviews_avatar-info">
           <div className="reviews_avatar-image">
-            <img src={avatar} alt={authorName} />
+            <img loading="lazy" decoding="async" src={avatar} alt={authorName} />
           </div>
           <div className="reviews_avatar-info-flex">
             <p className="text-label-extra-small">{authorName}</p>
@@ -266,7 +266,7 @@ export default function CongratsReviews() {
                 onClick={() => setExpanded((v) => !v)}
               >
                 <div className="reviews_image-2">
-                  <img src="/images/sections/reviews/Frame 2147227456.png" alt="" />
+                  <img loading="lazy" decoding="async" src="/images/sections/reviews/Frame 2147227456.png" alt="" />
                 </div>
                 <p className="reviews_cta-badge-text d-none">Trusted By 30+ B2B Businesses</p>
                 <span className="reviews_cta-divider" />

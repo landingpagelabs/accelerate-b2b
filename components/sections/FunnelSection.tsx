@@ -1,4 +1,4 @@
-import { urlForImage } from '@/lib/sanity';
+import { urlForImage } from '@/lib/image';
 
 const DEFAULT_AVATAR = '/images/sections/funnel/avatar.png';
 
@@ -12,7 +12,7 @@ export default function FunnelSection({ section }: { section: any }) {
   const stages: any[] = section.stages || [];
   const t = section.testimonial;
   const avatarUrl =
-    t?.avatar ? urlForImage(t.avatar).width(132).height(132).url() : DEFAULT_AVATAR;
+    t?.avatar ? urlForImage(t.avatar).width(132).height(132).auto('format').url() : DEFAULT_AVATAR;
 
   return (
     <section className="section_funnel">
@@ -35,7 +35,7 @@ export default function FunnelSection({ section }: { section: any }) {
               </div>
 
               <div className="funnel__graphic">
-                <img
+                <img loading="lazy" decoding="async"
                   className="funnel__graphic-img"
                   src="/images/sections/funnel/funnel-graphic.svg"
                   alt="Lead flow funnel: 120,000 leads to 400 MQLs to 120 SQLs to 10-20 closed deals"
@@ -58,11 +58,11 @@ export default function FunnelSection({ section }: { section: any }) {
             <div className="funnel__testimonial">
               <div className="funnel__testimonial-card">
                 <div className="funnel__testimonial-inner">
-                  <img className="funnel__avatar funnel__avatar--lead" src={avatarUrl} alt={t.authorName || 'avatar'} />
+                  <img loading="lazy" decoding="async" className="funnel__avatar funnel__avatar--lead" src={avatarUrl} alt={t.authorName || 'avatar'} />
                   <div className="funnel__testimonial-body">
                     {t.quote && <p className="funnel__quote">{t.quote}</p>}
                     <div className="funnel__author">
-                      <img className="funnel__avatar funnel__avatar--inline" src={avatarUrl} alt="" aria-hidden="true" />
+                      <img loading="lazy" decoding="async" className="funnel__avatar funnel__avatar--inline" src={avatarUrl} alt="" aria-hidden="true" />
                       {t.authorName && <span className="funnel__author-name">{t.authorName}</span>}
                       {t.authorRole && <span className="funnel__author-role">{t.authorRole}</span>}
                       {VerifiedBadge}

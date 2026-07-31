@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import SimpleBar from 'simplebar-react';
 import 'simplebar-react/dist/simplebar.min.css';
-import { urlForImage } from '@/lib/sanity';
+import { img, urlForImage } from '@/lib/image';
 
 type Stat = { value: string; label: string };
 
@@ -201,9 +201,9 @@ export default function CaseStudyModal({ caseStudy, onClose }: Props) {
                     {(attribution || avatar) && (
                       <div className="cs-modal__quote-head">
                         {avatar && (
-                          <img
+                          <img loading="lazy" decoding="async"
                             className="cs-modal__quote-avatar"
-                            src={urlForImage(avatar).width(88).height(88).url()}
+                            src={urlForImage(avatar).width(88).height(88).auto('format').url()}
                             alt=""
                           />
                         )}
@@ -223,7 +223,7 @@ export default function CaseStudyModal({ caseStudy, onClose }: Props) {
           {/* Screenshot / dashboard image */}
           {caseStudy?.screenshotImage && (
             <div className="cs-modal__screenshot">
-              <img src={urlForImage(caseStudy.screenshotImage).width(900).url()} alt="" />
+              <img loading="lazy" decoding="async" src={img(caseStudy.screenshotImage, 900)} alt={caseStudy.companyName ? `${caseStudy.companyName} — campaign results` : ''} />
             </div>
           )}
           </div>

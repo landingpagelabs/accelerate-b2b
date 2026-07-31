@@ -8,7 +8,7 @@ export default function CongratsFooter() {
         <div className="footer__main">
           <div className="footer__brand">
             <span className="footer__logo">
-              <img
+              <img loading="lazy" decoding="async"
                 className="footer__logo-icon"
                 src="/images/footer/footer_badge-icon.svg"
                 alt="Accelerate B2B logo"
@@ -54,7 +54,7 @@ export default function CongratsFooter() {
       <div className="footer__bottom">
         <div className="footer__bottom-inner padding-global">
           <a href="#" className="footer__built">
-            <img className="footer__built-icon" src="/images/footer/footer_bottom-icon.svg" alt="" />
+            <img loading="lazy" decoding="async" className="footer__built-icon" src="/images/footer/footer_bottom-icon.svg" alt="" />
             Built By Landing Page Labs
           </a>
           <p className="footer__copy">Accelerate B2B {new Date().getFullYear()}. All Rights Reserved.</p>

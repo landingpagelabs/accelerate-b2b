@@ -14,16 +14,38 @@ export default function CongratsCopyMessage({ message }: { message?: string }) {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  // These are styled divs rather than <button>s, so they need an explicit key handler —
+  // without it they are focusable and announced as buttons but do nothing on Enter/Space.
+  const onKey = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      copy();
+    }
+  };
+
   return (
     <>
-      <div className="text-body-regular white copy" onClick={copy} role="button" tabIndex={0}>
+      <div
+        className="text-body-regular white copy"
+        onClick={copy}
+        onKeyDown={onKey}
+        role="button"
+        tabIndex={0}
+        aria-label="Copy message to clipboard"
+      >
         {MESSAGE}
         <div className={`copy-alert${copied ? ' visible' : ''}`}>
           <p className="text-body-regular">Text Copied !</p>
         </div>
       </div>
 
-      <div className={`copy-cta${copied ? ' is-copied' : ''}`} onClick={copy} role="button" tabIndex={0}>
+      <div
+        className={`copy-cta${copied ? ' is-copied' : ''}`}
+        onClick={copy}
+        onKeyDown={onKey}
+        role="button"
+        tabIndex={0}
+      >
         {copied ? (
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <path d="M4.16797 10.6667L8.16797 14.6667L15.8346 5.33333" stroke="#0FA857" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />

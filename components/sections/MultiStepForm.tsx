@@ -112,6 +112,10 @@ export default function MultiStepForm() {
   // Calendly sends postMessage after successful booking — redirect to thank-you page
   useEffect(() => {
     const onMessage = (e: MessageEvent) => {
+      // Only trust this message when it genuinely comes from Calendly. Without the origin
+      // check any embedded third-party frame could post the same payload and push visitors
+      // to the thank-you page.
+      if (e.origin !== 'https://calendly.com') return;
       if (
         e.data &&
         typeof e.data === 'object' &&
@@ -140,25 +144,43 @@ export default function MultiStepForm() {
         <div className="hero-content_form-wrap">
           <ProgressBar step={step} />
 
-          <h3 className="hero-content_form-title">{current.title}</h3>
+          {/* Was an <h3>, which sat directly under the page <h1> and broke heading order.
+              It is a question rather than a section heading, so it is no longer part of the
+              document outline — it still names the form via aria-labelledby below. */}
+          <p className="hero-content_form-title" id="apply-form-title">
+            {current.title}
+          </p>
 
           {current.kind === 'choice' && (
-            <div className="hero-content_form-actions">
-              <div className="hero-content_form-btn" onClick={next} role="button" tabIndex={0}>
-                <p>Yes</p>
-              </div>
-              <div className="hero-content_form-btn prev" onClick={next} role="button" tabIndex={0}>
-                <p>No</p>
-              </div>
+            <div className="hero-content_form-actions" role="group" aria-labelledby="apply-form-title">
+              {/* Real <button>s, not divs with role="button" — the previous markup was
+                  focusable and announced as a button but had no key handler, so Enter and
+                  Space did nothing and the form could not be completed by keyboard. */}
+              <button type="button" className="hero-content_form-btn" onClick={next}>
+                <span>Yes</span>
+              </button>
+              <button type="button" className="hero-content_form-btn prev" onClick={next}>
+                <span>No</span>
+              </button>
             </div>
           )}
 
           {current.kind === 'input' && (
             <div className="hero-content_form-input-wrap">
               <div className="hero-content_form-input-row">
+                {/* The placeholder was the only accessible name, so it disappeared as soon
+                    as the visitor typed. The visible question text is reused as a real
+                    label rather than inventing new copy. */}
+                <label className="sr-only" htmlFor="apply-form-input">
+                  {current.title}
+                </label>
                 <input
+                  id="apply-form-input"
                   className="hero-content_form-input"
                   type={current.inputType}
+                  autoComplete={current.inputType === 'email' ? 'email' : 'name'}
+                  aria-invalid={error ? true : undefined}
+                  aria-describedby={error ? 'apply-form-error' : undefined}
                   placeholder={current.placeholder}
                   value={values[current.field]}
                   onChange={(e) => {
@@ -187,7 +209,11 @@ export default function MultiStepForm() {
                   </button>
                 )}
               </div>
-              {error && <p className="input-error-msg">{error}</p>}
+              {error && (
+                <p className="input-error-msg" id="apply-form-error" role="alert">
+                  {error}
+                </p>
+              )}
             </div>
           )}
 

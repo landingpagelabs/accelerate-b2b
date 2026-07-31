@@ -1,7 +1,7 @@
 'use client';
 
 import { useLayoutEffect, useRef, useState } from 'react';
-import { urlForImage } from '@/lib/sanity';
+import { img, urlForImage } from '@/lib/image';
 
 // Diagram art is a fixed, hand-calibrated illustration: each PNG's connector
 // dot is pixel-measured (fraction of the image's own size), so these are not
@@ -103,7 +103,7 @@ export default function MechanismSection({ section }: { section: any }) {
 
   const stagesText = section?.stages?.length ? section.stages : DEFAULT_STAGES;
   const avatarUrl = section?.quoteAvatar
-    ? urlForImage(section.quoteAvatar).url()
+    ? img(section.quoteAvatar, 176)
     : '/images/sections/reviews/Matt Hickerson.png';
 
   return (
@@ -126,7 +126,7 @@ export default function MechanismSection({ section }: { section: any }) {
                       <p className="stages_desc">{stage.text}</p>
                     </div>
                     <div className="stages_row-image" ref={(el) => { rowRefs.current[i] = el; }}>
-                      <img src={art.image} alt={stage.label} />
+                      <img loading="lazy" decoding="async" src={art.image} alt={stage.label} />
                     </div>
                   </div>
                 );
@@ -138,7 +138,7 @@ export default function MechanismSection({ section }: { section: any }) {
             </p>
 
             <div className="stages_quote">
-              <img className="stages_quote-avatar" src={avatarUrl} alt="" />
+              <img loading="lazy" decoding="async" className="stages_quote-avatar" src={avatarUrl} alt="" />
               <div className="stages_quote-body">
                 <p className="stages_quote-text">
                   &ldquo;{section?.quoteText || 'Spencer took us from zero to 50,000 emails a month.'}&rdquo;

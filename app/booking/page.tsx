@@ -2,7 +2,8 @@ import type { Metadata } from 'next';
 import BookingTimer from '@/components/BookingTimer';
 import LeaveSitePopup from '@/components/LeaveSitePopup';
 import BookingSocialProof from '@/components/BookingSocialProof';
-import { fetchSanity, urlForImage } from '@/lib/sanity';
+import { fetchSanity } from '@/lib/sanity';
+import { img, urlForImage } from '@/lib/image';
 
 export const revalidate = 60;
 
@@ -25,7 +26,7 @@ export default async function BookingPage() {
   const page = await fetchSanity<any>(bookingQuery);
   const pct = page?.progressPercent ?? 95;
   const calendlySrc = page?.calendlyImage
-    ? urlForImage(page.calendlyImage).width(1000).url()
+    ? img(page.calendlyImage, 1000)
     : '/images/booking/calendly-placeholder.png';
 
   return (
@@ -46,14 +47,14 @@ export default async function BookingPage() {
 
         {/* Calendly (placeholder image for now) */}
         <div className="booking__card">
-          <img src={calendlySrc} alt="Select a date and time" />
+          <img loading="lazy" decoding="async" src={calendlySrc} alt="Select a date and time" />
         </div>
       </div>
 
       {/* Bottom prioritization bar */}
       <div className="booking__bar">
         <div className="booking__bar-inner">
-          <img className="booking__bar-logo" src="/images/sections/hero/calendly_logo.svg.png" alt="Calendly" />
+          <img loading="lazy" decoding="async" className="booking__bar-logo" src="/images/sections/hero/calendly_logo.svg.png" alt="Calendly" />
           <p className="booking__bar-text">{page?.barText || 'Your booking will be prioritized for another'}</p>
           <BookingTimer startSeconds={(page?.timerMinutes ?? 10) * 60} />
         </div>

@@ -1,4 +1,4 @@
-import { urlForImage } from '@/lib/sanity';
+import { img, urlForImage } from '@/lib/image';
 
 export default function BannerSection({ section }: { section: any }) {
   return (
@@ -7,9 +7,9 @@ export default function BannerSection({ section }: { section: any }) {
         <div className="banner__container">
           {section.leftIcon && (
             <>
-              <img
+              <img loading="lazy" decoding="async"
                 className="banner__icon"
-                src={urlForImage(section.leftIcon).url()}
+                src={img(section.leftIcon, 335)}
                 alt="trust icon"
               />
               <div className="banner__divider" />
@@ -26,9 +26,9 @@ export default function BannerSection({ section }: { section: any }) {
             </p>
           )}
           {section.rightImage && (
-            <img
+            <img loading="lazy" decoding="async"
               className="banner__image"
-              src={urlForImage(section.rightImage).url()}
+              src={img(section.rightImage, 602)}
               alt="trust image"
             />
           )}

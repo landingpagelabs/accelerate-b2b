@@ -1,17 +1,103 @@
-function toEmbed(url: string): string {
-  if (!url) return "";
-  // already an embed URL
-  if (url.includes("/embed/")) return url;
-  // youtu.be/<id>
+'use client';
+
+import { useState } from 'react';
+
+function videoId(url: string): string {
+  if (!url) return '';
+  const embed = url.match(/\/embed\/([\w-]+)/);
+  if (embed) return embed[1];
   const short = url.match(/youtu\.be\/([\w-]+)/);
-  if (short) return `https://www.youtube.com/embed/${short[1]}`;
-  // youtube.com/watch?v=<id>
+  if (short) return short[1];
   const watch = url.match(/[?&]v=([\w-]+)/);
-  if (watch) return `https://www.youtube.com/embed/${watch[1]}`;
-  return url;
+  if (watch) return watch[1];
+  return '';
 }
 
-const allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+function toEmbed(url: string): string {
+  if (!url) return '';
+  const id = videoId(url);
+  return id ? `https://www.youtube.com/embed/${id}` : url;
+}
+
+const allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+
+/**
+ * Click-to-load YouTube facade.
+ *
+ * Rendering the iframes eagerly pulled in two full copies of YouTube's player (~1.3MB of
+ * JS) and ~90 third-party requests before the page had even painted. We now show the
+ * poster image and only mount the real iframe once the visitor asks for the video —
+ * the same approach already used by HeroInlineVideo, VideoModal and VslModal.
+ *
+ * The width/height props are kept identical to the original markup so the desktop flex
+ * layout is unchanged.
+ */
+function VideoFacade({
+  url,
+  width,
+  height,
+  className,
+}: {
+  url: string;
+  width: string;
+  height: string;
+  className?: string;
+}) {
+  const [playing, setPlaying] = useState(false);
+  const [posterFailed, setPosterFailed] = useState(false);
+  const id = videoId(url);
+
+  if (playing) {
+    return (
+      <iframe
+        width={width}
+        height={height}
+        src={`${toEmbed(url)}?autoplay=1`}
+        title="YouTube video player"
+        frameBorder="0"
+        allow={allow}
+        allowFullScreen
+        className={className}
+      />
+    );
+  }
+
+  // maxresdefault is 16:9 and matches the player box; it does not exist for every
+  // upload, so fall back to the always-present hqdefault.
+  const poster = id
+    ? `https://i.ytimg.com/vi/${id}/${posterFailed ? 'hqdefault' : 'maxresdefault'}.jpg`
+    : '';
+
+  return (
+    <button
+      type="button"
+      className={`video-facade${className ? ` ${className}` : ''}`}
+      style={{ width: `${width}px`, height: `${height}px` }}
+      onClick={() => setPlaying(true)}
+      aria-label="Play video"
+    >
+      {poster && (
+        <img
+          className="video-facade__poster"
+          src={poster}
+          alt=""
+          loading="lazy"
+          decoding="async"
+          onError={() => setPosterFailed(true)}
+        />
+      )}
+      <span className="video-facade__play" aria-hidden="true">
+        <svg width="68" height="48" viewBox="0 0 68 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M66.52 7.74a8.03 8.03 0 0 0-5.65-5.7C55.79 1 34 1 34 1S12.21 1 7.13 2.04a8.03 8.03 0 0 0-5.65 5.7C.5 12.85.5 24 .5 24s0 11.15.98 16.26a8.03 8.03 0 0 0 5.65 5.7C12.21 47 34 47 34 47s21.79 0 26.87-1.04a8.03 8.03 0 0 0 5.65-5.7C67.5 35.15 67.5 24 67.5 24s0-11.15-.98-16.26Z"
+            fill="#ED1D24"
+          />
+          <path d="M27.2 33.6 45.6 24 27.2 14.4v19.2Z" fill="white" />
+        </svg>
+      </span>
+    </button>
+  );
+}
 
 export default function TutorialsSection({ section }: { section: any }) {
   const smallVideos: string[] = section.smallVideos || [];
@@ -29,21 +115,21 @@ export default function TutorialsSection({ section }: { section: any }) {
             <div className="tutorials_video">
               {section.bigVideoUrl && (
                 <div className="tutorials_big-video">
-                  <iframe width="673.61" height="380" src={toEmbed(section.bigVideoUrl)} title="YouTube video player" frameBorder="0" allow={allow} allowFullScreen />
+                  <VideoFacade url={section.bigVideoUrl} width="674" height="380" />
                 </div>
               )}
 
               {smallVideos.length > 0 && (
                 <div className="tutorials_small-video-flex">
                   {smallVideos.map((url, i) => (
-                    <iframe key={i} width="207" height="117" src={toEmbed(url)} title="YouTube video player" frameBorder="0" allow={allow} allowFullScreen />
+                    <VideoFacade key={i} url={url} width="207" height="117" />
                   ))}
                 </div>
               )}
             </div>
 
             {section.ctaText && (
-              <a className="tutorials_cta" href={section.ctaUrl || "#"}>
+              <a className="tutorials_cta" href={section.ctaUrl || '#'}>
                 <p className="text-body-large white">{section.ctaText}</p>
                 <svg width="27" height="19" viewBox="0 0 27 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path

@@ -6,7 +6,8 @@ import CongratsCopyMessage from '@/components/sections/CongratsCopyMessage';
 import ReviewsSection from '@/components/sections/ReviewsSection';
 import { PartnersRows } from '@/components/sections/PartnersSection';
 import { pageBySlugQuery } from '@/lib/queries';
-import { fetchSanity, urlForImage } from '@/lib/sanity';
+import { fetchSanity } from '@/lib/sanity';
+import { img, urlForImage } from '@/lib/image';
 
 export const revalidate = 60;
 
@@ -67,7 +68,7 @@ export default async function CongratsPage() {
           <div className="container-default">
             <div className="header-congrats_wrapper">
               <a className="header-congrats_logo" href="/">
-                <img src="/images/header/Client Logo (1).png" alt="Accelerate B2B" />
+                <img loading="lazy" decoding="async" src="/images/header/Client Logo (1).png" alt="Accelerate B2B" />
               </a>
               <div className="header-congrats_right">
                 <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -145,7 +146,7 @@ export default async function CongratsPage() {
 
                       {step.widget === 'image' && step.image && (
                         <div className="steps_image">
-                          <img src={urlForImage(step.image).url()} alt={step.title || ''} />
+                          <img loading="lazy" decoding="async" src={img(step.image, 700)} alt={step.title || ''} />
                         </div>
                       )}
                       {step.widget === 'copyMessage' && <CongratsCopyMessage message={page?.referralMessage} />}
@@ -185,8 +186,8 @@ export default async function CongratsPage() {
                   </div>
 
                   <div className="about-banner_about-info">
-                    {page?.aboutSignature && <img className="about-banner_signature" src={urlForImage(page.aboutSignature).url()} alt="" />}
-                    {page?.aboutImage && <img className="about-banner_avatar" src={urlForImage(page.aboutImage).url()} alt={page?.aboutName || 'Spencer Hirst'} />}
+                    {page?.aboutSignature && <img loading="lazy" decoding="async" className="about-banner_signature" src={img(page.aboutSignature, 300)} alt={page?.aboutName ? `${page.aboutName} signature` : 'Signature'} />}
+                    {page?.aboutImage && <img loading="lazy" decoding="async" className="about-banner_avatar" src={img(page.aboutImage, 200)} alt={page?.aboutName || 'Spencer Hirst'} />}
                     <div className="about-banner_about-info-flex">
                       <p className="text-label-medium">{page?.aboutName}</p>
                       <p className="text-body-caption">{page?.aboutRole}</p>

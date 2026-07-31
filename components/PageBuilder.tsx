@@ -1,4 +1,4 @@
-import { urlForImage } from '@/lib/sanity';
+import { urlForImage } from '@/lib/image';
 import { PortableText } from '@portabletext/react';
 import AnnounceBar from '@/components/AnnounceBar';
 import Header from '@/components/Header';
@@ -33,8 +33,8 @@ function SectionFallback({ section }: { section: any }) {
   return (
     <section className="section section--alt">
       <div className="container">
-        <h2 className="section-title">Невідомий блок: {section._type}</h2>
-        <p className="section-copy">Додайте цей блок у Sanity або оновіть PageBuilder.</p>
+        <h2 className="section-title">Unknown block: {section._type}</h2>
+        <p className="section-copy">Add this block in Sanity, or update PageBuilder.</p>
       </div>
     </section>
   );

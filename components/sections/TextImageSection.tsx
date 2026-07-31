@@ -1,4 +1,4 @@
-import { urlForImage } from '@/lib/sanity';
+import { img, urlForImage } from '@/lib/image';
 
 export default function TextImageSection({ section }: { section: any }) {
   return (
@@ -15,9 +15,9 @@ export default function TextImageSection({ section }: { section: any }) {
           </div>
           {section.image && (
             <div className="text-image__media">
-              <img
+              <img loading="lazy" decoding="async"
                 className="text-image__image"
-                src={urlForImage(section.image).url()}
+                src={img(section.image, 1800)}
                 alt={section.heading || 'section image'}
               />
             </div>

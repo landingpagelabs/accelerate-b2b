@@ -1,4 +1,4 @@
-import { urlForImage } from '@/lib/sanity';
+import { img, urlForImage } from '@/lib/image';
 
 const DividerSvg = () => (
   <svg width="654" height="1" viewBox="0 0 654 1" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%' }}>
@@ -24,8 +24,8 @@ export default function InfoSection({ section }: { section: any }) {
           <div className="info_wrapper">
             <div className="info_block">
               <div className="info_block-decor">
-                <img
-                  src={section.decorImage ? urlForImage(section.decorImage).url() : '/images/info/info-decor.svg'}
+                <img loading="lazy" decoding="async"
+                  src={section.decorImage ? img(section.decorImage, 800) : '/images/info/info-decor.svg'}
                   alt="Spencer Hirst signature"
                 />
               </div>
@@ -72,7 +72,7 @@ export default function InfoSection({ section }: { section: any }) {
                   </div>
                   {section.signatureImage && (
                     <div className="info_block-content-bot-image">
-                      <img src={urlForImage(section.signatureImage).url()} alt="" />
+                      <img loading="lazy" decoding="async" src={img(section.signatureImage, 400)} alt="" />
                     </div>
                   )}
                 </div>

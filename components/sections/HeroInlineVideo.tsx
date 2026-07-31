@@ -17,7 +17,15 @@ function embedUrl() {
   return `https://www.youtube.com/embed/${YT_ID}?${params.toString()}`;
 }
 
-export default function HeroInlineVideo({ poster }: { poster: string }) {
+export default function HeroInlineVideo({
+  poster,
+  posterWidth,
+  posterHeight,
+}: {
+  poster: string;
+  posterWidth?: number;
+  posterHeight?: number;
+}) {
   const [expanded, setExpanded] = useState(false);
 
   // Esc to close + scroll lock while the expanded overlay is open.
@@ -43,7 +51,17 @@ export default function HeroInlineVideo({ poster }: { poster: string }) {
         aria-label="Expand video"
         onClick={() => setExpanded(true)}
       >
-        <img className="hero-content_video" src={poster} alt="video" fetchPriority="high" />
+        {/* The wrapping button is already labelled "Expand video", so the poster itself
+            carries no extra meaning for assistive tech. No loading="lazy" here — this is
+            the LCP element and must stay eagerly fetched. */}
+        <img
+          className="hero-content_video"
+          src={poster}
+          width={posterWidth}
+          height={posterHeight}
+          alt=""
+          fetchPriority="high"
+        />
       </button>
 
       <button

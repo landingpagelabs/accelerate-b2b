@@ -6,7 +6,7 @@ export default function LogoGridSection({ section }: { section: any }) {
         <div className="grid grid--3" style={{ alignItems: 'center' }}>
           {section.logos?.map((logo: any, index: number) => (
             <div className="card" key={index} style={{ padding: '1.5rem', textAlign: 'center', boxShadow: 'none', borderColor: '#e5e7eb' }}>
-              {logo.image ? <img src={logo.image.asset?.url} alt={logo.alt || 'Logo'} style={{ maxWidth: '100%', maxHeight: 64, objectFit: 'contain' }} /> : <p>{logo.title}</p>}
+              {logo.image ? <img loading="lazy" decoding="async" src={logo.image.asset?.url} alt={logo.alt || 'Logo'} style={{ maxWidth: '100%', maxHeight: 64, objectFit: 'contain' }} /> : <p>{logo.title}</p>}
             </div>
           ))}
         </div>

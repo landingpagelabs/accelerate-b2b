@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { urlForImage } from '@/lib/sanity';
+import { img, urlForImage } from '@/lib/image';
 import VideoModal from './VideoModal';
 
 // Placeholder until real links are available — nature timelapse from Vimeo ("The Mountain").
@@ -45,7 +45,7 @@ function renderCard(review: any, key: number, onPlay: (url: string) => void) {
         )}
         {review.image && (
           <div className="reviews_image">
-            <img src={urlForImage(review.image).url()} alt={review.title || ''} />
+            <img loading="lazy" decoding="async" src={img(review.image, 680)} alt={review.title || ''} />
           </div>
         )}
       </div>
@@ -66,9 +66,9 @@ function renderCard(review: any, key: number, onPlay: (url: string) => void) {
         >
           <div
             className="reviews_video-thumb"
-            style={{ backgroundImage: `url(${urlForImage(review.image).url()})` }}
+            style={{ backgroundImage: `url(${img(review.image, 680)})` }}
           >
-            <img
+            <img loading="lazy" decoding="async"
               className="reviews_video-play"
               src="/images/sections/reviews/play-icon.svg"
               alt=""
@@ -87,7 +87,7 @@ function renderCard(review: any, key: number, onPlay: (url: string) => void) {
         <div className="reviews_avatar-info">
           {review.avatar && (
             <div className="reviews_avatar-image">
-              <img src={urlForImage(review.avatar).url()} alt={review.authorName || ''} />
+              <img loading="lazy" decoding="async" src={img(review.avatar, 88)} alt={review.authorName || ''} />
             </div>
           )}
           <div className="reviews_avatar-info-flex">
@@ -181,7 +181,7 @@ export default function ReviewsSection({ section }: { section: any }) {
                   onClick={() => setExpanded((v) => !v)}
                 >
                   <div className="reviews_image-2">
-                    <img src="/images/sections/reviews/Frame 2147227456.png" alt="" />
+                    <img loading="lazy" decoding="async" src="/images/sections/reviews/Frame 2147227456.png" alt="" />
                   </div>
                   <p className="reviews_cta-badge-text d-none">Trusted By 30+ B2B Businesses</p>
                   <span className="reviews_cta-divider" />

@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { urlForImage } from '@/lib/sanity';
+import { img, urlForImage } from '@/lib/image';
 
 const DEFAULT_IMAGE = '/images/modal/modal-image000.png';
 
@@ -18,7 +18,7 @@ export default function ConsultationModal({ section }: { section: any }) {
   const cardRef = useRef<HTMLDivElement>(null);
   const previouslyFocused = useRef<HTMLElement | null>(null);
 
-  const imageSrc = section?.image ? urlForImage(section.image).width(900).url() : DEFAULT_IMAGE;
+  const imageSrc = section?.image ? img(section.image, 900) : DEFAULT_IMAGE;
 
   const trigger = useCallback(() => {
     // don't show: already open, limit reached, or just closed (cooldown)
@@ -119,11 +119,11 @@ export default function ConsultationModal({ section }: { section: any }) {
 
       <div className="modal-card" role="document" tabIndex={-1} ref={cardRef}>
         <span className="modal-card__glow" aria-hidden="true" />
-        <img className="modal-card__dots" src="/images/modal/dotted-bg.png" alt="" aria-hidden="true" />
+        <img loading="lazy" decoding="async" className="modal-card__dots" src="/images/modal/dotted-bg.png" alt="" aria-hidden="true" />
 
         {imageSrc && (
           <div className="modal-card__media">
-            <img src={imageSrc} alt="" />
+            <img loading="lazy" decoding="async" src={imageSrc} alt="" />
           </div>
         )}
 
