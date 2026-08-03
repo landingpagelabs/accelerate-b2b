@@ -19,11 +19,13 @@ import gsap from 'gsap';
 //   3. Open     — Figma "Open State" (5771:5323). The labels, leader lines and
 //                 floating tool icons fade in around the exploded stack.
 //
-// After a beat on the full open state the assembly drifts diagonally up-right,
-// fading, and the cycle restarts from closed.
+// It runs ONCE, the first time it scrolls into view, and then rests on the Open
+// state — it is not a loop. It used to repeat forever and drift off-screen at the
+// end of each cycle, which meant the finished diagram (the thing the section is
+// actually explaining) was only on screen for a beat at a time.
 //
-// The isometric angle never changes and plates never rotate: the open/close
-// motion is strictly along Y, the exit along the diagonal.
+// The isometric angle never changes and plates never rotate: the open motion is
+// strictly along Y.
 // Reduced-motion users get the static assembled artwork (the Open state).
 const BASE = '/images/sections/outreach-intro/layers';
 
@@ -51,21 +53,13 @@ const LAYERS = [
   { file: 'layer-4-top', bg: false, inner: false, yClosed: 26.82, order: 0 },
 ];
 
-// Phase timings (seconds) — total cycle ~7s.
+// Phase timings (seconds) — the run is ~4s end to end, then it holds on Open.
 const FADE_IN = 0.5; // the closed slab appears
 const CLOSED_HOLD = 0.7; // state 1 reads
 const OPEN_DUR = 1.15; // closed -> middle
 const STAGGER = 0.075;
 const MIDDLE_HOLD = 0.85; // state 2 reads
 const LABELS_DUR = 0.75; // middle -> open
-const OPEN_HOLD = 1.5; // state 3 is the payoff, so it gets the longest beat
-const OUT_DUR = 1.5;
-const TAIL = 0.6; // empty beat before the loop restarts
-
-// Exit travel: up-right, with a slight scale-up.
-const FLY_X = 22;
-const FLY_Y = -14;
-const FLY_SCALE = 1.08;
 
 export default function OutreachDiagram() {
   const rootRef = useRef<HTMLDivElement>(null);
@@ -79,7 +73,9 @@ export default function OutreachDiagram() {
     let tl: gsap.core.Timeline | undefined;
 
     const ctx = gsap.context(() => {
-      tl = gsap.timeline({ repeat: -1 });
+      // Starts paused and never repeats — the IntersectionObserver below plays it
+      // once, the first time the section comes into view.
+      tl = gsap.timeline({ paused: true });
 
       const plates = LAYERS.map((l, i) => ({ ...l, el: layerRefs.current[i] })).filter(
         (l) => l.el
@@ -140,36 +136,19 @@ export default function OutreachDiagram() {
       const tLabels = tOpen + OPEN_DUR + 3 * STAGGER + MIDDLE_HOLD;
       if (bg) tl.to(bg.el, { opacity: 1, duration: LABELS_DUR, ease: 'power1.out' }, tLabels);
 
-      // --- Exit --------------------------------------------------------------
-      // Diagonal drift up-right, scaling slightly, fading away, then restart.
-      const tOut = tLabels + LABELS_DUR + OPEN_HOLD;
-      stack.forEach((l) => {
-        tl!.to(
-          l.el,
-          {
-            yPercent: FLY_Y,
-            xPercent: FLY_X,
-            scale: FLY_SCALE,
-            duration: OUT_DUR,
-            ease: 'power2.in',
-          },
-          tOut
-        );
-        tl!.to(l.el, { opacity: 0, duration: OUT_DUR * 0.55, ease: 'power1.in' }, tOut);
-      });
-      if (bg) tl.to(bg.el, { opacity: 0, duration: OUT_DUR * 0.4, ease: 'power1.in' }, tOut);
-
-      // Empty beat so the restart doesn't feel abrupt.
-      tl.to({}, { duration: TAIL }, tOut + OUT_DUR);
+      // No exit phase: the timeline ends on the Open state and stays there.
     }, root);
 
-    // Don't burn frames while the section is off-screen.
+    // Play once, the first time it scrolls into view. Disconnecting on that first
+    // intersection is what stops it replaying every time the visitor scrolls back.
     const io = new IntersectionObserver(
       ([entry]) => {
-        if (!tl) return;
-        entry.isIntersecting ? tl.play() : tl.pause();
+        if (entry.isIntersecting) {
+          tl?.play();
+          io.disconnect();
+        }
       },
-      { rootMargin: '100px' }
+      { rootMargin: '-10% 0px' }
     );
     io.observe(root);
 

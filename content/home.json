@@ -1533,7 +1533,7 @@
       "_type": "tutorialsSection",
       "bigVideoUrl": "https://www.youtube.com/watch?v=ogm4d88bgsM",
       "ctaText": "View YouTube Channel",
-      "ctaUrl": "https://www.youtube.com/@naturerelaxationfilms",
+      "ctaUrl": "https://www.youtube.com/channel/UCvNey1oteMkf7tryfPFeXRw",
       "heading": "Free tutorials on how we do it",
       "smallVideos": [
         "https://www.youtube.com/watch?v=kUvHpvvsBMo",
@@ -1622,7 +1622,7 @@
           "buttonText": "View The Playbook",
           "description": "Your dream client just secured another round of funding? Convenient timing for new vendor agreements to be looked at.",
           "icon": "news",
-          "title": "News & Funding"
+          "title": "News and funding"
         },
         {
           "_key": "pb_5",

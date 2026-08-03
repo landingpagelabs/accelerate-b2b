@@ -1,11 +1,17 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import ModalCta from './ModalCta';
 
-// Hero explainer video. Shows the demo poster; clicking the poster — or the
-// "Expand Video" button — opens a larger overlay that plays the video.
+/**
+ * Hero explainer video.
+ *
+ * Clicking the poster plays the video IN PLACE. Only the "Expand Video" button opens the
+ * larger overlay. Previously both did the same thing — the poster opened the overlay too,
+ * so the video could never be watched inline.
+ */
 const YT_ID = 'gNZS-YRmZtk';
-const START = 1; // ?t=1s from the source URL
+const START = 2; // ?t=2s from the source URL
 
 function embedUrl() {
   const params = new URLSearchParams({
@@ -27,6 +33,14 @@ export default function HeroInlineVideo({
   posterHeight?: number;
 }) {
   const [expanded, setExpanded] = useState(false);
+  const [playing, setPlaying] = useState(false);
+
+  // Expanding takes over playback, so the inline player unmounts — otherwise two copies of
+  // the video would be running and you'd hear both.
+  const expand = () => {
+    setPlaying(false);
+    setExpanded(true);
+  };
 
   // Esc to close + scroll lock while the expanded overlay is open.
   useEffect(() => {
@@ -45,30 +59,42 @@ export default function HeroInlineVideo({
 
   return (
     <div className="hero-content_video-wrap">
-      <button
-        type="button"
-        className="hero-video-poster"
-        aria-label="Expand video"
-        onClick={() => setExpanded(true)}
-      >
-        {/* The wrapping button is already labelled "Expand video", so the poster itself
-            carries no extra meaning for assistive tech. No loading="lazy" here — this is
-            the LCP element and must stay eagerly fetched. */}
-        <img
-          className="hero-content_video"
-          src={poster}
-          width={posterWidth}
-          height={posterHeight}
-          alt=""
-          fetchPriority="high"
-        />
-      </button>
+      {playing ? (
+        <div className="hero-content_video hero-video-inline">
+          <iframe
+            className="hero-video-inline__iframe"
+            src={embedUrl()}
+            title="Explainer video"
+            allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
+            allowFullScreen
+          />
+        </div>
+      ) : (
+        <button
+          type="button"
+          className="hero-video-poster"
+          aria-label="Play video"
+          onClick={() => setPlaying(true)}
+        >
+          {/* The wrapping button is already labelled "Play video", so the poster itself
+              carries no extra meaning for assistive tech. No loading="lazy" here — this is
+              the LCP element and must stay eagerly fetched. */}
+          <img
+            className="hero-content_video"
+            src={poster}
+            width={posterWidth}
+            height={posterHeight}
+            alt=""
+            fetchPriority="high"
+          />
+        </button>
+      )}
 
       <button
         type="button"
         className="hero-video-expand"
         aria-label="Expand video"
-        onClick={() => setExpanded(true)}
+        onClick={expand}
       >
         <span>Expand Video</span>
         <img className="hero-video-expand__icon" src="/images/header/hero-play-icon.svg" alt="" aria-hidden="true" />
@@ -102,6 +128,7 @@ export default function HeroInlineVideo({
                 allowFullScreen
               />
             </div>
+            <ModalCta onNavigate={() => setExpanded(false)} />
           </div>
         </div>
       )}

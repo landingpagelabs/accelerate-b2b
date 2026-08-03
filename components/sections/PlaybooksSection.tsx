@@ -39,12 +39,7 @@ const ICONS: Record<string, JSX.Element> = {
   ),
 };
 
-const ArrowIcon = (
-  <svg className="playbooks__arrow" width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M2.375 9.5H16.625H16.2292" stroke="#212121" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" />
-    <path d="M11.875 15.0418C11.875 11.8752 14.25 10.2918 16.625 9.896V9.10433C14.25 8.7085 11.875 7.12516 11.875 3.9585" stroke="#212121" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" />
-  </svg>
-);
+import PlaybookLink from './PlaybookLink';
 
 export default function PlaybooksSection({ section }: { section: any }) {
   const cards: any[] = section.cards || [];
@@ -63,13 +58,10 @@ export default function PlaybooksSection({ section }: { section: any }) {
                 </div>
                 <div className="playbooks__body">
                   <div className="playbooks__text">{card.description}</div>
-                  <a
-                    className="playbooks__link"
-                    href={card.buttonUrl || '#'}
-                  >
-                    <span>{card.buttonText || 'View The Playbook'}</span>
-                    {ArrowIcon}
-                  </a>
+                  <PlaybookLink
+                    label={card.buttonText || 'View The Playbook'}
+                    url={card.buttonUrl}
+                  />
                 </div>
               </li>
             ))}

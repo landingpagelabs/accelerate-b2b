@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import ModalCta from './ModalCta';
 
 // YouTube / Vimeo → embed URL with autoplay. If unrecognized, return as-is.
 function toEmbedUrl(url: string): string {
@@ -66,6 +67,7 @@ export default function VideoModal({ videoUrl, onClose }: Props) {
             <div className="vsl-card__image vsl-card__iframe" />
           )}
         </div>
+        <ModalCta onNavigate={onClose} />
       </div>
     </div>
   );

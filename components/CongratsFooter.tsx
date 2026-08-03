@@ -33,8 +33,10 @@ export default function CongratsFooter() {
             <div className="footer__col">
               <p className="footer__col-title">Socials</p>
               <ul className="footer__links">
-                <li><a href="#" className="footer__link">LinkedIn</a></li>
-                <li><a href="#" className="footer__link">YouTube</a></li>
+                {/* These were href="#" here while the main footer carried the real
+                    destinations — same links, same behaviour, sitewide. */}
+                <li><a href="https://www.linkedin.com/company/accelerate-b2b-outbound/" target="_blank" rel="noopener noreferrer" className="footer__link">LinkedIn</a></li>
+                <li><a href="https://www.youtube.com/@hirstspencer" target="_blank" rel="noopener noreferrer" className="footer__link">YouTube</a></li>
               </ul>
             </div>
 
@@ -42,7 +44,7 @@ export default function CongratsFooter() {
               <p className="footer__col-title">Company</p>
               <ul className="footer__links">
                 <li><a href="mailto:spencer@accelerateb2b.com" className="footer__link">spencer@accelerateb2b.com</a></li>
-                <li><a href="#" className="footer__link">London, UK</a></li>
+                <li><span className="footer__link footer__link--static">London, UK</span></li>
                 <li><a href="/privacy" className="footer__link">Privacy Policy</a></li>
                 <li><a href="/terms" className="footer__link">Terms of Service</a></li>
               </ul>
@@ -53,7 +55,12 @@ export default function CongratsFooter() {
 
       <div className="footer__bottom">
         <div className="footer__bottom-inner padding-global">
-          <a href="#" className="footer__built">
+          <a
+            href="https://links.landingpagelabs.co/accelerateb2b"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="footer__built"
+          >
             <img loading="lazy" decoding="async" className="footer__built-icon" src="/images/footer/footer_bottom-icon.svg" alt="" />
             Built By Landing Page Labs
           </a>
