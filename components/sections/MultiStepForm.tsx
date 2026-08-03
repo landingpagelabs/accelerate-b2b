@@ -34,8 +34,12 @@ const STEPS: Step[] = [
   { kind: 'input', title: 'What’s your work email?', field: 'email', inputType: 'email', placeholder: 'Work email' },
   {
     kind: 'final',
+    // Figma 4783:8447 carries the congrats line above the instruction; the build
+    // was only showing the second half.
     title: (
       <>
+        Congrats, you&rsquo;ve pre-qualified for a free test campaign.
+        <br />
         <span className="text-underline">Last step:</span> book your free discovery call
       </>
     ),

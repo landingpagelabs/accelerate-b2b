@@ -6,41 +6,32 @@ import ModalCta from './ModalCta';
 /**
  * Hero explainer video.
  *
- * Clicking the poster plays the video IN PLACE. Only the "Expand Video" button opens the
- * larger overlay. Previously both did the same thing — the poster opened the overlay too,
- * so the video could never be watched inline.
+ * The section renders the YouTube embed directly rather than a poster image that has to be
+ * clicked to reveal a player — YouTube draws its own thumbnail and play button, so the
+ * visitor plays it in place. "Expand Video" still opens the larger overlay, which is the
+ * only thing that ever opened it.
  */
 const YT_ID = 'gNZS-YRmZtk';
 const START = 2; // ?t=2s from the source URL
 
-function embedUrl() {
+function embedUrl(autoplay: boolean) {
   const params = new URLSearchParams({
     rel: '0',
     playsinline: '1',
     start: String(START),
-    autoplay: '1',
+    autoplay: autoplay ? '1' : '0',
   });
   return `https://www.youtube.com/embed/${YT_ID}?${params.toString()}`;
 }
 
-export default function HeroInlineVideo({
-  poster,
-  posterWidth,
-  posterHeight,
-}: {
-  poster: string;
+export default function HeroInlineVideo(_props: {
+  // Kept so the call site does not have to change. The poster is no longer rendered:
+  // the embed replaces it.
+  poster?: string;
   posterWidth?: number;
   posterHeight?: number;
 }) {
   const [expanded, setExpanded] = useState(false);
-  const [playing, setPlaying] = useState(false);
-
-  // Expanding takes over playback, so the inline player unmounts — otherwise two copies of
-  // the video would be running and you'd hear both.
-  const expand = () => {
-    setPlaying(false);
-    setExpanded(true);
-  };
 
   // Esc to close + scroll lock while the expanded overlay is open.
   useEffect(() => {
@@ -59,42 +50,21 @@ export default function HeroInlineVideo({
 
   return (
     <div className="hero-content_video-wrap">
-      {playing ? (
-        <div className="hero-content_video hero-video-inline">
-          <iframe
-            className="hero-video-inline__iframe"
-            src={embedUrl()}
-            title="Explainer video"
-            allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
-            allowFullScreen
-          />
-        </div>
-      ) : (
-        <button
-          type="button"
-          className="hero-video-poster"
-          aria-label="Play video"
-          onClick={() => setPlaying(true)}
-        >
-          {/* The wrapping button is already labelled "Play video", so the poster itself
-              carries no extra meaning for assistive tech. No loading="lazy" here — this is
-              the LCP element and must stay eagerly fetched. */}
-          <img
-            className="hero-content_video"
-            src={poster}
-            width={posterWidth}
-            height={posterHeight}
-            alt=""
-            fetchPriority="high"
-          />
-        </button>
-      )}
+      <div className="hero-content_video hero-video-inline">
+        <iframe
+          className="hero-video-inline__iframe"
+          src={embedUrl(false)}
+          title="Explainer video"
+          allow="fullscreen; picture-in-picture; encrypted-media"
+          allowFullScreen
+        />
+      </div>
 
       <button
         type="button"
         className="hero-video-expand"
         aria-label="Expand video"
-        onClick={expand}
+        onClick={() => setExpanded(true)}
       >
         <span>Expand Video</span>
         <img className="hero-video-expand__icon" src="/images/header/hero-play-icon.svg" alt="" aria-hidden="true" />
@@ -120,9 +90,10 @@ export default function HeroInlineVideo({
           </button>
           <div className="vsl-card" role="document">
             <div className="vsl-card__media">
+              {/* Autoplays here: the visitor asked for it by opening the overlay. */}
               <iframe
                 className="vsl-card__image vsl-card__iframe"
-                src={embedUrl()}
+                src={embedUrl(true)}
                 title="Explainer video"
                 allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
                 allowFullScreen

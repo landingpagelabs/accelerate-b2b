@@ -994,9 +994,15 @@ li {
   gap: 15px;
 }
 
+/* Figma puts these on a 38px pitch — a ~23px item plus the 15px list gap — on both
+   the desktop footer (4715:10747) and the 390w one (5923:7942). The 12px
+   padding-block that used to be here added 24px to every row, so the columns read
+   as loose floating words. The 44px touch target is kept by the ::after overlay
+   below, which does not affect layout. */
 .footer__link {
+  position: relative;
   display: inline-block;
-  padding-block: 12px;
+  padding-block: 0;
   font-family: "Inter", sans-serif;
   font-weight: 400;
   font-size: 16px;
@@ -1004,6 +1010,19 @@ li {
   color: #41424d;
   overflow-wrap: anywhere;
   transition: color 0.2s ease;
+}
+
+/* Invisible hit-area extension so the tap target stays at the 44px minimum while
+   the row keeps the 23px height the design draws. Anchors only — the static
+   entries (address, Blog) are not tappable. */
+a.footer__link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 44px;
 }
 
 .footer__link:hover {
@@ -1113,13 +1132,6 @@ li {
     text-align: center;
   }
 
-  /* The 15px gap double-counts with .footer__link's 12px padding-block, so every
-     row was eating 62px of height and the columns read as unrelated floating
-     words rather than lists. The padding alone still gives a 47px tap target,
-     which clears the 44px minimum, so the gap is what goes. */
-  .footer__links {
-    gap: 0;
-  }
 
   .footer__cta-stack {
     padding-left: 20px;
@@ -1903,16 +1915,20 @@ li {
     inset 0 1px 0 0 rgba(255, 255, 255, 0.25);
 }
 
+/* Shadow order matters here. CSS paints the FIRST shadow on top, so listing the
+   opaque `0 0 0 10px #f6f6f6` gutter ring first painted it straight over the drop
+   shadows — which all live within 10px of the edge, so they were invisible no
+   matter how accurate the values were. Ring last, shadows on top of it. */
 .ct-card--orange {
   border: 1px solid rgba(255, 255, 255, 0.3);
   background: linear-gradient(180deg, #fd6c1d 0%, #f65801 100%);
-  box-shadow: 0 0 0 10px #f6f6f6, var(--ct-card-shadow);
+  box-shadow: var(--ct-card-shadow), 0 0 0 10px #f6f6f6;
 }
 
 .ct-card--white {
   background: #fff;
   border: 1px solid #ebebeb;
-  box-shadow: 0 0 0 10px #f6f6f6, var(--ct-card-shadow);
+  box-shadow: var(--ct-card-shadow), 0 0 0 10px #f6f6f6;
 }
 
 .ct-cell {
@@ -4152,6 +4168,13 @@ li {
   .hero-content_form-comment-left {
     flex-direction: column;
     margin-top: 10px;
+  }
+
+  /* Keep the attribution on one line. The name wraps inside its own flex item at
+     this width, which leaves "800k Followers" sitting beside a two-line block and
+     reading as a separate row (5923:6766). */
+  .hero-content_form-comment-info-flex > p {
+    white-space: nowrap;
   }
 
   .hero-content_form-input {
@@ -7032,8 +7055,10 @@ video.vsl-card__image {
   .funnel__author-name::after {
     content: none; /* drop the trailing "•" */
   }
+  /* No bullet between the avatar and the name — the avatar already separates them,
+     so it just reads as a stray dot (5923:7268). */
   .funnel__author-name::before {
-    content: "• "; /* bullet between avatar and name */
+    content: none;
   }
   /* "avatar • name / role" as a 2-row grid rather than a wrapping flex row.
      The role never fits beside the name at any mobile width (the card is
@@ -7073,5 +7098,38 @@ video.vsl-card__image {
   }
   .tos-hero__cta-stack .footer__cta-arrow {
     display: none;
+  }
+}
+
+/* ====================================================================
+   MOBILE SECTION RULES — full bleed
+   ====================================================================
+   Every section wrapper sits inside .padding-global (20px), so its top/bottom
+   border stopped 20px short of each edge and the page read as a stack of
+   floating cards rather than a continuous document. The 390w frame
+   (5923:6677) draws these rules edge to edge.
+
+   Bleed each wrapper out by the page padding and give the padding back to the
+   wrapper itself, so the rule spans the viewport while the content stays inset.
+
+   Vertical borders come off at the same time. At one column they only outlined
+   the content box, and they were on some sections and not others — which is
+   exactly the inconsistency flagged on 5923:7830. */
+@media (max-width: 991px) {
+  .partners_wrapper,
+  .funnel__board,
+  .services_wrapper,
+  .services_list-wrapper,
+  .reviews_wrapper,
+  .tutorials_wrapper {
+    /* width:auto matters: .funnel__board sets width:100%, which resolves against
+       the padded container, so a negative margin would shift it left without
+       widening it. */
+    width: auto;
+    margin-inline: -20px;
+    padding-inline: 20px;
+    border-left: 0;
+    border-right: 0;
+    border-radius: 0;
   }
 }

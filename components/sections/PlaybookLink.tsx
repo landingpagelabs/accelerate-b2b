@@ -28,9 +28,12 @@ export default function PlaybookLink({ label, url }: { label: string; url?: stri
     const onClick = (e: MouseEvent) => {
       if (!wrapRef.current?.contains(e.target as Node)) setOpen(false);
     };
+    // Dismisses itself after 10s so it doesn't sit there indefinitely.
+    const timer = window.setTimeout(() => setOpen(false), 10000);
     document.addEventListener('keydown', onKey);
     document.addEventListener('click', onClick);
     return () => {
+      window.clearTimeout(timer);
       document.removeEventListener('keydown', onKey);
       document.removeEventListener('click', onClick);
     };

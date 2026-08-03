@@ -37,17 +37,20 @@ function VideoFacade({
   width,
   height,
   className,
+  onPlay,
 }: {
   url: string;
   width: string;
   height: string;
   className?: string;
+  /** When given, the click is handled by the parent instead of playing in place. */
+  onPlay?: () => void;
 }) {
   const [playing, setPlaying] = useState(false);
   const [posterFailed, setPosterFailed] = useState(false);
   const id = videoId(url);
 
-  if (playing) {
+  if (playing && !onPlay) {
     return (
       <iframe
         width={width}
@@ -82,7 +85,7 @@ function VideoFacade({
           aspectRatio: `${width} / ${height}`,
         } as React.CSSProperties
       }
-      onClick={() => setPlaying(true)}
+      onClick={() => (onPlay ? onPlay() : setPlaying(true))}
       aria-label="Play video"
     >
       {poster && (
@@ -110,6 +113,17 @@ function VideoFacade({
 
 export default function TutorialsSection({ section }: { section: any }) {
   const smallVideos: string[] = section.smallVideos || [];
+  // Clicking a thumbnail promotes it into the big frame rather than playing it in the
+  // 207px box it was sitting in.
+  const [featured, setFeatured] = useState<string>(section.bigVideoUrl || '');
+  const [featuredKey, setFeaturedKey] = useState(0);
+
+  const promote = (url: string) => {
+    setFeatured(url);
+    // Remount the big player so a newly promoted video actually starts.
+    setFeaturedKey((k) => k + 1);
+    document.getElementById('tutorials-main')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  };
 
   return (
     <section className="tutorials" id="tutorials">
@@ -122,16 +136,22 @@ export default function TutorialsSection({ section }: { section: any }) {
               </div>
             )}
             <div className="tutorials_video">
-              {section.bigVideoUrl && (
-                <div className="tutorials_big-video">
-                  <VideoFacade url={section.bigVideoUrl} width="674" height="380" />
+              {featured && (
+                <div className="tutorials_big-video" id="tutorials-main">
+                  <VideoFacade key={featuredKey} url={featured} width="674" height="380" />
                 </div>
               )}
 
               {smallVideos.length > 0 && (
                 <div className="tutorials_small-video-flex">
                   {smallVideos.map((url, i) => (
-                    <VideoFacade key={i} url={url} width="207" height="117" />
+                    <VideoFacade
+                      key={i}
+                      url={url}
+                      width="207"
+                      height="117"
+                      onPlay={() => promote(url)}
+                    />
                   ))}
                 </div>
               )}
