@@ -1,45 +1,65 @@
-# Accelerate B2B Mini CMS
+# Accelerate B2B
 
-Next.js + Sanity starter for landing pages built from reusable block sections.
+The Accelerate B2B landing page. Next.js (App Router), deployed on Vercel.
 
-## How it works
-- `studio/` contains Sanity Studio for editing pages
-- `app/` renders pages from the CMS using sections
-- The `Page` document with a `sections` array lets you build pages like ACF blocks
+There is no CMS. Every page's text and images live in `content/*.json` in this repo — edit
+the file, commit, and it ships with the next deploy. The site used to read from Sanity at
+request time; that was removed in August 2026 (see `git log` for the reasoning).
 
-## Quick start: seed demo content
-
-1. Copy `studio/.env.example` to `studio/.env` and fill `NEXT_PUBLIC_SANITY_PROJECT_ID` and `SANITY_STUDIO_API_TOKEN`.
-2. From project root run:
+## Running it
 
 ```bash
-npm run studio      # starts Sanity Studio at http://localhost:3334
-npm run studio:seed # seeds demo `home` page and sample `Post` into your Sanity project (requires tokens)
+npm install
+npm run dev      # http://localhost:3000
 ```
 
+That is the whole setup. Nothing is required in the environment to run the site locally —
+`.env.local.example` lists the optional variables (Tag Manager container, Formspree form
+id, Calendly URL) and what each one is for.
 
-## Setup
-1. Copy `.env.local.example` to `.env.local`
-2. Fill in `NEXT_PUBLIC_SANITY_PROJECT_ID` and `NEXT_PUBLIC_SANITY_DATASET`
+## How a page is built
 
-## Running
-- `npm install`
-- `npm run dev` — start Next.js
-- `npm run studio` — start Sanity Studio
+`content/home.json` holds a `sections` array. Each entry has a `_type`, and
+`components/PageBuilder.tsx` maps that `_type` to the component that renders it. To change
+what appears on the page you either edit the content, or add a `case` to that switch.
 
-## How to create a page
-1. Start Sanity Studio
-2. Create a `Page` document
-3. Add `slug` = `home`
-4. Add the needed sections: Hero, Feature, Content, Testimonial, Stats, CTA, Logo Grid
+| Route | Content file |
+|---|---|
+| `/` | `content/home.json` |
+| `/booking` | `content/booking.json` |
+| `/congrats` | `content/congrats.json` |
+| `/privacy`, `/terms` | `content/legal/*.json` |
+| `/llm-info` | `content/llm-info.json` |
 
-## Adding a blog
-1. In Sanity Studio create a `Post` document
-2. Set `title`, `slug`, `publishedAt`, `mainImage`, and `body`
-3. Open `/posts` in Next.js for the list of posts
+`/congrats` reuses the reviews, FAQ and partners blocks from `content/home.json` rather
+than keeping a second copy, so editing those updates both pages.
 
-## Deploy to Vercel
-- Connect the repository to Vercel
-- Add environment variables: `NEXT_PUBLIC_SANITY_PROJECT_ID`, `NEXT_PUBLIC_SANITY_DATASET`, `SANITY_STUDIO_API_TOKEN`
-- Set `NODE_ENV=production` by default
+**Adding a case study is the common edit — see [CASE-STUDIES.md](CASE-STUDIES.md).**
 
+## Images
+
+Content images are static files under `public/images/content/`, committed to the repo and
+served from the site's own domain. They are pre-converted to WebP at the size and quality
+each slot renders them at, so nothing is resized at request time.
+
+Each image in the content JSON carries its real dimensions:
+
+```json
+"asset": { "src": "/images/content/hero/example.webp", "width": 1396, "height": 786 }
+```
+
+Those `width`/`height` values let the browser reserve space before the image loads, which
+is what stops the layout jumping. If you add an image, use its true pixel size — wrong
+numbers are worse than none.
+
+The helpers in `lib/image.ts` (`img`, `urlForImage`, `dims`) still accept width and quality
+arguments, but both are ignored. They are leftovers from the CDN era, kept so the ~30 call
+sites did not all have to change.
+
+## Deploying
+
+Push to `main`. Vercel builds and deploys automatically.
+
+A failed build leaves the previous version live rather than breaking the site, so if a
+change does not appear, check the deployment status in Vercel before assuming a caching
+problem.

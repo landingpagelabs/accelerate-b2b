@@ -11,13 +11,8 @@ coverage
 .playwright-mcp/
 
 # Generated / build artifacts
-.sanity/
-studio/.sanity/
-studio/dist/
 tsconfig.tsbuildinfo
 .vscode/
 
-# Sanity Studio secrets
-studio/.env
 .vercel
 .env*.local
