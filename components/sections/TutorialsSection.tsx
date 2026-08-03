@@ -138,7 +138,14 @@ export default function TutorialsSection({ section }: { section: any }) {
             </div>
 
             {section.ctaText && (
-              <a className="tutorials_cta" href={section.ctaUrl || '#'}>
+              // Opens in a new tab: it points off-site at the YouTube channel, and losing
+              // the page mid-funnel to go and watch videos is the wrong trade.
+              <a
+                className="tutorials_cta"
+                href={section.ctaUrl || '#'}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <p className="text-body-large white">{section.ctaText}</p>
                 <svg width="27" height="19" viewBox="0 0 27 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path

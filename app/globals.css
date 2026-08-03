@@ -1010,6 +1010,30 @@ li {
   color: #f65801;
 }
 
+/* Footer entries that are not links (the address, and Blog until it exists).
+   They keep the link's type and rhythm but take no hover colour or pointer. */
+.footer__link--static {
+  cursor: default;
+}
+
+.footer__link--static:hover {
+  color: #41424d;
+}
+
+.footer__soon-tag {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: #ebebeb;
+  color: #6b6c78;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.4;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
 .footer__bottom {
   width: 100%;
   padding-top: 21px;
@@ -1087,6 +1111,14 @@ li {
   .footer__links,
   .footer__col-title {
     text-align: center;
+  }
+
+  /* The 15px gap double-counts with .footer__link's 12px padding-block, so every
+     row was eating 62px of height and the columns read as unrelated floating
+     words rather than lists. The padding alone still gives a 47px tap target,
+     which clears the 44px minimum, so the gap is what goes. */
+  .footer__links {
+    gap: 0;
   }
 
   .footer__cta-stack {
@@ -1255,7 +1287,23 @@ li {
   display: block;
 }
 
-/* The poster is a button so the whole image opens the expand overlay. */
+/* Inline player. Occupies the same box the poster did, so nothing shifts when the
+   visitor clicks play — the poster's intrinsic ratio is 1396x786. */
+.hero-video-inline {
+  position: relative;
+  aspect-ratio: 1396 / 786;
+}
+
+.hero-video-inline__iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+/* The poster is a button so the whole image starts inline playback. */
 .hero-video-poster {
   display: block;
   width: 100%;
@@ -1839,24 +1887,32 @@ li {
   width: 250px;
   justify-self: center;
   border-radius: 20px;
+
+  /* Every column carries this same four-shadow stack plus the inner highlight in
+     Figma — the orange one (5582:47312) and the white ones (5582:46732,
+     5582:46785) have byte-identical effect lists. The white columns were
+     shipping with only the grey gutter ring and no shadow at all, which is what
+     made them read flat next to the orange one.
+     Values are the Figma ones, not rounded: the previous orange-only stack had
+     drifted to -4px / 2px / 1px / 1px. */
+  --ct-card-shadow:
+    0 10px 10px -3.75px rgba(0, 0, 0, 0.06),
+    0 2.29px 2.29px -2.5px rgba(0, 0, 0, 0.16),
+    0 0.6px 0.6px -1.25px rgba(0, 0, 0, 0.18),
+    0 0 0 0.5px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.25);
 }
 
 .ct-card--orange {
   border: 1px solid rgba(255, 255, 255, 0.3);
   background: linear-gradient(180deg, #fd6c1d 0%, #f65801 100%);
-  box-shadow:
-    0 0 0 10px #f6f6f6,
-    0 10px 10px -4px rgba(0, 0, 0, 0.06),
-    0 2px 2px -3px rgba(0, 0, 0, 0.16),
-    0 1px 1px -1px rgba(0, 0, 0, 0.18),
-    0 0 0 1px rgba(0, 0, 0, 0.12),
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.25);
+  box-shadow: 0 0 0 10px #f6f6f6, var(--ct-card-shadow);
 }
 
 .ct-card--white {
   background: #fff;
   border: 1px solid #ebebeb;
-  box-shadow: 0 0 0 10px #f6f6f6;
+  box-shadow: 0 0 0 10px #f6f6f6, var(--ct-card-shadow);
 }
 
 .ct-cell {
@@ -2955,6 +3011,7 @@ li {
     max-width: 100%;
   }
 
+
   .services_wrapper {
     padding-top: 25px;
     border-bottom: 1px solid #1d1d1d1a;
@@ -3019,7 +3076,14 @@ li {
     border-right: 0;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   }
-  .item_services:last-child {
+  /* This reset never actually landed: a bare `.item_services:last-child` is (0,2,0)
+     and loses to the `.item_services.is-down.is-last` selector above it, which is
+     (0,3,0) — so the final card kept its hairline and doubled up with the
+     container's own bottom border. Matching the modifiers restores the reset. */
+  .item_services:last-child,
+  .item_services.is-last:last-child,
+  .item_services.is-down:last-child,
+  .item_services.is-down.is-last:last-child {
     border-bottom: 0;
   }
 }
@@ -3661,8 +3725,14 @@ li {
 }
 
 .header_link {
-  min-height: 44px;
+  /* Figma draws this 31px tall (8px padding + 15px line-height + 8px) on both the
+     desktop nav and the 390w mobile frame (5923:6698). A min-height of 44px inflated
+     it to 44 and made it read chunky, especially on mobile. The visual box now matches
+     the design; the 44px touch target is restored by the ::after overlay below, so
+     nothing is given up for touch. */
+  position: relative;
   display: flex;
+  align-items: center;
   border-radius: 9px;
   background: linear-gradient(180deg, #44403c 0%, #1c1917 100%);
   box-shadow:
@@ -3675,6 +3745,18 @@ li {
     filter 0.25s ease,
     box-shadow 0.25s ease,
     transform 0.25s ease;
+}
+
+/* Invisible hit-area extension: keeps the tap target at the 44px minimum while the
+   painted button stays the 31px the design specifies. */
+.header_link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 44px;
 }
 
 .header_link:hover {
@@ -3794,6 +3876,24 @@ li {
   line-height: 110%;
   letter-spacing: -0.6px;
   margin-bottom: 20px;
+}
+
+.hero-content_form-body {
+  color: #41424d;
+  text-align: center;
+  font-family: "Inter";
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 150%;
+  margin-top: -8px;
+  margin-bottom: 20px;
+}
+
+.hero-content_form-calendly {
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 12px;
 }
 
 .hero-content_form-btn {
@@ -5747,11 +5847,15 @@ video.vsl-card__image {
 }
 
 /* heading */
+/* Figma (4863:10080) is Inter Semi Bold 40 / 120% / -2%, bound to the file's H2 style.
+   This was DM Sans 700 — and the only DM Sans face shipped is dm-sans-500.woff2, so the
+   browser was synthesising a faux bold from a font the design never used. */
 .booking__title {
-  font-family: "DM Sans", sans-serif;
-  font-weight: 700;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
   font-size: 40px;
-  line-height: 1.15;
+  line-height: 120%;
+  letter-spacing: -0.02em;
   color: #1a1a1a;
   text-align: center;
   margin: 0 0 28px;
@@ -6441,6 +6545,43 @@ video.vsl-card__image {
 
 .playbooks__link:hover .playbooks__arrow {
   transform: translateX(3px);
+}
+
+/* The playbooks don't exist yet, so the affordance is a button that says so
+   rather than a link to nowhere. It reuses .playbooks__link wholesale — these
+   are only the resets a <button> needs to sit identically to the <a>. */
+.playbooks__link-wrap {
+  position: relative;
+  display: block;
+}
+
+.playbooks__link--soon {
+  width: 100%;
+  border: none;
+  cursor: pointer;
+}
+
+.playbooks__soon {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  z-index: 5;
+  display: block;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: #1a1a1a;
+  color: #fff;
+  font-family: "Inter", sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.45;
+  text-align: left;
+  box-shadow: 0 8px 20px -6px rgba(0, 0, 0, 0.35);
+}
+
+.playbooks__soon strong {
+  font-weight: 600;
 }
 
 @media (max-width: 1024px) {

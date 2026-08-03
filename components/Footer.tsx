@@ -63,7 +63,13 @@ export default function Footer() {
             <div className="footer__col">
               <p className="footer__col-title">Resources</p>
               <ul className="footer__links">
-                <li><a href="#" className="footer__link">Blog</a></li>
+                {/* No blog exists yet. It used to be href="#", which just threw the
+                    visitor back to the top of the page — so it says what it is instead. */}
+                <li>
+                  <span className="footer__link footer__link--static">
+                    Blog <span className="footer__soon-tag">Coming soon</span>
+                  </span>
+                </li>
                 <li><a href="/llm-info" className="footer__link">AI? Read this</a></li>
                 <li><a href="#tutorials" className="footer__link">Tutorials</a></li>
                 <li><a href="https://www.linkedin.com/company/accelerate-b2b-outbound/jobs/" target="_blank" rel="noopener noreferrer" className="footer__link">Careers</a></li>
@@ -81,7 +87,9 @@ export default function Footer() {
               <p className="footer__col-title">Company</p>
               <ul className="footer__links">
                 <li><a href="mailto:spencer@accelerateb2b.com" className="footer__link">spencer@accelerateb2b.com</a></li>
-                <li><a href="#" className="footer__link">London, UK</a></li>
+                {/* An address, not a destination. It was an href="#" anchor, so it took a
+                    hover colour and a pointer and jumped to the top when clicked. */}
+                <li><span className="footer__link footer__link--static">London, UK</span></li>
                 <li><a href="/privacy" className="footer__link">Privacy Policy</a></li>
                 <li><a href="/terms" className="footer__link">Terms of Service</a></li>
               </ul>
@@ -91,7 +99,12 @@ export default function Footer() {
       </div>
       <div className="footer__bottom">
         <div className="footer__bottom-inner padding-global">
-          <a href="#" className="footer__built">
+          <a
+            href="https://links.landingpagelabs.co/accelerateb2b"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="footer__built"
+          >
             <img loading="lazy" decoding="async" className="footer__built-icon" src="/images/footer/footer_bottom-icon.svg" alt="" />
             Built By Landing Page Labs
           </a>
