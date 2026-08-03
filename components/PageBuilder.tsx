@@ -34,17 +34,18 @@ function SectionFallback({ section }: { section: any }) {
     <section className="section section--alt">
       <div className="container">
         <h2 className="section-title">Unknown block: {section._type}</h2>
-        <p className="section-copy">Add this block in Sanity, or update PageBuilder.</p>
+        <p className="section-copy">Add a case for this block in PageBuilder.</p>
       </div>
     </section>
   );
 }
 
 export function PageBuilder({ page }: { page: any }) {
-  // --- Render-order overrides (kept in code so the Sanity content stays intact) ---
+  // --- Render-order overrides (kept in code so the content file stays intact) ---
   // Hide the "stages" (mechanism) section and render the "funnel" section in its slot.
-  // The mechanism content is left untouched in Sanity and archived in
-  // studio/samples/removed-sections/mechanism-section.json so it can be restored later.
+  // The mechanism content is left untouched in content/home.json; the earlier variant that
+  // was cut lives in git history (studio/samples/removed-sections/mechanism-section.json,
+  // removed when the CMS was), so it can still be recovered if it is ever wanted back.
   const rawSections: any[] = page.sections || [];
   const funnelSection = rawSections.find((s: any) => s._type === 'funnelSection');
   const sections = rawSections
@@ -89,11 +90,11 @@ export function PageBuilder({ page }: { page: any }) {
           case 'caseStudiesSection':
             return <CaseStudiesSection key={index} section={section} />;
           case 'infoSection':
-            // Hidden per product decision — content kept in Sanity, simply not rendered.
+            // Hidden per product decision — content kept in content/home.json, not rendered.
             // To restore: `return <InfoSection key={index} section={section} />;`
             return null;
           case 'reviewsSection':
-            // Data-driven reviews from Sanity (tabs, filtering, video modal).
+            // Data-driven reviews from the content file (tabs, filtering, video modal).
             return <ReviewsSection key={index} section={section} />;
           case 'faqsSection':
             return <FaqsSection key={index} section={section} />;
@@ -111,7 +112,7 @@ export function PageBuilder({ page }: { page: any }) {
             return (
               <div key={index}>
                 <TutorialsSection section={section} />
-                {/* Static for now — will move into Sanity as its own section once approved. */}
+                {/* Static for now — move into content/home.json as its own section once approved. */}
                 <ComparisonTableSection />
               </div>
             );

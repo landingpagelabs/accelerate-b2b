@@ -5,21 +5,10 @@ import ConfettiOnLoad from '@/components/ConfettiOnLoad';
 import CongratsCopyMessage from '@/components/sections/CongratsCopyMessage';
 import ReviewsSection from '@/components/sections/ReviewsSection';
 import { PartnersRows } from '@/components/sections/PartnersSection';
-import { pageBySlugQuery } from '@/lib/queries';
-import { fetchSanity } from '@/lib/sanity';
+import { congratsPage as page, homeSection } from '@/lib/content';
 import { img, urlForImage } from '@/lib/image';
 
-export const revalidate = 60;
-
-const congratsQuery = `*[_type == "congratsPage"][0]{
-  metaTitle, headerBadge, heroStrapline, heroTitle, heroSubtitle,
-  stepsHeading, steps[]{ strapline, title, body, widget, image },
-  referralMessage, aboutTitle, aboutDividerText, aboutImage, aboutSignature,
-  aboutName, aboutRole, aboutCertified, aboutCtaText, aboutCtaUrl
-}`;
-
-export async function generateMetadata(): Promise<Metadata> {
-  const page = await fetchSanity<any>(congratsQuery);
+export function generateMetadata(): Metadata {
   return {
     title: page?.metaTitle || 'Consultation Booked — Accelerate B2B',
     robots: { index: false, follow: false },
@@ -48,14 +37,12 @@ const DecorChevron = ({ height = 87 }: { height?: number }) => (
   </div>
 );
 
-export default async function CongratsPage() {
-  const [page, home] = await Promise.all([
-    fetchSanity<any>(congratsQuery),
-    fetchSanity<any>(pageBySlugQuery, { slug: 'home' }),
-  ]);
-  const faqs = home?.sections?.find((s: any) => s._type === 'faqsSection') ?? null;
-  const reviews = home?.sections?.find((s: any) => s._type === 'reviewsSection') ?? null;
-  const partners = home?.sections?.find((s: any) => s._type === 'partnersSection') ?? null;
+export default function CongratsPage() {
+  // Reviews, FAQ and partners are shared with the home page rather than duplicated, so
+  // editing them in content/home.json updates both pages.
+  const faqs = homeSection('faqsSection');
+  const reviews = homeSection('reviewsSection');
+  const partners = homeSection('partnersSection');
   const steps: any[] = page?.steps || [];
 
   return (

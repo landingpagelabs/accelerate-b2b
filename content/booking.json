@@ -1,0 +1,27 @@
+{
+  "_type": "bookingPage",
+  "barText": "Your booking will be prioritized for another",
+  "calendlyImage": {
+    "_type": "image",
+    "asset": {
+      "src": "/images/content/booking/calendly-placeholder.webp",
+      "width": 816,
+      "height": 716
+    }
+  },
+  "leaveCancelText": "Cancel",
+  "leaveConfirmText": "Leave",
+  "leaveDelaySeconds": 30,
+  "leaveText": "Changes that you made may not be saved.",
+  "leaveTitle": "Leave site?",
+  "metaTitle": "Book Consultation | Accelerate B2B",
+  "progressLabel": "Almost Done",
+  "progressPercent": 95,
+  "proofCount": 8,
+  "proofDelaySeconds": 2.5,
+  "proofText": "requested a free consultation with us in the last 24 hours",
+  "proofVerifiedText": "verified by Calendly",
+  "timerMinutes": 10,
+  "titleLead": "Last step:",
+  "titleRest": "book your free consultation"
+}

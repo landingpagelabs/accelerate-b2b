@@ -1,21 +1,9 @@
 import type { Metadata } from 'next';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { fetchSanity } from '@/lib/sanity';
+import { llmInfoPage as page } from '@/lib/content';
 
-export const revalidate = 60;
-
-const llmInfoQuery = `*[_type == "llmInfoPage"][0]{
-  title, lastUpdated, metaTitle, metaDescription,
-  sections[]{ heading, blocks[]{ kind, text, label, title, body, items, defItems[]{ label, value } } }
-}`;
-
-async function getPage() {
-  return fetchSanity<any>(llmInfoQuery);
-}
-
-export async function generateMetadata(): Promise<Metadata> {
-  const page = await getPage();
+export function generateMetadata(): Metadata {
   return {
     title: page?.metaTitle || page?.title || 'Official Information About Accelerate B2B',
     description: page?.metaDescription,
@@ -89,8 +77,7 @@ function renderBlock(block: any, i: number) {
   }
 }
 
-export default async function LlmInfoPage() {
-  const page = await getPage();
+export default function LlmInfoPage() {
   const sections: Array<{ heading?: string; blocks: any[] }> = page?.sections || [];
 
   return (

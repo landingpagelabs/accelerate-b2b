@@ -92,11 +92,10 @@ export default function CaseStudyModal({ caseStudy, onClose }: Props) {
   const attribution = caseStudy?.modalAuthor || caseStudy?.author || '';
   const quote = caseStudy?.modalQuote || caseStudy?.quote || '';
   const avatar = caseStudy?.modalAvatar || caseStudy?.avatar;
-  // `auto('format')` matters more than it looks here. The posters are 8-bit
-  // palette PNGs (TinyPNG output, 256 colours); resizing alone makes Sanity
-  // re-encode them as full 32-bit RGBA PNG, which came out 2.5x heavier than
-  // the source at a smaller size. Serving WebP at q=90 keeps the same 650px
-  // and drops each poster from ~670KB to ~50KB.
+  // The posters ship as WebP: as 8-bit palette PNGs they ran ~670KB each, and converting
+  // them at migration time drops that to ~50KB with no visible change. The width/quality
+  // arguments below are inert now that the files are pre-sized — they are kept only so the
+  // call reads the same as everywhere else.
   const videoPoster = caseStudy?.videoThumbnail
     ? urlForImage(caseStudy.videoThumbnail).width(650).auto('format').quality(90).url()
     : null;

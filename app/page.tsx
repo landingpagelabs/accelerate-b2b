@@ -1,21 +1,16 @@
 import type { Metadata } from 'next';
 import { PageBuilder } from '@/components/PageBuilder';
-import { pageBySlugQuery } from '@/lib/queries';
-import { fetchSanity } from '@/lib/sanity';
+import { homePage } from '@/lib/content';
 
-export const revalidate = 60;
-
-// The `description` field on the home document still holds text from the Studio seed
-// script rather than a real meta description. Until someone writes one in Sanity, the
-// site-wide default in app/layout.tsx is the better answer, so ignore known seed values.
+// The `description` field still holds text from the old CMS seed script rather than a real
+// meta description. Until someone writes one in content/home.json, the site-wide default in
+// app/layout.tsx is the better answer, so ignore known seed values.
 const SEED_DESCRIPTIONS = ['demo home page created by seed'];
 
-export async function generateMetadata(): Promise<Metadata> {
-  const page = await fetchSanity<{ description?: string }>(pageBySlugQuery, { slug: 'home' });
-
-  // `page.title` is the CMS-internal page name ("Page name for the CMS" in the schema),
+export function generateMetadata(): Metadata {
+  // `homePage.title` is the internal page name ("Page name for the CMS" in the old schema),
   // not an SEO title, so it is deliberately not used here.
-  const description = page?.description?.trim();
+  const description = homePage?.description?.trim();
   if (!description || SEED_DESCRIPTIONS.includes(description.toLowerCase())) return {};
 
   return {
@@ -25,19 +20,9 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function HomePage() {
-  const page = await fetchSanity(pageBySlugQuery, { slug: 'home' });
-
-  if (!page) {
-    return (
-      <main className="page-shell">
-        <div className="container">
-          <h1>This page is temporarily unavailable</h1>
-          <p>Please try again shortly.</p>
-        </div>
-      </main>
-    );
-  }
-
-  return <PageBuilder page={page} />;
+// The "temporarily unavailable" fallback the old version rendered is gone: the content is
+// imported at build time now, so a missing home page is a build error rather than
+// something to degrade around at request time.
+export default function HomePage() {
+  return <PageBuilder page={homePage} />;
 }

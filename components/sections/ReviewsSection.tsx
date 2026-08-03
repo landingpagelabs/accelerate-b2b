@@ -5,7 +5,7 @@ import { img, urlForImage } from '@/lib/image';
 import VideoModal from './VideoModal';
 
 // Placeholder until real links are available — nature timelapse from Vimeo ("The Mountain").
-// Replace with the real videoUrl for each review in Sanity Studio.
+// Replace with the real videoUrl for each review in content/home.json.
 const DEFAULT_VIDEO_URL = 'https://vimeo.com/22439234';
 
 export const Stars = () => (

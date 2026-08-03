@@ -1,29 +1,18 @@
 import type { Metadata } from 'next';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { fetchSanity } from '@/lib/sanity';
+import { getLegalPage } from '@/lib/content';
 
-export const revalidate = 60;
+const page = getLegalPage('terms');
 
-const legalPageQuery = `*[_type == "legalPage" && slug.current == $slug][0]{
-  title, lastUpdated, ctaText, ctaUrl, ctaNote, metaTitle, metaDescription,
-  sections[]{ title, body }
-}`;
-
-async function getPage() {
-  return fetchSanity<any>(legalPageQuery, { slug: 'terms' });
-}
-
-export async function generateMetadata(): Promise<Metadata> {
-  const page = await getPage();
+export function generateMetadata(): Metadata {
   return {
     title: page?.metaTitle || page?.title || 'Terms of Service',
     description: page?.metaDescription,
   };
 }
 
-export default async function TermsPage() {
-  const page = await getPage();
+export default function TermsPage() {
   const sections: Array<{ title: string; body: string }> = page?.sections || [];
 
   return (

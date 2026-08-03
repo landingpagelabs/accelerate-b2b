@@ -1,0 +1,67 @@
+{
+  "_type": "congratsPage",
+  "aboutCertified": "Certified Cold Email Expert",
+  "aboutCtaText": "Check Out My Free Tutorials",
+  "aboutCtaUrl": "https://www.youtube.com/@hirstspencer",
+  "aboutDividerText": "TALK SOON",
+  "aboutImage": {
+    "_type": "image",
+    "asset": {
+      "src": "/images/content/congrats/frame-2147206122.webp",
+      "width": 188,
+      "height": 185
+    }
+  },
+  "aboutName": "Spencer Hirst",
+  "aboutRole": "Founder, Accelerate B2B",
+  "aboutSignature": {
+    "_type": "image",
+    "asset": {
+      "src": "/images/content/congrats/spencer-signature.webp",
+      "width": 300,
+      "height": 102
+    }
+  },
+  "aboutTitle": "I look forward to meeting you at our call!",
+  "headerBadge": "CONSULTATION BOOKED!",
+  "heroStrapline": "I’m looking forward to speaking with you, and...",
+  "heroSubtitle": "On the call, I’ll share my read on your market, walk you through how the test campaign and pricing work, and answer any questions. If we’re not a fit, I’ll tell you that too. Please note that your attendance is required.",
+  "heroTitle": "You’re one step closer to an outreach system that works",
+  "metaTitle": "Consultation Booked — Accelerate B2B",
+  "referralMessage": "Hey, I just booked a call with Accelerate B2B, a cold outreach agency. The founder works on every campaign himself and seems like they have some good results. Right now they’re running a free test campaign so you can see it work before paying anything. They’ve only got a few spots. Thought it might be of interest. Here’s all the info: www.accelerateb2b.com",
+  "steps": [
+    {
+      "_key": "step_0",
+      "_type": "object",
+      "body": "I’ve sent a confirmation email with all your call details. Please click \"Yes\" (Google) or \"Accept\" (Microsoft) to confirm your invite. If something changes and you can't make it, reply to that email and I’ll give your slot to another company. We only have a few each month.",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "src": "/images/content/congrats/frame-2147260029-1.webp",
+          "width": 700,
+          "height": 325
+        }
+      },
+      "strapline": "Step 01",
+      "title": "Add the event to your calendar and set a reminder",
+      "widget": "image"
+    },
+    {
+      "_key": "step_1",
+      "_type": "object",
+      "body": "Accelerate B2B is built for B2B founders who want meetings with the clients that fit them best. If you know another leader whose pipeline would benefit, share this before this month’s test campaign spots fill up. Here’s a ready-to-send message:",
+      "strapline": "Step 02",
+      "title": "Share Accelerate B2B with another company that could benefit from more sales meetings with decision makers",
+      "widget": "copyMessage"
+    },
+    {
+      "_key": "step_2",
+      "_type": "object",
+      "body": "While you wait for your call, scroll the results below: real campaign dashboards and the replies they pulled, from clients like Ben, who had two businesses under contract within 30 days of his first campaign. That’s the system I’ll walk you through on the call.",
+      "strapline": "Step 03/3 (Final Step)",
+      "title": "See what happens when cold outreach is done right",
+      "widget": "chevron"
+    }
+  ],
+  "stepsHeading": "Important! To confirm your call, follow the 3 steps below:"
+}

@@ -9,8 +9,8 @@ import { isCanonicalHost, siteUrl } from '@/lib/site';
 const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || 'GTM-P8RGXRFT';
 
 // Default site-wide metadata. Individual routes override these via generateMetadata;
-// the home page prefers the `description` field on its Sanity `page` document, so this
-// is only the fallback when the CMS field is empty.
+// the home page prefers the `description` field in content/home.json, so this is only the
+// fallback when that field is empty.
 const title = 'Accelerate B2B | Cold Email & LinkedIn Outreach Agency';
 const description =
   'A founder-led cold outreach agency that proves itself before you pay. We use cold email and LinkedIn outreach to build a predictable pipeline of perfect-fit prospects. Apply for your free test campaign.';
@@ -59,7 +59,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             browser cannot discover them until the large stylesheet has parsed. */}
         <link rel="preload" href="/fonts/inter-500.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         <link rel="preload" href="/fonts/inter-600.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-        <link rel="preconnect" href="https://cdn.sanity.io" />
         <link rel="preconnect" href="https://i.ytimg.com" />
       </head>
       <body>

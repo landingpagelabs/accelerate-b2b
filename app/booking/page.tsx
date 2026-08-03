@@ -2,28 +2,17 @@ import type { Metadata } from 'next';
 import BookingTimer from '@/components/BookingTimer';
 import LeaveSitePopup from '@/components/LeaveSitePopup';
 import BookingSocialProof from '@/components/BookingSocialProof';
-import { fetchSanity } from '@/lib/sanity';
+import { bookingPage as page } from '@/lib/content';
 import { img, urlForImage } from '@/lib/image';
 
-export const revalidate = 60;
-
-const bookingQuery = `*[_type == "bookingPage"][0]{
-  metaTitle, progressLabel, progressPercent, titleLead, titleRest, calendlyImage,
-  barText, timerMinutes,
-  proofCount, proofText, proofVerifiedText, proofDelaySeconds,
-  leaveTitle, leaveText, leaveCancelText, leaveConfirmText, leaveDelaySeconds
-}`;
-
-export async function generateMetadata(): Promise<Metadata> {
-  const page = await fetchSanity<any>(bookingQuery);
+export function generateMetadata(): Metadata {
   return {
     title: page?.metaTitle || 'Book Consultation | Accelerate B2B',
     robots: { index: false, follow: false },
   };
 }
 
-export default async function BookingPage() {
-  const page = await fetchSanity<any>(bookingQuery);
+export default function BookingPage() {
   const pct = page?.progressPercent ?? 95;
   const calendlySrc = page?.calendlyImage
     ? img(page.calendlyImage, 1000)

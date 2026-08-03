@@ -1,0 +1,1829 @@
+{
+  "_type": "page",
+  "announceBar": {
+    "enabled": true,
+    "linkText": "Free Test Campaign",
+    "linkUrl": "#apply-form",
+    "showArrow": true,
+    "text": "NEW: Get Your Pilot Campaign Launched Risk-Free (Limited Spots) | Launch A"
+  },
+  "description": "Demo home page created by seed",
+  "sections": [
+    {
+      "_key": "eb969aae190c",
+      "_type": "heroSection",
+      "heading": "Finally, a cold outreach agency that proves itself before you pay anything",
+      "stepLabel": "Step 1/2",
+      "straplineImage": {
+        "_type": "image",
+        "asset": {
+          "src": "/images/content/hero/hero-strapline-badge.webp",
+          "width": 231,
+          "height": 58
+        }
+      },
+      "straplineText": "Get Meeting-Ready Leads Without Adding Sales Reps",
+      "subtitle": "We use advanced GTM engineering that turns buying intent into a predictable sales pipeline via cold email and LinkedIn outreach. Apply for a free test campaign to prove it works for your business",
+      "videoImage": {
+        "_type": "image",
+        "asset": {
+          "src": "/images/content/hero/hero-demo-video-image-optimized.webp",
+          "width": 1396,
+          "height": 786
+        }
+      },
+      "videoLabel": "Watch Short Explainer Video"
+    },
+    {
+      "_key": "aed752fa1d5d",
+      "_type": "partnersSection",
+      "heading": " 6+ Years Connecting B2B Businesses With Perfect-Fit Prospects",
+      "logos": [
+        {
+          "_key": "9cf350e27c8a",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/partners/hungry.webp",
+              "width": 208,
+              "height": 104
+            }
+          }
+        },
+        {
+          "_key": "cc3c3b722668",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/partners/infinite.webp",
+              "width": 208,
+              "height": 104
+            }
+          }
+        },
+        {
+          "_key": "a755a896a804",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/partners/jaguar.webp",
+              "width": 208,
+              "height": 104
+            }
+          }
+        },
+        {
+          "_key": "6dd4af7ac429",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/partners/land-rover.webp",
+              "width": 208,
+              "height": 104
+            }
+          }
+        },
+        {
+          "_key": "664031f44e53",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/partners/padel-xtra.webp",
+              "width": 208,
+              "height": 104
+            }
+          }
+        },
+        {
+          "_key": "aaf35a7db27a",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/partners/ford.webp",
+              "width": 208,
+              "height": 104
+            }
+          }
+        },
+        {
+          "_key": "a297d979c6c0",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/partners/axj.webp",
+              "width": 208,
+              "height": 104
+            }
+          }
+        },
+        {
+          "_key": "5b78e8e98c03",
+          "_type": "object",
+          "alt": "Coupa",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/partners/coupa.webp",
+              "width": 208,
+              "height": 104
+            }
+          }
+        },
+        {
+          "_key": "1aafe778a815",
+          "_type": "object",
+          "alt": "RMA Group",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/partners/rma-group.webp",
+              "width": 208,
+              "height": 104
+            }
+          }
+        },
+        {
+          "_key": "f743793a7e99",
+          "_type": "object",
+          "alt": "Lighthouse Capital Group",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/partners/lighthouse.webp",
+              "width": 208,
+              "height": 104
+            }
+          }
+        },
+        {
+          "_key": "18eaf1ab9108",
+          "_type": "object",
+          "alt": "Renaissance Wealth Advisors",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/partners/renaissance.webp",
+              "width": 208,
+              "height": 104
+            }
+          }
+        },
+        {
+          "_key": "a428e3305cd4",
+          "_type": "object",
+          "alt": "Bluechip Building Maintenance",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/partners/bluechip.webp",
+              "width": 208,
+              "height": 104
+            }
+          }
+        }
+      ],
+      "logosRow2": [
+        {
+          "_key": "5cf2ab8f1918",
+          "_type": "object",
+          "alt": "Pace",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/partners/pace.webp",
+              "width": 208,
+              "height": 104
+            }
+          }
+        },
+        {
+          "_key": "48d5257bbfc6",
+          "_type": "object",
+          "alt": "Park'N Nest",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/partners/parknnest.webp",
+              "width": 208,
+              "height": 104
+            }
+          }
+        },
+        {
+          "_key": "e8a7a30e63b3",
+          "_type": "object",
+          "alt": "National",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/partners/national.webp",
+              "width": 208,
+              "height": 104
+            }
+          }
+        },
+        {
+          "_key": "76130a0d2dc9",
+          "_type": "object",
+          "alt": "Lab One Capital",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/partners/lab-one.webp",
+              "width": 208,
+              "height": 104
+            }
+          }
+        },
+        {
+          "_key": "bd9f0f687c4e",
+          "_type": "object",
+          "alt": "Forge Origination",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/partners/forge-origination.webp",
+              "width": 208,
+              "height": 104
+            }
+          }
+        },
+        {
+          "_key": "bb53b5073d7c",
+          "_type": "object",
+          "alt": "Scoutbee",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/partners/scoutbee.webp",
+              "width": 208,
+              "height": 104
+            }
+          }
+        },
+        {
+          "_key": "8060b62e52a2",
+          "_type": "object",
+          "alt": "1P",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/partners/1p.webp",
+              "width": 208,
+              "height": 104
+            }
+          }
+        },
+        {
+          "_key": "c3704968c246",
+          "_type": "object",
+          "alt": "Acquisition Ace Academy",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/partners/acquisition.webp",
+              "width": 208,
+              "height": 104
+            }
+          }
+        },
+        {
+          "_key": "4914dce59268",
+          "_type": "object",
+          "alt": "Bottle Depot",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/partners/bottle-depot.webp",
+              "width": 208,
+              "height": 104
+            }
+          }
+        },
+        {
+          "_key": "0433c2fb183a",
+          "_type": "object",
+          "alt": "LolaBird",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/partners/lola-bird.webp",
+              "width": 208,
+              "height": 104
+            }
+          }
+        },
+        {
+          "_key": "2984509e4a24",
+          "_type": "object",
+          "alt": "Satlas",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/partners/satlast.webp",
+              "width": 208,
+              "height": 104
+            }
+          }
+        },
+        {
+          "_key": "44701f0303aa",
+          "_type": "object",
+          "alt": "Vibra Media",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/partners/vibra-media.webp",
+              "width": 208,
+              "height": 104
+            }
+          }
+        }
+      ]
+    },
+    {
+      "_key": "46e9bf9ad98e",
+      "_type": "comparisonSection",
+      "col1Image": {
+        "_type": "image",
+        "asset": {
+          "src": "/images/content/comparison/comparison_image_1.webp",
+          "width": 674,
+          "height": 320
+        }
+      },
+      "col1Items": [
+        "                          Paying an SDR $65K+/yr to do it manually",
+        "                          Missing out on the latest sales tech",
+        "                          Unpredictable pipeline that runs on luck"
+      ],
+      "col1Title": "                        Trying to DIY or doing nothing",
+      "col2Badge": "Recommended",
+      "col2Image": {
+        "_type": "image",
+        "asset": {
+          "src": "/images/content/comparison/comparison_image_2.webp",
+          "width": 674,
+          "height": 320
+        }
+      },
+      "col2Items": [
+        "                          Founder-led outreach by certified expert",
+        "                          Top sales tech without the subscriptions",
+        "                          Free test campaign, no setup fee, no lock-in"
+      ],
+      "col2Title": "                        With us",
+      "heading": "                    We’ll get decision makers asking for meetings before you’ve even seen an invoice from us",
+      "reviewQuote": "“We’re over the moon”",
+      "reviewQuote2": "“Our deliverability has never been better”",
+      "text": " You've probably had a bad cold email before. Wrong name, a pitch you'd never buy, a template you can\n                    spot by the second line. That's what most people send. Ours start with who gets the email: we pull\n                    buying signals from 10+ databases, find the companies most likely to buy from you, and write every\n                    message for the person reading it. We're so confident it works, we'll run a free test campaign to\n                    prove it to you first."
+    },
+    {
+      "_key": "bbcae0ab1696",
+      "_type": "mechanismSection",
+      "heading": "Go from unpredictable lead flow to 10 - 20 closed deals or more each month",
+      "note": "*Average yearly outcomes. Results depend on multiple factors.",
+      "quoteAuthorName": "Matt Hickerson",
+      "quoteAuthorRole": "VP of Operations, Forge Origination",
+      "quoteAvatar": {
+        "_type": "image",
+        "asset": {
+          "src": "/images/content/mechanism/matt-hickerson.webp",
+          "width": 88,
+          "height": 88
+        }
+      },
+      "quoteText": "Spencer took us from zero to 50,000 emails a month.",
+      "stages": [
+        {
+          "_key": "7eea4d638dea",
+          "_type": "object",
+          "label": "STAGE 01 · CONTACTED",
+          "text": "120,000  prospects in your ideal customer profile contacted"
+        },
+        {
+          "_key": "976b37d9f680",
+          "_type": "object",
+          "label": "STAGE 02 · POSITIVE REPLIES",
+          "text": "400 positive replies from sales-qualified leads"
+        },
+        {
+          "_key": "1c15f46a2c4a",
+          "_type": "object",
+          "label": "STAGE 03 · MEETINGS",
+          "text": "120 meetings with ICP leads"
+        },
+        {
+          "_key": "64fa0dd27b0d",
+          "_type": "object",
+          "label": "STAGE 04 · DEALS",
+          "text": "10-20 closed deals"
+        }
+      ]
+    },
+    {
+      "_key": "49c423ac6dd8",
+      "_type": "outreachIntroSection",
+      "heading": "Cold outreach works, it just has to be done the right way",
+      "text": "We've spent years testing every tool, playbook, and AI workflow so you don't have to. Your campaigns send from a protected network of warmed inboxes, so emails land in the primary tab and your own domain never takes the risk. We even built custom scrapers to find the buyers most databases miss."
+    },
+    {
+      "_key": "7c39e4a5eaf8",
+      "_type": "servicesSection",
+      "heading": "                    Our services to keep your pipeline full and predictable",
+      "services": [
+        {
+          "_key": "cccb3c176265",
+          "description": "                        Run end-to-end, with leads delivered directly to your inbox or CRM.\n",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/services/services_img_1.webp",
+              "width": 598,
+              "height": 420
+            }
+          },
+          "title": "                        Cold email campaigns"
+        },
+        {
+          "_key": "2f03abc1a085",
+          "description": "                        Multi-account automation that scales past LinkedIn's limits.\n",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/services/services_img_2.webp",
+              "width": 598,
+              "height": 419
+            }
+          },
+          "title": "                        LinkedIn outreach campaigns"
+        },
+        {
+          "_key": "6866b6204a3a",
+          "description": "                        Built with the latest sales tech to scale your emails while staying in the inbox.\n",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/services/services_img_3.webp",
+              "width": 598,
+              "height": 420
+            }
+          },
+          "title": "                        Email infrastructure setup"
+        },
+        {
+          "_key": "e10c4d71e60e",
+          "description": "                        We map your entire TAM with 10+ databases and custom scrapers.\n",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/services/services_img_4.webp",
+              "width": 598,
+              "height": 420
+            }
+          },
+          "title": "                        ICP lead list building"
+        },
+        {
+          "_key": "1dcb95cc32ed",
+          "description": "                        Written from live data on what's getting replies right now for your industry.\n",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/services/services_img_5.webp",
+              "width": 598,
+              "height": 419
+            }
+          },
+          "title": "                        Cold email copywriting"
+        },
+        {
+          "_key": "8c4ed76f9301",
+          "description": "                        Running cold email, but unhappy with the results? We’ll find the fix.\n",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/services/services_img_6.webp",
+              "width": 598,
+              "height": 420
+            }
+          },
+          "title": "Consulting"
+        }
+      ]
+    },
+    {
+      "_key": "caseStudiesSection_ported",
+      "_type": "caseStudiesSection",
+      "cases": [
+        {
+          "_key": "case_0",
+          "_type": "object",
+          "author": "Ben Kelly, LH Capital Group",
+          "authorRole": "Ben Kelly, Owner, LH Capital Group",
+          "avatar": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/case-studies/ellipse-8094-1.webp",
+              "width": 88,
+              "height": 88
+            }
+          },
+          "bullets": [
+            "Both found deals through traditional channels, so the best ones were already on the market and heavily competed for.",
+            "Ben wanted an off-market sourcing engine to reach sellers directly, with no middleman and far less competition.",
+            "We built and launched his cold email campaigns done-for-you over the first 30 days, while Ben's team worked the positive replies.",
+            "5,000 owners reached, around 100 positive responses, 16 a fit, and two businesses under contract worth $500K in fees, all inside 30 days.",
+            "We turned the system into an SOP and rolled it out to his Acquisition Ace students."
+          ],
+          "category": "Buy-side M&A",
+          "categoryLabel": "Buy-Side M&A",
+          "companyLogo": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/case-studies/frame-2147260957-1.webp",
+              "width": 174,
+              "height": 55
+            }
+          },
+          "companyName": "LH Capital Group",
+          "description": "Ben Kelly runs two businesses: Acquisition Ace, where he teaches an audience of 800,000+ how to buy businesses and build a portfolio, and Light House Capital Group, a buy-side brokerage sourcing companies for individual and private equity buyers.",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/case-studies/frame-2147260731-1--optimized-1.webp",
+              "width": 680,
+              "height": 195
+            }
+          },
+          "quote": "“It blew me away that we got two deals under contract, and the cost of doing it was minimal. Spencer and his team know exactly what they're doing.”",
+          "screenshotImage": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/case-studies/cs-bottom-lh.webp",
+              "width": 900,
+              "height": 424
+            }
+          },
+          "stats": [
+            {
+              "_key": "stat_0",
+              "_type": "object",
+              "label": "Under contract",
+              "value": "2"
+            },
+            {
+              "_key": "stat_1",
+              "_type": "object",
+              "label": "In fees",
+              "value": "$500K"
+            },
+            {
+              "_key": "stat_2",
+              "_type": "object",
+              "label": "Positive replies",
+              "value": "100"
+            },
+            {
+              "_key": "stat_3",
+              "_type": "object",
+              "label": "Days to deals",
+              "value": "30"
+            }
+          ],
+          "title": "Two businesses under contract in the first 30 days, off-market",
+          "videoThumbnail": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/case-studies/cs-video-lh.webp",
+              "width": 650,
+              "height": 322
+            }
+          }
+        },
+        {
+          "_key": "case_1",
+          "_type": "object",
+          "author": "Matt Hickerson, Forge Origination",
+          "authorRole": "Matt Hickerson, VP of Operations, Forge Origination",
+          "avatar": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/mechanism/matt-hickerson.webp",
+              "width": 88,
+              "height": 88
+            }
+          },
+          "bullets": [
+            "Before Spencer, Forge cold emailed one by one from their regular inboxes, so there was no real scale and no way to reach owners who weren't listed anywhere.",
+            "They needed a deal-sourcing engine to build targeted lists and reach owners at scale, so their team could focus on closing instead of running campaigns.",
+            "We ran six months: three months done-for-you building the infrastructure, lists, copy, and campaigns, then three months training Matt's team to run it in-house.",
+            "76,400 emails at a 5.01% reply rate produced 426 opportunities, three of which became Letters of Intent worth $900K in pipeline."
+          ],
+          "category": "Buy-side M&A",
+          "categoryLabel": "Buy-Side M&A",
+          "companyLogo": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/case-studies/tabs-item-2-icon.webp",
+              "width": 174,
+              "height": 55
+            }
+          },
+          "companyName": "Forge Origination",
+          "description": "Forge Origination is a buy-side brokerage that helps private equity firms find businesses to acquire against tight criteria, mostly in blue-collar service markets.",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/case-studies/tabs-item-2-image-optimized.webp",
+              "width": 680,
+              "height": 195
+            }
+          },
+          "quote": "“Spencer really did a great job educating us and made it as painless as possible. In very short order we had three opportunities that came solely through the cold email infrastructure he set up.”",
+          "screenshotImage": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/case-studies/cs-bottom-forge.webp",
+              "width": 900,
+              "height": 424
+            }
+          },
+          "stats": [
+            {
+              "_key": "stat_0",
+              "_type": "object",
+              "label": "Emails sent",
+              "value": "76.4K"
+            },
+            {
+              "_key": "stat_1",
+              "_type": "object",
+              "label": "Reply rate",
+              "value": "5.01%"
+            },
+            {
+              "_key": "stat_2",
+              "_type": "object",
+              "label": "Opportunities",
+              "value": "426"
+            },
+            {
+              "_key": "stat_3",
+              "_type": "object",
+              "label": "LOIs submitted",
+              "value": "3"
+            }
+          ],
+          "title": "From one-to-one emails to 426 opportunities and three LOIs",
+          "videoThumbnail": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/case-studies/cs-video-forge.webp",
+              "width": 650,
+              "height": 368
+            }
+          }
+        },
+        {
+          "_key": "case_2",
+          "_type": "object",
+          "author": "Penny Dawson, LolaBird Fundraising",
+          "authorRole": "Penny Dawson, Owner, LolaBird Fundraising",
+          "avatar": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/case-studies/tabs-item-3-avatar.webp",
+              "width": 88,
+              "height": 88
+            }
+          },
+          "bullets": [
+            "They had cold email working as a channel, until deliverability changes at Google and Microsoft broke it.",
+            "For three straight months, their campaigns couldn't generate a single positive response.",
+            "We rebuilt their outbound from the ground up, rewrote the copy, and split-tested offers until one clearly won.",
+            "Over the next 12 months the rebuilt system sent 261,000 emails at a 9.5% reply rate and produced 1,200 opportunities.",
+            "Their deliverability went from completely broken to better than it had ever been."
+          ],
+          "category": "Fundraising",
+          "categoryLabel": "Fundraising",
+          "companyLogo": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/case-studies/tabs-item-3-icon.webp",
+              "width": 174,
+              "height": 55
+            }
+          },
+          "companyName": "LolaBird Fundraising",
+          "description": "LolaBird Fundraising helps schools, sports teams, and student groups run fundraising campaigns.",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/case-studies/tabs-item-3-image-optimized.webp",
+              "width": 680,
+              "height": 195
+            }
+          },
+          "modalAuthor": "Ahmed Saeed, LolaBird Fundraising",
+          "modalAvatar": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/case-studies/ahmed-saeed-lolabird-avatar.webp",
+              "width": 88,
+              "height": 88
+            }
+          },
+          "modalQuote": "“Spencer has been an instrumental part of our team over the past few months. The results of his work have been undeniable, and our email blasts have dramatically increased. We look forward to building a long-term partnership.”",
+          "quote": "“We were running into severe trouble with our emails landing in spam and bouncing when they shouldn't have. Spencer has solved all of our problems. Our deliverability has never been better.”",
+          "screenshotImage": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/case-studies/cs-bottom-lolabird.webp",
+              "width": 900,
+              "height": 424
+            }
+          },
+          "stats": [
+            {
+              "_key": "stat_0",
+              "_type": "object",
+              "label": "Emails sent",
+              "value": "261K"
+            },
+            {
+              "_key": "stat_1",
+              "_type": "object",
+              "label": "Reply rate",
+              "value": "9.5%"
+            },
+            {
+              "_key": "stat_2",
+              "_type": "object",
+              "label": "Opportunities",
+              "value": "1,200"
+            },
+            {
+              "_key": "stat_3",
+              "_type": "object",
+              "label": "Engagement",
+              "value": "12 mo"
+            }
+          ],
+          "title": "From three months of zero replies to 1,200 opportunities",
+          "videoThumbnail": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/case-studies/cs-video-lolabird.webp",
+              "width": 650,
+              "height": 414
+            }
+          }
+        },
+        {
+          "_key": "case_3",
+          "_type": "object",
+          "author": "Richard Edwards, Vibra Media",
+          "authorRole": "Richard Edwards, Vibra Media",
+          "avatar": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/case-studies/tabs-item-4-avatar.webp",
+              "width": 88,
+              "height": 88
+            }
+          },
+          "bullets": [
+            "A virtual assistant built targeted lists of companies already buying the exact services Vibra sells, on a recurring basis.",
+            "The catch was speed: the VA could only add about 60 new leads a day, which capped how fast their outbound engine could grow.",
+            "We built an automation in n8n that replicated the VA's exact steps and removed the human error along the way.",
+            "What took the VA a full year of manual work, the automation now does in a single day, feeding their outbound engine far more lead flow than a person ever could."
+          ],
+          "category": "Agencies",
+          "categoryLabel": "SEO / Digital PR",
+          "companyLogo": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/case-studies/tabs-item-4-icon.webp",
+              "width": 174,
+              "height": 55
+            }
+          },
+          "companyName": "Vibra Media",
+          "description": "Vibra Media is an SEO and digital PR agency with a profitable, proven outbound process.",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/case-studies/tabs-item-4-image-optimized.webp",
+              "width": 680,
+              "height": 195
+            }
+          },
+          "quote": "“What the automation runs in a day would've taken our previous team member a whole year. It works seamlessly, does everything they did and more, and honestly does it better. We're over the moon.”",
+          "stats": [
+            {
+              "_key": "stat_0",
+              "_type": "object",
+              "label": "Replaces a year of work",
+              "value": "1 day"
+            },
+            {
+              "_key": "stat_1",
+              "_type": "object",
+              "label": "Old manual cap",
+              "value": "60/day"
+            },
+            {
+              "_key": "stat_2",
+              "_type": "object",
+              "label": "Human errors",
+              "value": "0"
+            },
+            {
+              "_key": "stat_3",
+              "_type": "object",
+              "label": "Custom automation",
+              "value": "n8n"
+            }
+          ],
+          "title": "A full year of manual list-building, now done in a single day",
+          "videoThumbnail": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/case-studies/cs-video-vibra.webp",
+              "width": 650,
+              "height": 368
+            }
+          }
+        },
+        {
+          "_key": "case_satlas",
+          "_type": "object",
+          "author": "Chris Drew, Satlas",
+          "authorRole": "Chris Drew, Satlas",
+          "avatar": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/case-studies/chris-drew---avatar.webp",
+              "width": 88,
+              "height": 88
+            }
+          },
+          "bullets": [
+            "They'd tried building their own cold email system, but broken deliverability, weak lists, and untuned offers were sending every email to spam and getting zero replies.",
+            "They needed it to work twice over, as a new lead channel for their own agency and as a service they could sell to their clients.",
+            "We rebuilt the full stack, subdomains, inbox warming, and verified lists, reworked the offers, and trained their in-house team one on one.",
+            "Then we documented the whole system as written and video SOPs. In the first two weeks live, they went from 0 replies to 8 opportunities."
+          ],
+          "category": "Agencies",
+          "categoryLabel": "B2B Marketing",
+          "companyLogo": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/case-studies/satlas-logo.svg",
+              "width": 87,
+              "height": 28
+            }
+          },
+          "companyName": "Satlas",
+          "description": "Satlas is a B2B marketing agency in Sydney that helps financial and mortgage brokers get more leads.",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/case-studies/satlas-bg.webp",
+              "width": 629,
+              "height": 180
+            }
+          },
+          "quote": "“We were doing cold email ourselves with Apollo and half our volume was landing in spam. Spencer rebuilt the whole stack and our deliverability, and then handed us an SOP we now run on our own clients.”",
+          "screenshotImage": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/case-studies/cs-bottom-satlas.webp",
+              "width": 900,
+              "height": 424
+            }
+          },
+          "stats": [
+            {
+              "_key": "stat_0",
+              "_type": "object",
+              "label": "Opps in first 2 weeks",
+              "value": "8"
+            },
+            {
+              "_key": "stat_1",
+              "_type": "object",
+              "label": "Replies before us",
+              "value": "0"
+            },
+            {
+              "_key": "stat_2",
+              "_type": "object",
+              "label": "To first pipeline",
+              "value": "2 wks"
+            },
+            {
+              "_key": "stat_3",
+              "_type": "object",
+              "label": "Repeatable playbook",
+              "value": "SOP"
+            }
+          ],
+          "title": "From zero replies to eight opportunities in two weeks",
+          "videoThumbnail": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/case-studies/cs-video-satlas.webp",
+              "width": 650,
+              "height": 368
+            }
+          }
+        }
+      ],
+      "heading": "Here's what happens when we run your outreach",
+      "tabs": [
+        "Buy-side M&A",
+        "Fundraising",
+        "Agencies"
+      ]
+    },
+    {
+      "_key": "infoSection_ported",
+      "_type": "infoSection",
+      "authorName": "Spencer Hirst",
+      "authorRole": "Founder ▪ Accelerate B2B",
+      "body": "If one of my cold emails is how you found this page, then you've already seen the system working.\n\nCold outreach is how we win our own clients, and it's the same playbook we'd run for you.\n\nI spent six years building sales and email systems, including campaigns for brands like Coupa, Ford, and RMA Group.\n\nToday we're a small team of go-to-market experts who help businesses build predictable revenue. Your campaign never gets handed to a junior or intern. I work on every one myself.\n\nWe go the extra mile because results are the only thing this business runs on. One client selling physical products B2B had cold outreach that produced 0 positive responses in 90 days. We turned it around to 1,200 opportunities over the next year, worth $1.8m in pipeline revenue.\n\nFor another client, a buy-side M&A firm, we generated 95 positive responses from business owners interested in selling. That led to 16 qualified conversations and eventually 2 purchase agreements worth $500k in fees.\n\nWhich is why we want to prove ourselves first. Your first campaign is a free test, and every interested reply is yours to keep.",
+      "decorImage": {
+        "_type": "image",
+        "asset": {
+          "src": "/images/content/info/info-decor.svg",
+          "width": 146,
+          "height": 141
+        }
+      },
+      "heading": "Hey there, I’m Spencer!",
+      "signatureImage": {
+        "_type": "image",
+        "asset": {
+          "src": "/images/content/info/spencer-bottom.webp",
+          "width": 400,
+          "height": 228
+        }
+      }
+    },
+    {
+      "_key": "reviewsSection_ported",
+      "_type": "reviewsSection",
+      "heading": "When you send the right message to the right person, you get results, see for yourself...",
+      "reviews": [
+        {
+          "_key": "rev_0",
+          "_type": "object",
+          "cardType": "result",
+          "category": "reply",
+          "column": 1,
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/reviews/reviews-first-full-image-item-optimized.webp",
+              "width": 530,
+              "height": 135
+            }
+          }
+        },
+        {
+          "_key": "rev_1",
+          "_type": "object",
+          "authorName": "Matt Hickerson",
+          "authorRole": "VP of Operations, Forge Origination",
+          "avatar": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/mechanism/matt-hickerson.webp",
+              "width": 88,
+              "height": 88
+            }
+          },
+          "cardType": "video",
+          "category": "testimonial",
+          "column": 1,
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/reviews/matt_main.webp",
+              "width": 680,
+              "height": 391
+            }
+          },
+          "quote": "“Spencer took us from zero to 50,000 emails a month. He made it simple, educating us on what each tool does and why. In very short order we had three opportunities that came solely through the cold email infrastructure he set up. We're only increasing volume now.”"
+        },
+        {
+          "_key": "rev_2",
+          "_type": "object",
+          "cardType": "result",
+          "category": "result",
+          "column": 1,
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/reviews/img-7-optimized.webp",
+              "width": 680,
+              "height": 318
+            }
+          },
+          "title": "95 opportunities in 30 days"
+        },
+        {
+          "_key": "192010e463eb",
+          "_type": "object",
+          "authorName": "Chris Drew",
+          "authorRole": "Founder, Satlas",
+          "avatar": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/case-studies/chris-drew---avatar.webp",
+              "width": 88,
+              "height": 88
+            }
+          },
+          "cardType": "video",
+          "category": "testimonial",
+          "column": 1,
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/reviews/chris_main2.webp",
+              "width": 680,
+              "height": 391
+            }
+          },
+          "quote": "“We were doing cold email ourselves with Apollo and half our volume was landing in spam. Spencer rebuilt the whole stack and our deliverability, and then handed us an SOP we now run on our own clients.”"
+        },
+        {
+          "_key": "rev_3",
+          "_type": "object",
+          "authorName": "Martin Lopez",
+          "avatar": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/reviews/martin-lopez---avatar.webp",
+              "width": 88,
+              "height": 88
+            }
+          },
+          "cardType": "testimonial",
+          "category": "testimonial",
+          "column": 1,
+          "quote": "“Spencer is extremely knowledgeable, really great feedback on our setup and look forward to working with him again soon!”"
+        },
+        {
+          "_key": "547ae751aaae",
+          "_type": "object",
+          "cardType": "result",
+          "category": "reply",
+          "column": 1,
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/reviews/6-item-1-column-solo-image-item.webp",
+              "width": 680,
+              "height": 355
+            }
+          }
+        },
+        {
+          "_key": "rev_5",
+          "_type": "object",
+          "authorName": "Sayed",
+          "avatar": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/reviews/sayed---avatar-icon.webp",
+              "width": 88,
+              "height": 88
+            }
+          },
+          "cardType": "testimonial",
+          "category": "testimonial",
+          "column": 1,
+          "quote": "“Spencer is great at what he does with cold email. He knows how to set up the systems and makes recommendations to get the best results from your campaigns. He is always available, professional, and kind. I recommend him to anyone looking for someone to help with their prospecting.”"
+        },
+        {
+          "_key": "rev_6",
+          "_type": "object",
+          "cardType": "result",
+          "category": "result",
+          "column": 1,
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/reviews/8-item-1-col-image.webp",
+              "width": 680,
+              "height": 273
+            }
+          },
+          "title": "118 opportunities, 1 campaign"
+        },
+        {
+          "_key": "rev_7",
+          "_type": "object",
+          "authorName": "Peter Hed",
+          "avatar": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/reviews/peter-hed---avatar.webp",
+              "width": 88,
+              "height": 88
+            }
+          },
+          "cardType": "testimonial",
+          "category": "testimonial",
+          "column": 1,
+          "quote": "“It was a pleasure to work with Spencer. Great know-how and communication skills. He went above and beyond and I would definitely ask for his services for other projects.”"
+        },
+        {
+          "_key": "rev_10",
+          "_type": "object",
+          "authorName": "Ben Kelly",
+          "authorRole": "Owner, LH Capital Group",
+          "avatar": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/reviews/ben-kelly.webp",
+              "width": 88,
+              "height": 88
+            }
+          },
+          "cardType": "video",
+          "category": "testimonial",
+          "column": 2,
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/reviews/ben_main.webp",
+              "width": 680,
+              "height": 391
+            }
+          },
+          "quote": "“Spencer and his team set up an awesome off-market sourcing engine. We ran a test: 5,000 contacts, about 10,000 emails, and 100 positive responses. 16 were a fit, and two went under contract in 30 days, off-market, for minimal cost. They know exactly what they're doing. Highly recommend!”"
+        },
+        {
+          "_key": "rev_11",
+          "_type": "object",
+          "cardType": "result",
+          "category": "result",
+          "column": 2,
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/reviews/item2.webp",
+              "width": 680,
+              "height": 405
+            }
+          },
+          "title": "9.5% reply rate across 261,000 emails"
+        },
+        {
+          "_key": "rev_12",
+          "_type": "object",
+          "authorName": "Penny",
+          "avatar": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/reviews/penny_avatar.webp",
+              "width": 88,
+              "height": 88
+            }
+          },
+          "cardType": "testimonial",
+          "category": "testimonial",
+          "column": 2,
+          "quote": "“Thank God for Spencer. I was looking for someone who genuinely knew what they were doing with cold email and someone I trusted, and finding Spencer was like finding a unicorn. He's the real deal: incredibly knowledgeable, responsive, kind, and professional. If you're looking for a cold email expert, you'd be making a mistake not to hire him on the spot.”"
+        },
+        {
+          "_key": "cadb47293a99",
+          "_type": "object",
+          "authorName": "Ahmed Sayed",
+          "authorRole": "Owner, LolaBird Fundraising",
+          "avatar": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/reviews/ahmed_avatar.webp",
+              "width": 88,
+              "height": 88
+            }
+          },
+          "cardType": "video",
+          "category": "testimonial",
+          "column": 2,
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/reviews/ahmed_main.webp",
+              "width": 680,
+              "height": 391
+            }
+          },
+          "quote": "“Spencer has been an instrumental part of our team over the past few months. The results of his work have been undeniable, and our email blasts have dramatically increased. We look forward to building a long-term partnership.”"
+        },
+        {
+          "_key": "672050216d53",
+          "_type": "object",
+          "cardType": "result",
+          "category": "reply",
+          "column": 2,
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/reviews/item5.webp",
+              "width": 680,
+              "height": 304
+            }
+          }
+        },
+        {
+          "_key": "rev_8",
+          "_type": "object",
+          "authorName": "Jack Sun",
+          "avatar": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/reviews/jack-sun---avatar.webp",
+              "width": 88,
+              "height": 88
+            }
+          },
+          "cardType": "testimonial",
+          "category": "testimonial",
+          "column": 1,
+          "quote": "“Working with Spencer on my email outreach campaign was an excellent experience. He is extremely professional, highly responsive, and always goes the extra mile to make sure everything runs smoothly. Communication was clear and consistent throughout, and he delivered exactly what I was looking for. Beyond his skills, he's simply a great guy to work with, reliable, easygoing, and trustworthy. I'd highly recommend Spencer to anyone looking for top-notch outreach support.”"
+        },
+        {
+          "_key": "rev_9",
+          "_type": "object",
+          "cardType": "result",
+          "category": "result",
+          "column": 1,
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/reviews/11-item-1-col-image.webp",
+              "width": 680,
+              "height": 292
+            }
+          },
+          "title": "11 opportunities per 1K emails"
+        },
+        {
+          "_key": "rev_15",
+          "_type": "object",
+          "cardType": "result",
+          "category": "result",
+          "column": 2,
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/reviews/item6.webp",
+              "width": 680,
+              "height": 326
+            }
+          },
+          "title": "31% positive reply rate"
+        },
+        {
+          "_key": "0e6ca4321b2c",
+          "_type": "object",
+          "cardType": "result",
+          "category": "reply",
+          "column": 2,
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/reviews/item7.webp",
+              "width": 680,
+              "height": 188
+            }
+          }
+        },
+        {
+          "_key": "41f3e9608172",
+          "_type": "object",
+          "cardType": "result",
+          "category": "reply",
+          "column": 2,
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/reviews/item8.webp",
+              "width": 680,
+              "height": 297
+            }
+          }
+        },
+        {
+          "_key": "86a290057ed1",
+          "_type": "object",
+          "cardType": "result",
+          "category": "reply",
+          "column": 2,
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/reviews/item9.webp",
+              "width": 680,
+              "height": 291
+            }
+          }
+        },
+        {
+          "_key": "rev_13",
+          "_type": "object",
+          "authorName": "Penny Dawson",
+          "authorRole": "Owner, LolaBird Fundraising",
+          "avatar": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/case-studies/tabs-item-3-avatar.webp",
+              "width": 88,
+              "height": 88
+            }
+          },
+          "cardType": "video",
+          "category": "testimonial",
+          "column": 3,
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/reviews/penny_main.webp",
+              "width": 680,
+              "height": 391
+            }
+          },
+          "quote": "“If you're looking for help with email deliverability, Spencer is your go-to guy. We had severe trouble with emails landing in spam and bouncing when they shouldn't have. Spencer solved all of it, and our deliverability has never been better. I can't speak highly enough about him!”"
+        },
+        {
+          "_key": "rev_14",
+          "_type": "object",
+          "cardType": "result",
+          "category": "result",
+          "column": 3,
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/reviews/c3item2.webp",
+              "width": 680,
+              "height": 304
+            }
+          },
+          "title": "618 opportunities"
+        },
+        {
+          "_key": "rev_21",
+          "_type": "object",
+          "authorName": "Cyndi",
+          "authorRole": "Verified client review",
+          "avatar": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/reviews/cyndi_avatar.webp",
+              "width": 88,
+              "height": 88
+            }
+          },
+          "cardType": "video",
+          "category": "testimonial",
+          "column": 3,
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/reviews/cyndi_main.webp",
+              "width": 680,
+              "height": 391
+            }
+          },
+          "quote": "“Thank you for being the brains behind our newest email campaigns. We were feeling stuck, and you've been so easy to work with. You've helped us connect with people in a really authentic way, and it's showing. We're seeing the results.”"
+        },
+        {
+          "_key": "8dfc17483540",
+          "_type": "object",
+          "cardType": "result",
+          "category": "result",
+          "column": 3,
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/reviews/c3item4.webp",
+              "width": 680,
+              "height": 241
+            }
+          },
+          "title": "97 opportunities"
+        },
+        {
+          "_key": "6925a3c5d4d5",
+          "_type": "object",
+          "authorName": "Richard Edwards",
+          "authorRole": "Vibra Media",
+          "avatar": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/reviews/richard_edwards_avatar.webp",
+              "width": 88,
+              "height": 88
+            }
+          },
+          "cardType": "video",
+          "category": "testimonial",
+          "column": 3,
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/reviews/richard_edwards_main.webp",
+              "width": 680,
+              "height": 391
+            }
+          },
+          "quote": "“What the automation runs in a day would've taken our previous team member a whole year. It works seamlessly, does everything they did and more, and honestly does it better. We’re over the moon.”"
+        },
+        {
+          "_key": "f459ac38044a",
+          "_type": "object",
+          "cardType": "result",
+          "category": "reply",
+          "column": 3,
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/reviews/c3item6.webp",
+              "width": 680,
+              "height": 354
+            }
+          }
+        },
+        {
+          "_key": "52995043f451",
+          "_type": "object",
+          "cardType": "result",
+          "category": "result",
+          "column": 3,
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/reviews/c3item7.webp",
+              "width": 680,
+              "height": 331
+            }
+          },
+          "title": "201 replies, one campaign"
+        },
+        {
+          "_key": "f2f87c61ee0b",
+          "_type": "object",
+          "authorName": "Richard E.",
+          "avatar": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/reviews/richard_e_avatar.webp",
+              "width": 88,
+              "height": 88
+            }
+          },
+          "cardType": "testimonial",
+          "category": "testimonial",
+          "column": 3,
+          "quote": "“Spencer worked with us to automate our lead generation workflow. He spent time fully understanding how we ran the process manually, made a solid plan with suggestions and then implemented it. His work ethic and attention to detail made the build part of the project smooth. Spencer went above and beyond with the final delivery. Communication was extremely clear and regular. We always felt we knew what stage the project was at. Most importantly the outcome of the project has been amazing. In a day the automation can produce what would have taken one of our team members a whole year to do. We’re over the moon and excited to see the impact that this will have on our business. Thank you for your hard work Spencer.”"
+        },
+        {
+          "_key": "rev_19",
+          "_type": "object",
+          "cardType": "result",
+          "category": "result",
+          "column": 2,
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/reviews/item10.webp",
+              "width": 680,
+              "height": 183
+            }
+          },
+          "title": "41% of replies converted"
+        },
+        {
+          "_key": "rev_20",
+          "_type": "object",
+          "cardType": "result",
+          "category": "result",
+          "column": 2,
+          "image": {
+            "_type": "image",
+            "asset": {
+              "src": "/images/content/reviews/item11.webp",
+              "width": 680,
+              "height": 477
+            }
+          },
+          "title": "Up to 35% reply rate"
+        }
+      ]
+    },
+    {
+      "_key": "tutorialsSection_ported",
+      "_type": "tutorialsSection",
+      "bigVideoUrl": "https://www.youtube.com/watch?v=ogm4d88bgsM",
+      "ctaText": "View YouTube Channel",
+      "ctaUrl": "https://www.youtube.com/@naturerelaxationfilms",
+      "heading": "Free tutorials on how we do it",
+      "smallVideos": [
+        "https://www.youtube.com/watch?v=kUvHpvvsBMo",
+        "https://www.youtube.com/watch?v=YvAOlCPf2wM",
+        "https://www.youtube.com/watch?v=wA9edG5dyKw"
+      ]
+    },
+    {
+      "_key": "funnelSection_ported",
+      "_type": "funnelSection",
+      "footnote": "*Average yearly outcomes.",
+      "footnoteEmphasis": "Results depend on multiple factors.",
+      "heading": "Go from unpredictable lead flow to 10 - 20 closed deals or more",
+      "stages": [
+        {
+          "_key": "st_1",
+          "_type": "object",
+          "label": "STAGE 01 · CONTACTED",
+          "text": "120,000 prospects in your ideal customer profile contacted"
+        },
+        {
+          "_key": "st_2",
+          "_type": "object",
+          "label": "STAGE 02 · POSITIVE REPLIES",
+          "text": "400 positive replies from sales-qualified leads"
+        },
+        {
+          "_key": "st_3",
+          "_type": "object",
+          "label": "STAGE 03 · MEETINGS",
+          "text": "120 meetings with ICP leads"
+        },
+        {
+          "_key": "st_4",
+          "_type": "object",
+          "label": "STAGE 04 · DEALS",
+          "text": "10-20 closed deals"
+        }
+      ],
+      "testimonial": {
+        "_type": "object",
+        "authorName": "Matt Hickerson",
+        "authorRole": "VP of Operations, Forge Origination",
+        "avatar": {
+          "_type": "image",
+          "asset": {
+            "src": "/images/content/funnel/funnel-avatar.webp",
+            "width": 132,
+            "height": 132
+          }
+        },
+        "quote": "“Spencer took us from zero to 50,000 emails a month.”"
+      }
+    },
+    {
+      "_key": "playbooksSection_ported",
+      "_type": "playbooksSection",
+      "cards": [
+        {
+          "_key": "pb_1",
+          "_type": "object",
+          "buttonText": "View The Playbook",
+          "description": "Want to know who your anonymous website visitors are who have already indicated interest in your service and are qualified?",
+          "icon": "website",
+          "title": "Website visitors"
+        },
+        {
+          "_key": "pb_2",
+          "_type": "object",
+          "buttonText": "View The Playbook",
+          "description": "What if you could unlock the ability to only reach out to businesses who all display the same qualities as your current best clients?",
+          "icon": "lookalike",
+          "title": "Lookalike audiences"
+        },
+        {
+          "_key": "pb_3",
+          "_type": "object",
+          "buttonText": "View The Playbook",
+          "description": "All your best clients use a certain tech stack? Here's a list of companies using X software.",
+          "icon": "tech",
+          "title": "Tech stack"
+        },
+        {
+          "_key": "pb_4",
+          "_type": "object",
+          "buttonText": "View The Playbook",
+          "description": "Your dream client just secured another round of funding? Convenient timing for new vendor agreements to be looked at.",
+          "icon": "news",
+          "title": "News & Funding"
+        },
+        {
+          "_key": "pb_5",
+          "_type": "object",
+          "buttonText": "View The Playbook",
+          "description": "Your ideal prospect just hired a new VP of sales? Now is the time to see if new leadership is open to new solutions.",
+          "icon": "jobs",
+          "title": "Job postings and new hires"
+        },
+        {
+          "_key": "pb_6",
+          "_type": "object",
+          "buttonText": "View The Playbook",
+          "description": "Your competitor already did all the work building a following of your exact ICP? We'll help you reach out to them.",
+          "icon": "linkedin",
+          "title": "LinkedIn company followers"
+        }
+      ],
+      "heading": "Playbooks that get prospects to reply to cold messages"
+    },
+    {
+      "_key": "stepsSection_ported",
+      "_type": "stepsSection",
+      "heading": "3 easy steps to a predictable pipeline",
+      "steps": [
+        {
+          "_key": "step_1",
+          "_type": "object",
+          "accent": "orange",
+          "description": "Your first campaign is live within 14 days, on inboxes we've already warmed. We prove your market responds before you pay us anything, because that's the fastest way to earn your business. It's real work on our side, so we only take a handful of tests a month for qualified businesses. Either way, the list and every reply are yours to keep. Apply to see if you qualify.",
+          "title": "Apply for your free test campaign"
+        },
+        {
+          "_key": "step_2",
+          "_type": "object",
+          "accent": "blue",
+          "description": "Once the test proves out, we open it up: more volume, new segments, new angles, thousands of fresh prospects in front of your offer every month. We handle everything: the strategy, the lists, the copy, and the sending. Qualified replies land straight in your inbox, and your team turns them into booked meetings.",
+          "title": "We scale it into a pipeline"
+        },
+        {
+          "_key": "step_3",
+          "_type": "object",
+          "accent": "green",
+          "description": "The pipeline stays full, without you hiring a single rep. No setup fee, no lock-in, month to month, so you can stop any time and keep everything we built: the list, the sequences, the data. And if you'd rather run it in-house one day, we hand over the whole system with training and SOPs.",
+          "title": "Enjoy a pipeline you can count on"
+        }
+      ]
+    },
+    {
+      "_key": "textImageSection_ported",
+      "_type": "textImageSection",
+      "description": "Worst case: we build your list, write your emails, run the whole campaign for free, and you keep all of it. Best case: next month’s revenue stops being a guess.",
+      "heading": "You’ve scrolled so far, at least claim your free test campaign!",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "src": "/images/content/text-image/text-image-dashboard.webp",
+          "width": 1800,
+          "height": 758
+        }
+      }
+    },
+    {
+      "_key": "faqsSection_ported",
+      "_type": "faqsSection",
+      "faqs": [
+        {
+          "_key": "faq_0",
+          "_type": "object",
+          "answer": "No catch, but there is a filter. A test campaign costs us real time and money, so we only run them for businesses we expect to win with: a proven offer, a customer worth $10,000 or more, and a target market of 100,000+ companies. That’s also why spots are limited to a handful each month. If the test works, we talk about continuing. If it doesn’t, you walk away with every reply and lead we generated, free.",
+          "question": "What’s the catch with the free test campaign?"
+        },
+        {
+          "_key": "faq_1",
+          "_type": "object",
+          "answer": "Your campaign is live within 14 days of onboarding. The first few days go on your ICP session and list building, then the copy gets written while your sending infrastructure warms up. Almost all of that work happens on our side. You’ll know the send date before we start, and replies usually land within days of launch.",
+          "question": "How quickly can you launch a campaign?"
+        },
+        {
+          "_key": "faq_2",
+          "_type": "object",
+          "answer": "We won’t promise a number before we’ve seen your market, because honest answers beat big ones. Results depend on your offer, your market size, and how fast your team picks up the replies. What we can show you: real campaigns have produced 95 interested replies in 30 days for one client, and 426 sales opportunities over six months for another. The free test exists so the number you trust is your own.",
+          "question": "What results can I expect and how soon?"
+        },
+        {
+          "_key": "faq_3",
+          "_type": "object",
+          "answer": "Spam is irrelevance, and irrelevance is what the system filters out. People don’t complain when a recruiter calls about a great role, or an investor asks about their business, because the message fits them. Your campaigns work the same way: every company is qualified against your best clients first, and every message is written for the person reading it. One campaign held a 9.5% reply rate across 261,000 emails. People answer mail that’s about them.",
+          "question": "Won’t cold outreach make us look like spammers?"
+        },
+        {
+          "_key": "faq_4",
+          "_type": "object",
+          "answer": "Ads bring whoever clicks. Outbound puts you in front of the exact companies you’d choose, because the list is built and qualified before the first email sends. That’s why outbound meetings tend to fit: everyone contacted already matched your best clients. If ads are working, keep them. Outbound runs alongside, and it’s how you land the named accounts your ads never seem to reach.",
+          "question": "Why add cold outbound if I’m already running ads?"
+        },
+        {
+          "_key": "faq_5",
+          "_type": "object",
+          "answer": "We set up separate sending domains and inboxes for your campaigns, then warm them before any outreach goes out. Your main domain never sends a single cold email, so it never takes the reputation hit. Everything is registered for you, replies land in your inbox or CRM, and if you ever leave, the infrastructure is yours to take.",
+          "question": "Do you use my email domain or provide new ones?"
+        },
+        {
+          "_key": "faq_6",
+          "_type": "object",
+          "answer": "An SDR runs $65K+ a year, takes about 90 days to ramp, and reaches prospects one at a time. The system reaches thousands to hundreds of thousands of qualified companies a month and hands the warm replies to whoever closes your deals. If you have reps, their calendars stay full instead of idle. If you don’t, you only ever talk to interested buyers. Either way, nobody on your payroll spends their day prospecting.",
+          "question": "How is this different from hiring a sales development rep (SDR)?"
+        },
+        {
+          "_key": "faq_work",
+          "_type": "object",
+          "answer": "Very little on your end. We run the whole system, from research and list building through copywriting, sending, and day-to-day management. Your main job is responding to interested prospects and turning those conversations into customers. We’ll need some input during onboarding to understand your offer and ideal customers. After launch, the workload on your team is minimal.",
+          "question": "How much work is this for my team?"
+        },
+        {
+          "_key": "faq_handle",
+          "_type": "object",
+          "answer": "We handle the entire outbound system:\nEmail infrastructure setup and maintenance\nProspect research and list building\nCampaign strategy and copywriting\nAI-powered personalization\nCampaign management and ongoing testing\nDeliverability monitoring\n\nWe can also build this same system inside your business, so your team runs it in-house from day one. That handover includes training and SOPs.",
+          "question": "What exactly do you handle?"
+        },
+        {
+          "_key": "faq_crm",
+          "_type": "object",
+          "answer": "Replies land in the inboxes we set up for your campaign, and your team picks up the conversation from there. If you want the leads in your CRM too, we’ll send lead and reply data there through a webhook. Interested prospects flow straight into your existing sales workflow. We provide the webhook and the data feed, but we don’t build or manage your CRM. That part sits with your CRM developer. Our job is generating qualified interest and getting the data where it needs to go.",
+          "question": "How are interested replies delivered, and can you send them to my CRM?"
+        },
+        {
+          "_key": "faq_7",
+          "_type": "object",
+          "answer": "No contract and no minimum. After the free test it’s month to month, with no setup fee, and you can stop whenever you like. We keep it that way on purpose: if the results stop, you shouldn’t need a lawyer to leave. It also means we re-earn every client, every month, which is exactly the pressure a results business should be under.",
+          "question": "Is there a contract or minimum commitment?"
+        },
+        {
+          "_key": "faq_8",
+          "_type": "object",
+          "answer": "Anywhere your buyers read email, outbound can work, so we’re not tied to one industry. The case studies on this page cover buy-side M&A, fundraising, and marketing agencies, and the same system carried all three. We’ve also run outbound in real estate, B2B SaaS, automotive, facilities services and maintenance, consulting, insurance, finance, solar, and sports. What matters more than industry is the size of your total addressable market and your offer having product market fit. The application checks exactly that, so you’ll know quickly either way.",
+          "question": "What industries do you work with?"
+        }
+      ],
+      "heading": "Frequently asked questions"
+    },
+    {
+      "_key": "bannerSection_ported",
+      "_type": "bannerSection",
+      "leftIcon": {
+        "_type": "image",
+        "asset": {
+          "src": "/images/content/banner/bottom-banner-icon-new.webp",
+          "width": 335,
+          "height": 96
+        }
+      },
+      "rightImage": {
+        "_type": "image",
+        "asset": {
+          "src": "/images/content/banner/banner_right-image-optimized.webp",
+          "width": 602,
+          "height": 96
+        }
+      },
+      "text": "Join 30+ B2B businesses that trust\nAccelerate B2B to generate predictable pipeline"
+    },
+    {
+      "_key": "consultationModal_ported",
+      "_type": "consultationModalSection",
+      "buttonText": "Book Your Free Consultation",
+      "buttonUrl": "/booking",
+      "description": "Book a free consultation with our team. We'll walk you through how the campaigns work and show how much pipeline we could help you build.",
+      "fallbackDelaySeconds": 15,
+      "heading": "Can’t find what you’re looking for?",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "src": "/images/content/consultation-modal/modal-image000-optimized.webp",
+          "width": 785,
+          "height": 427
+        }
+      },
+      "maxPerSession": 2,
+      "scrollPercent": 60
+    },
+    {
+      "_key": "vslModal_ported",
+      "_type": "vslModalSection",
+      "buttonText": "Apply For Your Free Test Campaign",
+      "buttonUrl": "/booking",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "src": "/images/content/vsl-modal/vsl-modal-image-optimized.webp",
+          "width": 1796,
+          "height": 1017
+        }
+      },
+      "mediaType": "video",
+      "note": "No Setup Fee | No Lock-In | Only A Few Spots Available",
+      "videoUrl": "https://vimeo.com/22439234"
+    }
+  ],
+  "slug": {
+    "current": "home"
+  },
+  "title": "Home"
+}
