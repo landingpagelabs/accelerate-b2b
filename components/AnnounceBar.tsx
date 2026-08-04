@@ -19,24 +19,31 @@ export default function AnnounceBar({
 
   return (
     <div className="announce-bar">
-      <p className="announce-bar__text">{text}</p>
-      <a className="announce-bar__cta" href={linkUrl}>
-        <span className="announce-bar__cta-text">{linkText}</span>
-        {showArrow && (
-          <svg
-            className="announce-bar__cta-icon"
-            width="13"
-            height="13"
-            viewBox="0 0 13 13"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-hidden="true"
-          >
-            <path d="M1.625 7.08594H11.375H11.1042" stroke="#1A1A1A" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="square" />
-            <path d="M8.125 10.8763C8.125 8.70964 9.75 7.6263 11.375 7.35547V6.8138C9.75 6.54297 8.125 5.45964 8.125 3.29297" stroke="#1A1A1A" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="square" />
-          </svg>
-        )}
-      </a>
+      {/* The CTA lives INSIDE the sentence, not beside it. As siblings they were
+          two flex items, so on a phone the link could only wrap onto a third row
+          — which is why it used to be hidden below 767px, leaving the copy to end
+          mid-sentence at "…| Launch A". Inside the <p> it flows as the last words
+          it actually is. Figma capture 5923:6690 renders it exactly this way. */}
+      <p className="announce-bar__text">
+        {text}{' '}
+        <a className="announce-bar__cta" href={linkUrl}>
+          <span className="announce-bar__cta-text">{linkText}</span>
+          {showArrow && (
+            <svg
+              className="announce-bar__cta-icon"
+              width="13"
+              height="13"
+              viewBox="0 0 13 13"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <path d="M1.625 7.08594H11.375H11.1042" stroke="#1A1A1A" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="square" />
+              <path d="M8.125 10.8763C8.125 8.70964 9.75 7.6263 11.375 7.35547V6.8138C9.75 6.54297 8.125 5.45964 8.125 3.29297" stroke="#1A1A1A" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="square" />
+            </svg>
+          )}
+        </a>
+      </p>
     </div>
   );
 }

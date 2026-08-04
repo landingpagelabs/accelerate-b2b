@@ -2129,9 +2129,16 @@ a.footer__link::after {
     gap: 6px;
   }
 
+  /* Was 32px — i.e. never scaled, while the cell went 250 -> 110px and every
+     other property in this table did scale (label 20 -> 15, body 16 -> 13, gap
+     10 -> 6). The lockup measured 32 + 6 gap + 61.42 label min-content = 99.42px
+     inside a 90px content box, so it spilled and ate the cell's 10px padding
+     down to 5.3px. 22px is both the desktop icon:cell-height ratio
+     (32/90 = 0.356 x 64 = 22.8) and the largest integer that keeps that padding
+     intact (5923:7725). */
   .ct-logo-icon {
-    width: 32px;
-    height: 32px;
+    width: 22px;
+    height: 22px;
   }
 
   .ct-logo-text {
@@ -2255,6 +2262,104 @@ a.footer__link::after {
   .outreach-diagram__layer {
     transform: none !important;
     opacity: 1 !important;
+  }
+}
+
+/* The four plate names. On desktop they are baked into layer-0-bg.svg, so this
+   list is screen-reader-only — but it is the ONLY accessible text for the whole
+   diagram, which is aria-hidden. It defaults to opacity 1; only the gsap
+   timeline knocks it down, so reduced-motion and no-JS both land with it
+   visible. */
+.outreach-diagram__labels {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.outreach-diagram picture {
+  display: contents;
+}
+
+/* MOBILE: the baked labels render at ~7.4px at 390px, so below 768 the artwork
+   ships without them (see scripts/build-diagram-mobile-asset.mjs) and this list
+   becomes the visible caption row, fading in on the same beat the labels used
+   to. Dropping the label columns also shrinks the used canvas from 1078 wide to
+   592, so the plates grow ~1.7x: 109px -> 185px at 390. */
+@media (max-width: 767px) {
+  /* Cancel .padding-global so the graphic bleeds edge to edge. */
+  .section_outreach-intro .outreach-intro_image {
+    width: calc(100% + 40px);
+    max-width: none;
+    margin-inline: -20px;
+  }
+
+  /* Re-fit to the label-free content box: canvas x242..834 of 1078.
+     1078/592 = 182.095%, -242/592 = -40.878%. The 480px cap is the scale the
+     graphic already has at 768, so nothing jumps across the breakpoint — only
+     the labels swap. */
+  .outreach-diagram {
+    max-width: 480px;
+    aspect-ratio: 592 / 454;
+  }
+
+  .outreach-diagram__layer {
+    width: 182.095%;
+    min-width: 182.095%;
+    left: -40.878%;
+  }
+
+  .outreach-diagram__labels {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip: auto;
+    clip-path: none;
+    white-space: normal;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 16px;
+    margin: 16px auto 0;
+    padding: 0 20px;
+    max-width: 440px;
+    list-style: none;
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 145%;
+    letter-spacing: -0.02em;
+    color: #1a1a1a;
+  }
+
+  .outreach-diagram__labels li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* Echoes the leader lines the baked labels used to hang off. */
+  .outreach-diagram__labels li::before {
+    content: "";
+    flex: 0 0 12px;
+    height: 1px;
+    background: #1a1a1a;
+    opacity: 0.25;
+  }
+}
+
+/* "Message Sending" is 122.3px at 15px; a two-column cell at 320 offers 112px. */
+@media (max-width: 359px) {
+  .outreach-diagram__labels {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    max-width: none;
   }
 }
 
@@ -6252,6 +6357,13 @@ video.vsl-card__image {
   text-align: center;
   color: #1a1a1a;
   letter-spacing: -0.01em;
+  /* The sentence and the CTA are one element now (see AnnounceBar.tsx), so the
+     side-by-side layout .announce-bar used to do moves in here. Desktop is
+     unchanged: bar 48.5px, pill and copy on one centred row. */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
 }
 
 .announce-bar__cta {
@@ -6296,12 +6408,44 @@ video.vsl-card__image {
     gap: 8px;
     padding: 9px 16px;
   }
+
+  /* Back to an inline formatting context so the CTA flows as the last words of
+     the sentence and wraps with it, rather than claiming its own row.
+     The max-width/margins moved here from the (max-width: 768px) block below so
+     every announce-bar mobile rule sits on one breakpoint — split across 767 and
+     768 they collided at exactly 768px (iPad portrait), which clamped the copy to
+     the phone width while the desktop pill was still showing. */
   .announce-bar__text {
+    display: block;
     font-size: 13px;
+    max-width: 310px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
+  /* The white pill is a desktop affordance — at 13px it cannot fit on line 2 of a
+     310px column without forcing a third line and taking the bar from 54px to
+     ~65px. Mobile gets the inline underlined link the capture shows (5923:6690). */
   .announce-bar__cta {
-    display: none;
+    display: inline-flex;
+    vertical-align: baseline;
+    padding: 0;
+    background: none;
+    border-radius: 0;
+    box-shadow: none;
+    /* gap: 5px and white-space: nowrap inherit from the base rule */
+  }
+
+  .announce-bar__cta:hover {
+    transform: none; /* the -1px lift is a pill affordance and sticks on touch */
+  }
+
+  .announce-bar__cta-text {
+    font-size: 13px;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    text-decoration-thickness: 1px;
+    /* letter-spacing inherits -0.01em from .announce-bar__text — do not redeclare */
   }
 }
 
@@ -6914,12 +7058,10 @@ video.vsl-card__image {
    Consolidated so these designer-requested mobile edits are easy to review.
    ==================================================================== */
 @media (max-width: 768px) {
-  /* 1. Announce bar text: constrain width and center */
-  .announce-bar__text {
-    max-width: 310px;
-    margin-left: auto;
-    margin-right: auto;
-  }
+  /* 1. Announce bar text: the 310px clamp moved to the (max-width: 767px) block
+     with the rest of the announce-bar mobile rules. Split across two breakpoints
+     it applied at exactly 768px while the desktop pill was still visible, which
+     broke the copy mid-hyphen on iPad portrait. */
 
   /* 2 + 7. Tighten space above the hero (header→hero) and below it (hero→partners) */
   .hero_wrappper {
@@ -7131,5 +7273,106 @@ video.vsl-card__image {
     border-left: 0;
     border-right: 0;
     border-radius: 0;
+  }
+}
+
+/* ====================================================================
+   MOBILE SECTION RULES — second pass (capture 6136:6876)
+   ====================================================================
+   Same direction as the block above, extended to the containers the first pass
+   missed. Each note mapped to the element that actually paints the rule — which
+   is not always the element the note sits on:
+
+     6136:6880  header rule is inset        -> .header_wrapper's border-bottom
+     6136:7319  "a few strokes in here"     -> .comparison_wrapper (the band's top
+                                               rule) + .funnel__board (clipped)
+     6136:7422  "strokes missing here"      -> .outreach-intro_wrapper, and the
+                                               funnel/outreach seam, which had no
+                                               rule at all
+     6136:8167  remove vertical strokes     -> .playbooks__container
+     6136:8304  remove vertical strokes     -> .steps__container
+     6136:8335  remove vertical strokes     -> .text-image__container
+     6136:8343  remove vertical strokes     -> .faqs__container
+     6136:8419  "top stroke full width"     -> also .faqs__container — the banner
+                                               has no top border of its own, it
+                                               sits under the FAQ's bottom rule
+
+   .banner__container and .footer__main are not pinned, but they carry the same
+   rails and continue the same unbroken line below the last annotated section.
+   Leaving them railed is the exact inconsistency the notes are about.
+
+   NOT .container-default — that is already `border: none` at <=991 (:760). Every
+   rail here belongs to the section container itself.
+
+   THE GIVE-BACK IS NOT UNIFORM, AND THAT IS THE TRAP. Three of these already pad
+   themselves 20px inside their own media blocks (.playbooks__container @<=640
+   :6656, .steps__container @<=768 :6454, .banner__container @<=768 :1377).
+   Bleeding by -20 and handing back only 20 moves the reference box without
+   compensating, so their content gains 42px and the headlines re-wrap. They get
+   40px back at their own breakpoints, below. */
+@media (max-width: 991px) {
+  .comparison_wrapper,
+  .funnel__container,
+  .outreach-intro_wrapper,
+  .playbooks__container,
+  .steps__container,
+  .text-image__container,
+  .faqs__container,
+  .banner__container,
+  .footer__main {
+    width: auto;
+    margin-inline: -20px;
+    padding-inline: 20px;
+    border-left: 0;
+    border-right: 0;
+    border-radius: 0;
+  }
+
+  /* .funnel__board was already in the block above, but .funnel__container clipped
+     it back to 350px with overflow:hidden — so its rule still PAINTED 20->369
+     while getBoundingClientRect happily reported 0->390. Bleeding the container
+     is what makes that fix real; the clip box just becomes full width.
+     align-self:stretch because the board's width:auto makes it shrink-wrap as a
+     centred flex child between 641 and 991px. */
+  .funnel__board {
+    align-self: stretch;
+  }
+
+  /* Restore the funnel band's bottom rule. `border: none` at <=640 (:6936) took
+     it out entirely, leaving the funnel/outreach seam with no rule — that is the
+     "strokes missing" half of 6136:7422. border-bottom ONLY: the shorthand would
+     put the side rails straight back. */
+  .funnel__container {
+    border-bottom: 1px solid rgba(29, 29, 29, 0.1);
+  }
+
+  /* The header rule moves onto the band rather than being bled. .header_wrapper
+     carries its own 16px padding, so bleeding it would need a 36px (20 + 16)
+     give-back — a composite that drifts silently the day someone edits that 16.
+     <header> is an unstyled full-width block, so the rule just moves up one
+     level. Measured pixel-identical to the bleed at 320/390/768/991. */
+  .header {
+    border-bottom: 1px solid rgba(29, 29, 29, 0.1);
+  }
+
+  .header_wrapper {
+    border-bottom: 0;
+  }
+}
+
+/* The give-backs for the three that pad themselves. Matched to each section's OWN
+   breakpoint on purpose: above these widths they have no horizontal padding and
+   the shared 20px is already correct, so a single ceiling would over-pad the
+   641-991 and 769-991 bands. */
+@media (max-width: 768px) {
+  .steps__container,
+  .banner__container {
+    padding-inline: 40px;
+  }
+}
+
+@media (max-width: 640px) {
+  .playbooks__container {
+    padding-inline: 40px;
   }
 }
