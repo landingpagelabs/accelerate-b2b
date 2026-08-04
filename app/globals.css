@@ -2265,11 +2265,17 @@ a.footer__link::after {
   }
 }
 
-/* The four plate names. On desktop they are baked into layer-0-bg.svg, so this
-   list is screen-reader-only — but it is the ONLY accessible text for the whole
-   diagram, which is aria-hidden. It defaults to opacity 1; only the gsap
-   timeline knocks it down, so reduced-motion and no-JS both land with it
-   visible. */
+/* The four plate names, screen-reader only at every width. They are baked into
+   layer-0-bg.svg as outlined paths and the diagram is aria-hidden with alt="",
+   so without this list those terms have no accessible text at all. Purely
+   additive — nothing here changes what is drawn.
+
+   NB a mobile treatment was tried and reverted (2026-08-04): swapping in a
+   label-free artwork and promoting these four to a visible caption row made the
+   plates 1.7x bigger and the labels readable, but it broke the label-to-plate
+   mapping that the leader lines carry. Tyce chose to keep the in-place labels
+   at their true (small) size rather than lose that mapping. Don't re-litigate
+   without asking him. */
 .outreach-diagram__labels {
   position: absolute;
   width: 1px;
@@ -2281,86 +2287,6 @@ a.footer__link::after {
   clip-path: inset(50%);
   white-space: nowrap;
   border: 0;
-}
-
-.outreach-diagram picture {
-  display: contents;
-}
-
-/* MOBILE: the baked labels render at ~7.4px at 390px, so below 768 the artwork
-   ships without them (see scripts/build-diagram-mobile-asset.mjs) and this list
-   becomes the visible caption row, fading in on the same beat the labels used
-   to. Dropping the label columns also shrinks the used canvas from 1078 wide to
-   592, so the plates grow ~1.7x: 109px -> 185px at 390. */
-@media (max-width: 767px) {
-  /* Cancel .padding-global so the graphic bleeds edge to edge. */
-  .section_outreach-intro .outreach-intro_image {
-    width: calc(100% + 40px);
-    max-width: none;
-    margin-inline: -20px;
-  }
-
-  /* Re-fit to the label-free content box: canvas x242..834 of 1078.
-     1078/592 = 182.095%, -242/592 = -40.878%. The 480px cap is the scale the
-     graphic already has at 768, so nothing jumps across the breakpoint — only
-     the labels swap. */
-  .outreach-diagram {
-    max-width: 480px;
-    aspect-ratio: 592 / 454;
-  }
-
-  .outreach-diagram__layer {
-    width: 182.095%;
-    min-width: 182.095%;
-    left: -40.878%;
-  }
-
-  .outreach-diagram__labels {
-    position: static;
-    width: auto;
-    height: auto;
-    overflow: visible;
-    clip: auto;
-    clip-path: none;
-    white-space: normal;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px 16px;
-    margin: 16px auto 0;
-    padding: 0 20px;
-    max-width: 440px;
-    list-style: none;
-    font-family: "Inter", sans-serif;
-    font-weight: 400;
-    font-size: 15px;
-    line-height: 145%;
-    letter-spacing: -0.02em;
-    color: #1a1a1a;
-  }
-
-  .outreach-diagram__labels li {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  /* Echoes the leader lines the baked labels used to hang off. */
-  .outreach-diagram__labels li::before {
-    content: "";
-    flex: 0 0 12px;
-    height: 1px;
-    background: #1a1a1a;
-    opacity: 0.25;
-  }
-}
-
-/* "Message Sending" is 122.3px at 15px; a two-column cell at 320 offers 112px. */
-@media (max-width: 359px) {
-  .outreach-diagram__labels {
-    grid-template-columns: 1fr;
-    gap: 8px;
-    max-width: none;
-  }
 }
 
 @media (max-width: 767px) {

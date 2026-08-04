@@ -46,11 +46,8 @@ const BASE = '/images/sections/outreach-intro/layers';
 // the floating tool icons. It is precisely what separates the Middle state from
 // the Open state, so it stays hidden until the final reveal.
 // The four plate names, top plate -> bottom plate, matching the leader-line
-// order in the design (Figma 5874:4436). On desktop these are baked into
-// layer-0-bg.svg as outlined paths and this list is screen-reader-only — the
-// diagram is aria-hidden, so without it those four terms have no accessible
-// text at all. On mobile the baked labels are gone (they render at ~7.4px at
-// 390px) and this list becomes the visible caption row.
+// order in the design (Figma 5874:4436). They are baked into layer-0-bg.svg as
+// outlined paths, so this list exists purely to give them accessible text.
 const LABEL_TEXT = ['Data & Signals', 'Personalization', 'Integration', 'Message Sending'];
 
 const LAYERS = [
@@ -72,7 +69,6 @@ const LABELS_DUR = 0.75; // middle -> open
 export default function OutreachDiagram() {
   const rootRef = useRef<HTMLDivElement>(null);
   const layerRefs = useRef<(HTMLImageElement | null)[]>([]);
-  const labelsRef = useRef<HTMLOListElement>(null);
 
   useEffect(() => {
     const root = rootRef.current;
@@ -111,14 +107,6 @@ export default function OutreachDiagram() {
         tl.set(bg.el, { opacity: 0 }, 0);
       }
 
-      // The caption row is the mobile stand-in for the baked labels, so it has
-      // to arrive on the same beat as them — see the State 3 tween below.
-      const labels = labelsRef.current;
-      if (labels) {
-        gsap.set(labels, { opacity: 0 });
-        tl.set(labels, { opacity: 0 }, 0);
-      }
-
       // The closed slab fades up (only the two outer plates are visible here —
       // the filling stays hidden until the stack opens).
       stack
@@ -152,7 +140,6 @@ export default function OutreachDiagram() {
       // Labels, leader lines and floating tool icons fade in around the stack.
       const tLabels = tOpen + OPEN_DUR + 3 * STAGGER + MIDDLE_HOLD;
       if (bg) tl.to(bg.el, { opacity: 1, duration: LABELS_DUR, ease: 'power1.out' }, tLabels);
-      if (labels) tl.to(labels, { opacity: 1, duration: LABELS_DUR, ease: 'power1.out' }, tLabels);
 
       // No exit phase: the timeline ends on the Open state and stays there.
     }, root);
@@ -180,40 +167,26 @@ export default function OutreachDiagram() {
     <>
       <div className="outreach-diagram" ref={rootRef} aria-hidden="true">
         <div className="outreach-diagram__inner">
-          {LAYERS.map((layer, i) => {
-            const img = (
-              <img
-                key={layer.file}
-                ref={(el) => {
-                  layerRefs.current[i] = el;
-                }}
-                className="outreach-diagram__layer"
-                src={`${BASE}/${layer.file}.svg`}
-                alt=""
-                loading="lazy"
-                decoding="async"
-              />
-            );
-
-            // Only the label layer is art-directed. Below 768px it swaps for the
-            // label-free variant (built by scripts/build-diagram-mobile-asset.mjs)
-            // and the caption row below carries the four terms instead.
-            return layer.bg ? (
-              <picture key={layer.file}>
-                <source
-                  media="(max-width: 767px)"
-                  srcSet={`${BASE}/${layer.file}--nolabels.svg`}
-                />
-                {img}
-              </picture>
-            ) : (
-              img
-            );
-          })}
+          {LAYERS.map((layer, i) => (
+            <img
+              key={layer.file}
+              ref={(el) => {
+                layerRefs.current[i] = el;
+              }}
+              className="outreach-diagram__layer"
+              src={`${BASE}/${layer.file}.svg`}
+              alt=""
+              loading="lazy"
+              decoding="async"
+            />
+          ))}
         </div>
       </div>
 
-      <ol className="outreach-diagram__labels" ref={labelsRef}>
+      {/* Screen-reader only, at every width. The diagram is aria-hidden with
+          alt="", so without this the four plate names have no accessible text
+          at all — they exist only as outlined paths inside the artwork. */}
+      <ol className="outreach-diagram__labels">
         {LABEL_TEXT.map((label) => (
           <li key={label}>{label}</li>
         ))}

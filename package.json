@@ -6,8 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "prebuild": "node scripts/build-diagram-mobile-asset.mjs"
+    "lint": "next lint"
   },
   "dependencies": {
     "@portabletext/react": "3.0.0",
